@@ -17,10 +17,10 @@ class CheckerCollectionTest extends Unit
 
     public function testFluentSet()
     {
-        $collection = new CheckerCollection();
-
         $checker = Mockery::mock(CheckerInterface::class);
         $checker->shouldReceive('getId')->andReturn('my-checker');
+
+        $collection = new CheckerCollection();
 
         $actual = $collection->set($checker);
 
@@ -29,12 +29,12 @@ class CheckerCollectionTest extends Unit
 
     public function testGet()
     {
-        $collection = new CheckerCollection();
-
         $checker1 = Mockery::mock(CheckerInterface::class);
         $checker1->shouldReceive('getId')->andReturn('my-checker-1');
         $checker2 = Mockery::mock(CheckerInterface::class);
         $checker2->shouldReceive('getId')->andReturn('my-checker-2');
+
+        $collection = new CheckerCollection();
 
         $collection->set($checker1)
                    ->set($checker2);
@@ -48,15 +48,15 @@ class CheckerCollectionTest extends Unit
 
     public function testAll()
     {
-        $collection = new CheckerCollection();
-
         $checker1 = Mockery::mock(CheckerInterface::class);
         $checker1->shouldReceive('getId')->andReturn('my-checker-1');
         $checker2 = Mockery::mock(CheckerInterface::class);
         $checker2->shouldReceive('getId')->andReturn('my-checker-2');
 
-        $collection->set($checker1)
-                   ->set($checker2);
+        $collection = new CheckerCollection();
+
+        $collection->set($checker1);
+        $collection->set($checker2);
 
         $actual = $collection->all();
 
