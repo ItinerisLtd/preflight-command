@@ -1,15 +1,12 @@
 <?php
+declare(strict_types=1);
 
-if ( ! class_exists( 'WP_CLI' ) ) {
-	return;
+// TODO: CommandNamespace?
+if (! class_exists('WP_CLI')) {
+    return;
 }
 
-/**
- * Says "Hello World" to new users
- *
- * @when before_wp_load
- */
-$hello_world_command = function() {
-	WP_CLI::success( "Hello world." );
-};
-WP_CLI::add_command( 'hello-world', $hello_world_command );
+// TODO: WP_CLI::add_command( 'hello-world', $hello_world_command );.
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
