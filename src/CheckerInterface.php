@@ -12,4 +12,12 @@ interface CheckerInterface
      * @return string
      */
     public function getId(): string;
+
+    /**
+     * Run the check and return a result.
+     * TODO: Accept config object/array.
+     *
+     * @return ResultInterface
+     */
+    public function check(): ResultInterface;
 }

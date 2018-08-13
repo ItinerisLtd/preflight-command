@@ -52,6 +52,11 @@
             "command.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Itineris\\Preflight\\Test\\": "tests/unit/"
+        }
+    },
     "prefer-stable": true,
     "scripts": {
         "check-style": "phpcs --standard=ruleset.xml --colors -p -s",
