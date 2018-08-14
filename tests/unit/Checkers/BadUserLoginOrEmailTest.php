@@ -9,7 +9,6 @@ use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\Results\Error;
 use Itineris\Preflight\Results\Failure;
-use Itineris\Preflight\Results\Skip;
 use Itineris\Preflight\Results\Success;
 use Mockery;
 use WP_CLI\Fetchers\User;
@@ -91,7 +90,7 @@ class BadUserLoginOrEmailTest extends Unit
         $this->assertInstanceOf(Failure::class, $actual);
     }
 
-    public function testCheckEmptyBlacklistSkip()
+    public function testCheckEmptyBlacklistError()
     {
         $fetcher = Mockery::mock(User::class);
 
@@ -102,7 +101,7 @@ class BadUserLoginOrEmailTest extends Unit
 
         $actual = $checker->check($config);
 
-        $this->assertInstanceOf(Skip::class, $actual);
+        $this->assertInstanceOf(Error::class, $actual);
         $this->assertSame(
             'Blacklist is empty.',
             $actual->getMessage()

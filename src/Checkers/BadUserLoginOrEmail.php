@@ -7,13 +7,14 @@ use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Error;
 use Itineris\Preflight\Results\Failure;
-use Itineris\Preflight\Results\Skip;
 use Itineris\Preflight\Results\Success;
 use WP_CLI\Fetchers\User;
 use WP_User;
 
 class BadUserLoginOrEmail extends AbstractChecker
 {
+    use CompiledBlacklistAwareTrait;
+
     public const ID = 'bad-user-login-or-email';
     public const DESCRIPTION = 'Disallow blacklisted username and email.';
     public const DEFAULT_BLACKLIST = [
@@ -71,26 +72,16 @@ class BadUserLoginOrEmail extends AbstractChecker
      *
      * @param Config $config The config instance.
      *
-     * @return Skip|null
-     */
-    protected function maybeSkip(Config $config): ?Skip
-    {
-        $blacklist = $config->compileBlacklist(self::DEFAULT_BLACKLIST);
-
-        return empty($blacklist)
-            ? $this->makeSkip('Blacklist is empty.')
-            : null;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param Config $config The config instance.
-     *
      * @return Error|null
      */
     protected function maybeError(Config $config): ?Error
     {
+        $error = $this->errorIfCompiledBlacklistIsEmpty($config);
+
+        if (null !== $error) {
+            return $error;
+        }
+
         $blacklist = $config->compileBlacklist(self::DEFAULT_BLACKLIST);
         $numericBlacklist = array_filter($blacklist, 'is_numeric');
 

@@ -10,7 +10,6 @@ use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Disabled;
 use Itineris\Preflight\Results\Error;
 use Itineris\Preflight\Results\Failure;
-use Itineris\Preflight\Results\Skip;
 use Itineris\Preflight\Results\Success;
 
 abstract class AbstractChecker implements CheckerInterface
@@ -51,34 +50,9 @@ abstract class AbstractChecker implements CheckerInterface
         return new Failure($this, $message);
     }
 
-    /**
-     * Returns the URL to the checker document web page.
-     *
-     * @return string
-     */
-    protected function getLink(): string
-    {
-        return self::LINK_BASE . $this->getId() . '/';
-    }
-
-    protected function makeSkip(?string $message = null): Skip
-    {
-        return new Skip($this, $message);
-    }
-
     protected function makeError(?string $message = null): Error
     {
         return new Error($this, $message);
-    }
-
-    /**
-     * Returns the description of the checker.
-     *
-     * @return string
-     */
-    protected function getDescription(): string
-    {
-        return static::DESCRIPTION;
     }
 
     /**
@@ -104,6 +78,26 @@ abstract class AbstractChecker implements CheckerInterface
     }
 
     /**
+     * Returns the URL to the checker document web page.
+     *
+     * @return string
+     */
+    protected function getLink(): string
+    {
+        return self::LINK_BASE . $this->getId() . '/';
+    }
+
+    /**
+     * Returns the description of the checker.
+     *
+     * @return string
+     */
+    protected function getDescription(): string
+    {
+        return static::DESCRIPTION;
+    }
+
+    /**
      * Run the check and return a result.
      *
      * @param Config $config The config instance.
@@ -114,11 +108,6 @@ abstract class AbstractChecker implements CheckerInterface
     {
         if (! $config->isEnabled()) {
             return new Disabled($this);
-        }
-
-        $skip = $this->maybeSkip($config);
-        if (null !== $skip) {
-            return $skip;
         }
 
         $error = $this->maybeError($config);
@@ -140,20 +129,6 @@ abstract class AbstractChecker implements CheckerInterface
      * @return ResultInterface
      */
     abstract protected function run(Config $config): ResultInterface;
-
-    /**
-     * Whether this checker should be skipped according to the config.
-     *
-     * Assume $config->isEnabled() is true.
-     *
-     * @param Config $config The config instance.
-     *
-     * @return Skip|null
-     */
-    protected function maybeSkip(Config $config): ?Skip
-    {
-        return null;
-    }
 
     /**
      * Before actually run the check, whether this checker should throw error according to the config.
