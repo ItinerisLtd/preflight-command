@@ -27,7 +27,7 @@ class CheckerCollection
     }
 
     /**
-     * Returns all the underlying checkers array represented by the collection.
+     * Returns all the underlying checkers represented by the collection.
      *
      * @return CheckerInterface[]
      */
