@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\CLI\Commands;
 
-use RuntimeException;
 use WP_CLI;
 use WP_CLI_Command;
+use Yosymfony\Toml\Exception\ParseException;
+use Yosymfony\Toml\Toml;
 use function WP_CLI\Utils\launch_editor_for_input;
 use function WP_CLI\Utils\normalize_path;
 
@@ -32,18 +33,14 @@ class ConfigCommand extends WP_CLI_Command
      * Gets the expected path to the preflight.toml.
      *
      * @return string Expected path to preflight.toml file
-     *
-     * @throws RuntimeException If constant ABSPATH is not defined.
      */
     private function getPath(): string
     {
         if (! defined('ABSPATH')) {
-            throw new RuntimeException('Constant ABSPATH not defined. Did WordPress loaded?');
+            WP_CLI::error("Constant 'ABSPATH' not defined. Did WordPress loaded? Aborted!");
         }
 
-        $path = ABSPATH . 'preflight.toml';
-
-        return normalize_path($path);
+        return normalize_path(ABSPATH . 'preflight.toml');
     }
 
     /**
@@ -53,31 +50,21 @@ class ConfigCommand extends WP_CLI_Command
      *
      *     # Print the content of the preflight.toml file
      *     $ wp preflight config cat
-     *
-     *     # If preflight.toml is empty:
-     *     $ wp preflight config cat
-     *     Warning: preflight.toml is empty.
-     *
-     *     # If preflight.toml doesn't exist:
-     *     $ wp preflight config cat
-     *     preflight.toml not found.
-     *     Run '$ wp preflight config path' to check the expected path.
      */
     public function cat(): void
     {
         $path = $this->getPath();
         if (! file_exists($path)) {
-            WP_CLI::error_multi_line([
-                "preflight.toml doesn't exist.",
-                "Run '$ wp preflight config path' to check its expected path.",
-            ]);
-            WP_CLI::halt(127);
+            WP_CLI::error("File '$path' does not exist.");
         }
 
         $contents = file_get_contents($path); // phpcs:ignore WordPress.WP.AlternativeFunctions
-        if (empty($contents)) {
-            WP_CLI::warning('preflight.toml is empty.');
-            WP_CLI::halt(127);
+
+        $contentsWithoutLineBreaks = str_replace(["\r", "\n"], '', $contents);
+        if (empty($contentsWithoutLineBreaks)) {
+            WP_CLI::warning("File '$path' is empty.");
+
+            return;
         }
 
         WP_CLI::line($contents);
@@ -94,7 +81,7 @@ class ConfigCommand extends WP_CLI_Command
      *     # Edit preflight.toml file in a specific editor
      *     $ EDITOR=vim wp preflight config edit
      */
-    public function edit()
+    public function edit(): void
     {
         $path = $this->getPath();
         $contents = file_get_contents($path); // phpcs:ignore WordPress.WP.AlternativeFunctions
@@ -102,9 +89,31 @@ class ConfigCommand extends WP_CLI_Command
         $result = launch_editor_for_input($contents, 'preflight.toml', 'toml');
 
         if (false === $result) {
-            WP_CLI::warning('No changes made to preflight.toml. Aborted!');
+            WP_CLI::warning("No changes made to '$path'. Aborted!");
         } else {
             file_put_contents($path, $result); // phpcs:ignore WordPress.WP.AlternativeFunctions
         }
+    }
+
+    /**
+     * Validates the TOML syntax of the preflight.toml file.
+     *
+     * ## EXAMPLES
+     *
+     *     # Validate the TOML syntax of the preflight.toml file
+     *     $ wp preflight config validate
+     *     Success: File '/app/public/preflight.toml' is valid.
+     */
+    public function validate(): void
+    {
+        $path = $this->getPath();
+
+        try {
+            Toml::parseFile($path);
+        } catch (ParseException $parseException) {
+            WP_CLI::error($parseException->getMessage());
+        }
+
+        WP_CLI::success("File '$path' is valid.");
     }
 }
