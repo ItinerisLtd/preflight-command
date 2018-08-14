@@ -11,16 +11,28 @@ use WP_CLI;
 
 class Preflight
 {
+    private const COMMANDS = [
+        'preflight checklist' => ChecklistCommand::class,
+        'preflight config' => ConfigCommand::class,
+    ];
+
+    private const CHECKERS = [
+        BadUserLoginOrEmail::class,
+        PrettyPermalinks::class,
+    ];
+
     /**
      * Begin package execution.
      */
     public static function run(): void
     {
         // TODO: CommandNamespace?
-        WP_CLI::add_command('preflight checklist', ChecklistCommand::class);
-        WP_CLI::add_command('preflight config', ConfigCommand::class);
+        foreach (self::COMMANDS as $name => $callable) {
+            WP_CLI::add_command($name, $callable);
+        }
 
-        WP_CLI::add_wp_hook(CheckerCollectionFactory::REGISTER_HOOK, [BadUserLoginOrEmail::class, 'register']);
-        WP_CLI::add_wp_hook(CheckerCollectionFactory::REGISTER_HOOK, [PrettyPermalinks::class, 'register']);
+        foreach (self::CHECKERS as $checker) {
+            WP_CLI::add_wp_hook(CheckerCollectionFactory::REGISTER_HOOK, [$checker, 'register']);
+        }
     }
 }
