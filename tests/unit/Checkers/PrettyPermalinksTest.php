@@ -8,7 +8,7 @@ use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
-use phpmock\mockery\PHPMockery;
+use WP_Mock;
 
 class PrettyPermalinksTest extends Unit
 {
@@ -21,7 +21,8 @@ class PrettyPermalinksTest extends Unit
 
     public function testCheckSuccess()
     {
-        PHPMockery::mock('Itineris\Preflight\Checkers', 'get_option')->andReturn('/%postname%/');
+        WP_Mock::userFunction('get_option')
+               ->andReturn('/%postname%/');
 
         $checker = new PrettyPermalinks();
 
@@ -32,7 +33,8 @@ class PrettyPermalinksTest extends Unit
 
     public function testCheckFailure()
     {
-        PHPMockery::mock('Itineris\Preflight\Checkers', 'get_option')->andReturn(false);
+        WP_Mock::userFunction('get_option')
+               ->andReturn(false);
 
         $checker = new PrettyPermalinks();
 
