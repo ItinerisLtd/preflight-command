@@ -8,6 +8,7 @@ use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 use WP_CLI\Fetchers\User;
+use WP_User;
 
 class BadUserLoginOrEmail implements CheckerInterface
 {
@@ -40,6 +41,8 @@ class BadUserLoginOrEmail implements CheckerInterface
      * Run the check and return a result.
      * TODO: Accept config object/array.
      *
+     * @var WP_User[] $badUsers Array of bad Users.
+     *
      * @return ResultInterface
      */
     public function check(): ResultInterface
@@ -54,8 +57,10 @@ class BadUserLoginOrEmail implements CheckerInterface
         ];
 
         $badUsers = array_filter(
-            array_map(function (string $userLoginOrEmail) {
-                return $this->fetcher->get($userLoginOrEmail);
+            array_map(function (string $userLoginOrEmail): ?WP_User {
+                $user = $this->fetcher->get($userLoginOrEmail);
+
+                return ($user instanceof WP_User) ? $user : null;
             }, $blacklist)
         );
 

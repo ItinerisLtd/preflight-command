@@ -38,6 +38,8 @@
         <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCase"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
 
+        <exclude name="WordPress.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen"/>
+        <exclude name="WordPress.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose"/>
         <exclude name="WordPress.WhiteSpace.CastStructureSpacing.NoSpaceBeforeOpenParenthesis"/>
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis"/>
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterCloseParenthesis"/>
