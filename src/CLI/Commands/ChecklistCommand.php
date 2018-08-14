@@ -16,12 +16,12 @@ class ChecklistCommand extends WP_CLI_Command
     ];
 
     /**
-     * Lists checkers.
+     * Lists checkers (without running the checkers).
      *
      * ## OPTIONS
      *
      * [--fields=<fields>]
-     * : Limit the output to specific object fields.
+     * : Limit the output to specific checker fields.
      *
      * [--format=<format>]
      * : Render output in a particular format.

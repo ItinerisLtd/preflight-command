@@ -64,7 +64,7 @@ abstract class AbstractChecker implements CheckerInterface
     }
 
     /**
-     * Converts the checker into a plain PHP array
+     * Converts the underlying checker into a plain PHP array.
      *
      * @return array
      */

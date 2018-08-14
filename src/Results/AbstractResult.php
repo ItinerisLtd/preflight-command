@@ -35,32 +35,44 @@ abstract class AbstractResult implements ResultInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return array_merge(
+            $this->checker->toArray(),
+            [
+                'status' => $this->getStatus(),
+                'message' => $this->getMessage(),
+            ]
+        );
+    }
+
+    /**
      * Returns the result message.
      *
      * @return string
      */
-    public function getMessage(): string
+    protected function getMessage(): string
     {
         return $this->message;
     }
 
     /**
-     * Returns the checker id.
+     * Returns the status.
      *
      * @return string
      */
-    public function getCheckerId(): string
+    protected function getStatus(): string
     {
-        return $this->getChecker()->getId();
-    }
-
-    /**
-     * Returns the checker instance.
-     *
-     * @return CheckerInterface
-     */
-    protected function getChecker(): CheckerInterface
-    {
-        return $this->checker;
+        return basename(
+            str_replace(
+                '\\',
+                '/',
+                get_class($this)
+            )
+        );
     }
 }

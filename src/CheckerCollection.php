@@ -39,7 +39,7 @@ class CheckerCollection
     }
 
     /**
-     * Converts the collection into a plain PHP array.
+     * Converts the underlying collection into a plain PHP array.
      *
      * @return array
      */

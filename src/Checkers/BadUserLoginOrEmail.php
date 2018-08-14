@@ -49,7 +49,7 @@ class BadUserLoginOrEmail extends AbstractChecker
      *
      * @return ResultInterface
      */
-    public function run(Config $config): ResultInterface
+    protected function run(Config $config): ResultInterface
     {
         // TODO: Check is not `is_numeric`.
         $badUsers = array_filter(

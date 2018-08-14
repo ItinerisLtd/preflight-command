@@ -12,8 +12,8 @@ final class Disabled extends AbstractResult
      *
      * @return ResultInterface::STATUS_SKIP
      */
-    public function getStatus(): string
+    protected function getStatusCode(): string
     {
-        return ResultInterface::STATUS_SKIP;
+        return ResultInterface::STATUS_CODE_SKIP;
     }
 }

@@ -5,6 +5,7 @@ namespace Itineris\Preflight;
 
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
+use Itineris\Preflight\CLI\Commands\CheckCommand;
 use Itineris\Preflight\CLI\Commands\ChecklistCommand;
 use Itineris\Preflight\CLI\Commands\ConfigCommand;
 use WP_CLI;
@@ -12,6 +13,7 @@ use WP_CLI;
 class Preflight
 {
     private const COMMANDS = [
+        'preflight check' => CheckCommand::class,
         'preflight checklist' => ChecklistCommand::class,
         'preflight config' => ConfigCommand::class,
     ];

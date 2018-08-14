@@ -21,11 +21,11 @@ class ConfigCollection
     /**
      * Config constructor.
      *
-     * @param array $config The TOML converted to a PHP array.
+     * @param array $definitions The TOML converted to a PHP array.
      */
-    public function __construct(array $config)
+    public function __construct(array $definitions)
     {
-        $this->definitions = $config;
+        $this->definitions = $definitions;
     }
 
     /**

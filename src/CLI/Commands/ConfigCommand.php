@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\CLI\Commands;
 
+use Itineris\Preflight\CLI\ConfigPath;
 use WP_CLI;
 use WP_CLI_Command;
 use Yosymfony\Toml\Exception\ParseException;
 use Yosymfony\Toml\Toml;
 use function WP_CLI\Utils\launch_editor_for_input;
-use function WP_CLI\Utils\normalize_path;
 
 /**
  * Edits and reads the preflight.toml file.
@@ -26,21 +26,9 @@ class ConfigCommand extends WP_CLI_Command
      */
     public function path(): void
     {
-        WP_CLI::line($this->getPath());
-    }
-
-    /**
-     * Gets the expected path to the preflight.toml.
-     *
-     * @return string Expected path to preflight.toml file
-     */
-    private function getPath(): string
-    {
-        if (! defined('ABSPATH')) {
-            WP_CLI::error("Constant 'ABSPATH' not defined. Did WordPress loaded? Aborted!");
-        }
-
-        return normalize_path(ABSPATH . 'preflight.toml');
+        WP_CLI::line(
+            ConfigPath::get()
+        );
     }
 
     /**
@@ -53,7 +41,7 @@ class ConfigCommand extends WP_CLI_Command
      */
     public function cat(): void
     {
-        $path = $this->getPath();
+        $path = ConfigPath::get();
         if (! file_exists($path)) {
             WP_CLI::error("File '$path' does not exist.");
         }
@@ -83,7 +71,7 @@ class ConfigCommand extends WP_CLI_Command
      */
     public function edit(): void
     {
-        $path = $this->getPath();
+        $path = ConfigPath::get();
         $contents = file_get_contents($path); // phpcs:ignore WordPress.WP.AlternativeFunctions
 
         $result = launch_editor_for_input($contents, 'preflight.toml', 'toml');
@@ -106,7 +94,7 @@ class ConfigCommand extends WP_CLI_Command
      */
     public function validate(): void
     {
-        $path = $this->getPath();
+        $path = ConfigPath::get();
 
         try {
             Toml::parseFile($path);

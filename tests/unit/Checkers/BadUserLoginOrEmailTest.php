@@ -102,10 +102,11 @@ class BadUserLoginOrEmailTest extends Unit
         $actual = $checker->check($config);
 
         $this->assertInstanceOf(Error::class, $actual);
-        $this->assertSame(
-            'Blacklist is empty.',
-            $actual->getMessage()
-        );
+
+        [
+            'message' => $message,
+        ] = $actual->toArray();
+        $this->assertSame('Blacklist is empty.', $message);
     }
 
     public function testCheckNumericItemError()
@@ -122,10 +123,10 @@ class BadUserLoginOrEmailTest extends Unit
         $actual = $checker->check($config);
 
         $this->assertInstanceOf(Error::class, $actual);
-        $this->assertSame(
-            'Blacklist cannot contains numeric items',
-            $actual->getMessage()
-        );
+        [
+            'message' => $message,
+        ] = $actual->toArray();
+        $this->assertSame('Blacklist cannot contains numeric items', $message);
     }
 
     protected function getSubject(): AbstractChecker

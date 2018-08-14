@@ -12,8 +12,8 @@ final class Success extends AbstractResult
      *
      * @return ResultInterface::STATUS_SUCCESS
      */
-    public function getStatus(): string
+    protected function getStatusCode(): string
     {
-        return ResultInterface::STATUS_SUCCESS;
+        return ResultInterface::STATUS_CODE_SUCCESS;
     }
 }

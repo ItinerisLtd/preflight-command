@@ -5,28 +5,10 @@ namespace Itineris\Preflight;
 
 interface ResultInterface
 {
-    public const STATUS_SUCCESS = 'Succeed';
-    public const STATUS_FAILURE = 'Failed';
-    public const STATUS_SKIP = 'Skipped';
-
     /**
-     * Returns the checker id.
+     * Converts the underlying checker into a plain PHP array.
      *
-     * @return string
+     * @return array
      */
-    public function getCheckerId(): string;
-
-    /**
-     * Returns the status.
-     *
-     * @return string One of ResultInterface::STATUS_*
-     */
-    public function getStatus(): string;
-
-    /**
-     * Returns the result message.
-     *
-     * @return string
-     */
-    public function getMessage(): string;
+    public function toArray(): array;
 }

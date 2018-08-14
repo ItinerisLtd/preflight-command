@@ -10,16 +10,20 @@ use Mockery;
 
 trait AbstractResultTrail
 {
-    public function testGetCheckerId()
+    public function testToArrayContainsCheckerInfo()
     {
+        $checkerArray = [
+            'a' => 'b',
+            'c' => 'd',
+        ];
         $checker = $checker = Mockery::mock(CheckerInterface::class);
-        $checker->shouldReceive('getId')->andReturn('my-checker');
+        $checker->shouldReceive('toArray')->andReturn($checkerArray);
 
         $subject = $this->getSubject($checker);
 
-        $actual = $subject->getCheckerId();
+        $actual = $subject->toArray();
 
-        $this->assertSame('my-checker', $actual);
+        $this->assertArraySubset($checkerArray, $actual);
     }
 
     public function testImplementResultInterface()
@@ -43,10 +47,13 @@ trait AbstractResultTrail
     public function testNullMessage()
     {
         $checker = Mockery::mock(CheckerInterface::class);
+        $checker->allows('toArray')->andReturn([]);
 
         $subject = $this->getSubjectWithMessage($checker, null);
 
-        $actual = $subject->getMessage();
+        [
+            'message' => $actual,
+        ] = $subject->toArray();
 
         $this->assertSame('', $actual);
     }
@@ -54,10 +61,13 @@ trait AbstractResultTrail
     public function testNoMessage()
     {
         $checker = Mockery::mock(CheckerInterface::class);
+        $checker->allows('toArray')->andReturn([]);
 
         $subject = $this->getSubject($checker);
 
-        $actual = $subject->getMessage();
+        [
+            'message' => $actual,
+        ] = $subject->toArray();
 
         $this->assertSame('', $actual);
     }
@@ -65,10 +75,13 @@ trait AbstractResultTrail
     public function testGetMessage()
     {
         $checker = Mockery::mock(CheckerInterface::class);
+        $checker->allows('toArray')->andReturn([]);
 
         $subject = $this->getSubjectWithMessage($checker, 'Hello world');
 
-        $actual = $subject->getMessage();
+        [
+            'message' => $actual,
+        ] = $subject->toArray();
 
         $this->assertSame('Hello world', $actual);
     }

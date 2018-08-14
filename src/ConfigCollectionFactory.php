@@ -18,7 +18,7 @@ class ConfigCollectionFactory
     public static function makeFromFile(string $path): ConfigCollection
     {
         try {
-            $definitions = Toml::parseFile($path);
+            $definitions = (array) Toml::parseFile($path);
         } catch (ParseException $parseException) {
             // Assume empty config.
             $definitions = [];

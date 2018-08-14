@@ -56,6 +56,7 @@ class ConfigCollectionTest extends Unit
         $actual2 = $collection->getConfig('my-checker');
 
         $expected = new Config($definitions['my-checker']);
+        $this->assertEquals($expected, $actual1);
         $this->assertSame($actual1, $actual2);
     }
 }

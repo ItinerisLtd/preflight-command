@@ -22,12 +22,15 @@ class SuccessTest extends Unit
     public function testStatus()
     {
         $checker = $checker = Mockery::mock(CheckerInterface::class);
+        $checker->allows('toArray')->andReturn([]);
 
         $result = new Success($checker);
 
-        $actual = $result->getStatus();
+        [
+            'status' => $status,
+        ] = $result->toArray();
 
-        $this->assertSame(ResultInterface::STATUS_SUCCESS, $actual);
+        $this->assertSame('Success', $status);
     }
 
     protected function getSubject(CheckerInterface $checker): AbstractResult

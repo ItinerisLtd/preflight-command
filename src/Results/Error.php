@@ -12,8 +12,8 @@ final class Error extends AbstractResult
      *
      * @return ResultInterface::STATUS_FAILURE
      */
-    public function getStatus(): string
+    protected function getStatusCode(): string
     {
-        return ResultInterface::STATUS_FAILURE;
+        return ResultInterface::STATUS_CODE_FAILURE;
     }
 }

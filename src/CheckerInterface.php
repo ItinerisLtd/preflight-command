@@ -23,7 +23,7 @@ interface CheckerInterface
     public function check(Config $config): ResultInterface;
 
     /**
-     * Converts the checker into a plain PHP array
+     * Converts the underlying checker into a plain PHP array.
      *
      * @return array
      */
