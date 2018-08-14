@@ -1,19 +1,78 @@
 {
     "name": "itinerisltd/preflight-command",
-    "description": "",
     "type": "wp-cli-package",
-    "homepage": "https://github.com/itinerisltd/preflight-command",
+    "description": "TODO",
+    "keywords": [
+        "wordpress",
+        "wp",
+        "wp-cli",
+        "preflight",
+        "checklist"
+    ],
+    "homepage": "https://github.com/ItinerisLtd/preflight-command",
     "license": "MIT",
-    "authors": [],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "autoload": {
-        "files": [ "command.php" ]
-    },
+    "authors": [
+        {
+            "name": "Itineris Limited",
+            "email": "hello@itineris.co.uk",
+            "homepage": "https://itineris.co.uk/",
+            "role": "Company"
+        },
+        {
+            "name": "Tang Rufus",
+            "email": "tangrufus@gmail.com",
+            "homepage": "https://typist.tech/",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "wp-cli/wp-cli": "^2.0"
+        "php": "^7.2",
+        "wp-cli/entity-command": "^2.0",
+        "wp-cli/wp-cli": "^2.0",
+        "yosymfony/toml": "^1.0"
     },
     "require-dev": {
-        "behat/behat": "~2.5"
+        "10up/wp_mock": "^0.3.0",
+        "codeception/base": "^2.4",
+        "mockery/mockery": "^1.1",
+        "roave/security-advisories": "dev-master",
+        "wp-coding-standards/wpcs": "^1.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "scripts-dev": {
+            "post-install-cmd": "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+            "post-update-cmd": "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Itineris\\Preflight\\": "src/"
+        },
+        "files": [
+            "command.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Itineris\\Preflight\\Test\\": "tests/unit/"
+        }
+    },
+    "prefer-stable": true,
+    "scripts": {
+        "check-style": "phpcs --standard=ruleset.xml --colors -p -s",
+        "pre-tag": [
+            "composer normalize",
+            "doctoc README.md",
+            "github_changelog_generator --no-verbose"
+        ],
+        "test": "codecept run"
+    },
+    "support": {
+        "email": "hello@itineris.co.uk",
+        "issues": "https://github.com/ItinerisLtd/preflight-command/issues",
+        "source": "https://github.com/ItinerisLtd/preflight-command"
     }
 }
