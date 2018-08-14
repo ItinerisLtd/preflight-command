@@ -67,4 +67,56 @@ class CheckerCollectionTest extends Unit
 
         $this->assertSame($expected, $actual);
     }
+
+    public function testToArray()
+    {
+        $definition1 = [
+            'aaa' => 'bbb',
+        ];
+        $checker1 = Mockery::mock(CheckerInterface::class);
+        $checker1->shouldReceive('getId')->andReturn('my-checker-1');
+        $checker1->shouldReceive('toArray')->andReturn($definition1);
+        $definition2 = [
+            'yyy' => 'zzz',
+        ];
+        $checker2 = Mockery::mock(CheckerInterface::class);
+        $checker2->shouldReceive('getId')->andReturn('my-checker-2');
+        $checker2->shouldReceive('toArray')->andReturn($definition2);
+
+        $collection = new CheckerCollection();
+
+        $collection->set($checker1);
+        $collection->set($checker2);
+
+        $actual = $collection->toArray();
+
+        $expected = [
+            'my-checker-1' => $definition1,
+            'my-checker-2' => $definition2,
+        ];
+
+        $this->assertSame($expected, $actual);
+    }
+
+    public function testPluckIds()
+    {
+        $checker1 = Mockery::mock(CheckerInterface::class);
+        $checker1->shouldReceive('getId')->andReturn('my-checker-1');
+        $checker2 = Mockery::mock(CheckerInterface::class);
+        $checker2->shouldReceive('getId')->andReturn('my-checker-2');
+
+        $collection = new CheckerCollection();
+
+        $collection->set($checker1);
+        $collection->set($checker2);
+
+        $actual = $collection->pluckIds();
+
+        $expected = [
+            'my-checker-1',
+            'my-checker-2',
+        ];
+
+        $this->assertSame($expected, $actual);
+    }
 }

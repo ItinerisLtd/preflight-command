@@ -20,4 +20,11 @@ interface CheckerInterface
      * @return ResultInterface
      */
     public function check(): ResultInterface;
+
+    /**
+     * Converts the checker into a plain PHP array
+     *
+     * @return array
+     */
+    public function toArray(): array;
 }

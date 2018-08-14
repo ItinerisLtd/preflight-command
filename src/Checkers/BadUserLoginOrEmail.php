@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\Checkers;
 
-use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 use WP_CLI\Fetchers\User;
 use WP_User;
 
-class BadUserLoginOrEmail implements CheckerInterface
+class BadUserLoginOrEmail extends AbstractChecker
 {
+    public const ID = 'bad-user-login-or-email';
+    public const DESCRIPTION = 'Disallow blacklisted username and email';
+
     /**
      * User fetcher.
      *
@@ -20,21 +22,13 @@ class BadUserLoginOrEmail implements CheckerInterface
     private $fetcher;
 
     /**
-     * BadUserLoginOrEmail constructor.
-     *
-     * @param User $fetcher User fetcher.
-     */
-    public function __construct(User $fetcher)
-    {
-        $this->fetcher = $fetcher;
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function getId(): string
+    protected static function make(): AbstractChecker
     {
-        return 'bad-user-login-or-email';
+        return new static(
+            new User()
+        );
     }
 
     /**
@@ -69,5 +63,15 @@ class BadUserLoginOrEmail implements CheckerInterface
         }
 
         return new Success($this);
+    }
+
+    /**
+     * BadUserLoginOrEmail constructor.
+     *
+     * @param User $fetcher User fetcher.
+     */
+    public function __construct(User $fetcher)
+    {
+        $this->fetcher = $fetcher;
     }
 }

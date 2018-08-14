@@ -3,20 +3,14 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\Checkers;
 
-use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 
-class PrettyPermalinks implements CheckerInterface
+class PrettyPermalinks extends AbstractChecker
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getId(): string
-    {
-        return 'pretty-permalinks';
-    }
+    public const ID = 'pretty-permalinks';
+    public const DESCRIPTION = 'Ensure pretty permalinks is enabled';
 
     /**
      * {@inheritdoc}

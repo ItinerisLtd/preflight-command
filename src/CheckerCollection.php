@@ -27,6 +27,30 @@ class CheckerCollection
     }
 
     /**
+     * Returns the item at a given id. If the id does not exist, null is returned.
+     *
+     * @param string $id Id of the checker.
+     *
+     * @return CheckerInterface|null
+     */
+    public function get(string $id): ?CheckerInterface
+    {
+        return $this->checkers[$id] ?? null;
+    }
+
+    /**
+     * Converts the collection into a plain PHP array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return array_map(function (CheckerInterface $checker): array {
+            return $checker->toArray();
+        }, $this->all());
+    }
+
+    /**
      * Returns all the underlying checkers represented by the collection.
      *
      * @return CheckerInterface[]
@@ -37,14 +61,14 @@ class CheckerCollection
     }
 
     /**
-     * Returns the item at a given id. If the id does not exist, null is returned.
+     * Returns all checker ids.
      *
-     * @param string $id Id of the checker.
-     *
-     * @return CheckerInterface|null
+     * @return string[]
      */
-    public function get(string $id): ?CheckerInterface
+    public function pluckIds(): array
     {
-        return $this->checkers[$id] ?? null;
+        return array_keys(
+            $this->all()
+        );
     }
 }

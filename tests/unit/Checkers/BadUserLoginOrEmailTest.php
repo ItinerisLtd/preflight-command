@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Test\Checkers;
 
 use Codeception\Test\Unit;
-use Itineris\Preflight\CheckerInterface;
+use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
@@ -14,30 +14,12 @@ use WP_User;
 
 class BadUserLoginOrEmailTest extends Unit
 {
+    use AbstractCheckerTrail;
+
     /**
      * @var \Itineris\Preflight\Test\UnitTester
      */
     protected $tester;
-
-    public function testImplementCheckerInterface()
-    {
-        $fetcher = Mockery::mock(User::class);
-
-        $checker = new BadUserLoginOrEmail($fetcher);
-
-        $this->assertInstanceOf(CheckerInterface::class, $checker);
-    }
-
-    public function testGetId()
-    {
-        $fetcher = Mockery::mock(User::class);
-
-        $checker = new BadUserLoginOrEmail($fetcher);
-
-        $actual = $checker->getId();
-
-        $this->assertSame('bad-user-login-or-email', $actual);
-    }
 
     public function testCheckSuccess()
     {
@@ -93,5 +75,12 @@ class BadUserLoginOrEmailTest extends Unit
         $actual = $checker->check();
 
         $this->assertInstanceOf(Failure::class, $actual);
+    }
+
+    protected function getSubject(): AbstractChecker
+    {
+        $fetcher = Mockery::mock(User::class);
+
+        return new BadUserLoginOrEmail($fetcher);
     }
 }
