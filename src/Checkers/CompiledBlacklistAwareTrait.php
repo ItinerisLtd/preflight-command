@@ -24,5 +24,5 @@ trait CompiledBlacklistAwareTrait
             : null;
     }
 
-    abstract function makeError(?string $message = null): Error;
+    abstract protected function makeError(?string $message = null): Error;
 }
