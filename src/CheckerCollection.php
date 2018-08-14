@@ -41,6 +41,8 @@ class CheckerCollection
     /**
      * Converts the underlying collection into a plain PHP array.
      *
+     * TODO: Maybe move into CLI namespace?
+     *
      * @return array
      */
     public function toArray(): array
@@ -62,6 +64,8 @@ class CheckerCollection
 
     /**
      * Returns all checker ids.
+     *
+     * TODO: Maybe move into CLI namespace?
      *
      * @return string[]
      */
