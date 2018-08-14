@@ -44,7 +44,14 @@ abstract class AbstractChecker implements CheckerInterface
     protected function makeSuccess(?string $message = null): Success
     {
         return new Success($this, $message);
-    }    /**
+    }
+
+    protected function makeFailure(?string $message = null): Failure
+    {
+        return new Failure($this, $message);
+    }
+
+    /**
      * Returns the URL to the checker document web page.
      *
      * @return string
@@ -54,10 +61,17 @@ abstract class AbstractChecker implements CheckerInterface
         return self::LINK_BASE . $this->getId() . '/';
     }
 
-    protected function makeFailure(?string $message = null): Failure
+    protected function makeSkip(?string $message = null): Skip
     {
-        return new Failure($this, $message);
-    }    /**
+        return new Skip($this, $message);
+    }
+
+    protected function makeError(?string $message = null): Error
+    {
+        return new Error($this, $message);
+    }
+
+    /**
      * Returns the description of the checker.
      *
      * @return string
@@ -67,10 +81,7 @@ abstract class AbstractChecker implements CheckerInterface
         return static::DESCRIPTION;
     }
 
-    protected function makeSkip(?string $message = null): Skip
-    {
-        return new Skip($this, $message);
-    }    /**
+    /**
      * {@inheritdoc}
      */
     public function getId(): string
@@ -78,10 +89,7 @@ abstract class AbstractChecker implements CheckerInterface
         return static::ID;
     }
 
-    protected function makeError(?string $message = null): Error
-    {
-        return new Error($this, $message);
-    }    /**
+    /**
      * Converts the checker into a plain PHP array
      *
      * @return array
@@ -132,14 +140,6 @@ abstract class AbstractChecker implements CheckerInterface
      * @return ResultInterface
      */
     abstract protected function run(Config $config): ResultInterface;
-
-
-
-
-
-
-
-
 
     /**
      * Whether this checker should be skipped according to the config.
