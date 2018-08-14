@@ -61,7 +61,19 @@ class BadUserLoginOrEmail extends AbstractChecker
         );
 
         if (! empty($badUsers)) {
-            return new Failure($this);
+            $messages = array_map(function (WP_User $user): string {
+                return sprintf(
+                    'User: %1$s <%2$s> (ID: %3$d) is blacklisted',
+                    $user->get('user_login'),
+                    $user->get('user_email'),
+                    $user->get('ID')
+                );
+            }, $badUsers);
+
+            return new Failure(
+                $this,
+                implode(PHP_EOL, $messages)
+            );
         }
 
         return new Success($this);

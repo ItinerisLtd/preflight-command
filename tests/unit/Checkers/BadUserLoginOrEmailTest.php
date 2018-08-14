@@ -40,9 +40,18 @@ class BadUserLoginOrEmailTest extends Unit
 
     public function testCheckFailure()
     {
-        $fetcher = Mockery::mock(User::class);
-        $wpUser = Mockery::mock(WP_User::class);
+        $wpUser = Mockery::spy(WP_User::class);
+        $wpUser->expects('get')
+               ->with('user_login')
+               ->andReturn('my-user-123');
+        $wpUser->expects('get')
+               ->with('user_email')
+               ->andReturn('root@example.test');
+        $wpUser->expects('get')
+               ->with('ID')
+               ->andReturn(123);
 
+        $fetcher = Mockery::mock(User::class);
         $fetcher->expects('get')
                 ->with('root@example.test')
                 ->andReturn($wpUser);
@@ -57,17 +66,42 @@ class BadUserLoginOrEmailTest extends Unit
         ]);
         $checker = new BadUserLoginOrEmail($fetcher);
 
-        $actual = $checker->check($config);
+        $failure = $checker->check($config);
 
-        $this->assertInstanceOf(Failure::class, $actual);
+        $this->assertInstanceOf(Failure::class, $failure);
+
+        $expected = "User: my-user-123 <root@example.test> (ID: 123) is blacklisted";
+        [
+            'message' => $message,
+        ] = $failure->toArray();
+        $this->assertSame($expected, $message);
     }
 
     public function testCheckMultipleFailures()
     {
-        $fetcher = Mockery::mock(User::class);
-        $wpUser1 = Mockery::mock(WP_User::class);
-        $wpUser2 = Mockery::mock(WP_User::class);
+        $wpUser1 = Mockery::spy(WP_User::class);
+        $wpUser1->expects('get')
+                ->with('user_login')
+                ->andReturn('admin');
+        $wpUser1->expects('get')
+                ->with('user_email')
+                ->andReturn('admin@example.test');
+        $wpUser1->expects('get')
+                ->with('ID')
+                ->andReturn(987);
 
+        $wpUser2 = Mockery::spy(WP_User::class);
+        $wpUser2->expects('get')
+                ->with('user_login')
+                ->andReturn('my-user-123');
+        $wpUser2->expects('get')
+                ->with('user_email')
+                ->andReturn('root@example.test');
+        $wpUser2->expects('get')
+                ->with('ID')
+                ->andReturn(123);
+
+        $fetcher = Mockery::mock(User::class);
         $fetcher->expects('get')
                 ->with('admin')
                 ->andReturn($wpUser1);
@@ -85,9 +119,17 @@ class BadUserLoginOrEmailTest extends Unit
         ]);
         $checker = new BadUserLoginOrEmail($fetcher);
 
-        $actual = $checker->check($config);
+        $failure = $checker->check($config);
 
-        $this->assertInstanceOf(Failure::class, $actual);
+        $this->assertInstanceOf(Failure::class, $failure);
+
+        $expected = "User: admin <admin@example.test> (ID: 987) is blacklisted";
+        $expected .= PHP_EOL;
+        $expected .= "User: my-user-123 <root@example.test> (ID: 123) is blacklisted";
+        [
+            'message' => $message,
+        ] = $failure->toArray();
+        $this->assertSame($expected, $message);
     }
 
     public function testCheckEmptyBlacklistError()
