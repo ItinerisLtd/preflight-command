@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Itineris\Preflight\Test;
+namespace Itineris\Preflight\Test\CLI;
 
 use Codeception\Test\Unit;
+use Itineris\Preflight\CLI\ConfigCollectionFactory;
 use Itineris\Preflight\ConfigCollection;
-use Itineris\Preflight\ConfigCollectionFactory;
 
 class ConfigCollectionFactoryTest extends Unit
 {

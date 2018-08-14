@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Itineris\Preflight;
+namespace Itineris\Preflight\CLI;
 
+use Itineris\Preflight\ConfigCollection;
 use Yosymfony\Toml\Exception\ParseException;
 use Yosymfony\Toml\Toml;
 
