@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight;
 
-final class CheckerCollection
+class CheckerCollection
 {
     /**
      * Holds checker instances.
