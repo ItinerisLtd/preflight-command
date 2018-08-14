@@ -6,7 +6,10 @@ namespace Itineris\Preflight\Test\Checkers;
 use Codeception\Test\Unit;
 use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
+use Itineris\Preflight\Config;
+use Itineris\Preflight\Results\Error;
 use Itineris\Preflight\Results\Failure;
+use Itineris\Preflight\Results\Skip;
 use Itineris\Preflight\Results\Success;
 use Mockery;
 use WP_CLI\Fetchers\User;
@@ -28,9 +31,10 @@ class BadUserLoginOrEmailTest extends Unit
                 ->with(Mockery::type('string'))
                 ->andReturnFalse();
 
+        $config = new Config([]);
         $checker = new BadUserLoginOrEmail($fetcher);
 
-        $actual = $checker->check();
+        $actual = $checker->check($config);
 
         $this->assertInstanceOf(Success::class, $actual);
     }
@@ -41,15 +45,20 @@ class BadUserLoginOrEmailTest extends Unit
         $wpUser = Mockery::mock(WP_User::class);
 
         $fetcher->expects('get')
-                ->with('admin')
+                ->with('root@example.test')
                 ->andReturn($wpUser);
         $fetcher->allows('get')
                 ->with(Mockery::type('string'))
                 ->andReturnFalse();
 
+        $config = new Config([
+            'blacklist' => [
+                'root@example.test',
+            ],
+        ]);
         $checker = new BadUserLoginOrEmail($fetcher);
 
-        $actual = $checker->check();
+        $actual = $checker->check($config);
 
         $this->assertInstanceOf(Failure::class, $actual);
     }
@@ -64,17 +73,60 @@ class BadUserLoginOrEmailTest extends Unit
                 ->with('admin')
                 ->andReturn($wpUser1);
         $fetcher->expects('get')
-                ->with('root')
+                ->with('root@example.test')
                 ->andReturn($wpUser2);
         $fetcher->allows('get')
                 ->with(Mockery::type('string'))
                 ->andReturnFalse();
 
+        $config = new Config([
+            'blacklist' => [
+                'root@example.test',
+            ],
+        ]);
         $checker = new BadUserLoginOrEmail($fetcher);
 
-        $actual = $checker->check();
+        $actual = $checker->check($config);
 
         $this->assertInstanceOf(Failure::class, $actual);
+    }
+
+    public function testCheckEmptyBlacklistSkip()
+    {
+        $fetcher = Mockery::mock(User::class);
+
+        $config = new Config([
+            'whitelist' => BadUserLoginOrEmail::DEFAULT_BLACKLIST,
+        ]);
+        $checker = new BadUserLoginOrEmail($fetcher);
+
+        $actual = $checker->check($config);
+
+        $this->assertInstanceOf(Skip::class, $actual);
+        $this->assertSame(
+            'Blacklist is empty.',
+            $actual->getMessage()
+        );
+    }
+
+    public function testCheckNumericItemError()
+    {
+        $fetcher = Mockery::mock(User::class);
+
+        $config = new Config([
+            'blacklist' => [
+                123,
+            ],
+        ]);
+        $checker = new BadUserLoginOrEmail($fetcher);
+
+        $actual = $checker->check($config);
+
+        $this->assertInstanceOf(Error::class, $actual);
+        $this->assertSame(
+            'Blacklist cannot contains numeric items',
+            $actual->getMessage()
+        );
     }
 
     protected function getSubject(): AbstractChecker

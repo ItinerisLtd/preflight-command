@@ -22,4 +22,11 @@ interface ResultInterface
      * @return string One of ResultInterface::STATUS_*
      */
     public function getStatus(): string;
+
+    /**
+     * Returns the result message.
+     *
+     * @return string
+     */
+    public function getMessage(): string;
 }

@@ -12,12 +12,12 @@ use Mockery;
 
 class DisabledTest extends Unit
 {
+    use AbstractResultTrail;
+
     /**
      * @var \Itineris\Preflight\Test\UnitTester
      */
     protected $tester;
-
-    use AbstractResultTrail;
 
     public function testStatus()
     {
@@ -30,8 +30,13 @@ class DisabledTest extends Unit
         $this->assertSame(ResultInterface::STATUS_SKIP, $actual);
     }
 
-    function getSubject(CheckerInterface $checker): AbstractResult
+    protected function getSubject(CheckerInterface $checker): AbstractResult
     {
         return new Disabled($checker);
+    }
+
+    protected function getSubjectWithMessage(CheckerInterface $checker, ?string $message): AbstractResult
+    {
+        return new Disabled($checker, $message);
     }
 }

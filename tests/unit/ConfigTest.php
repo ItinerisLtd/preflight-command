@@ -30,28 +30,31 @@ class ConfigTest extends \Codeception\Test\Unit
         );
         $this->assertSame(
             [],
-            $config->getRequirements()
+            $config->getIncludes()
+        );
+        $this->assertSame(
+            [],
+            $config->getExcludes()
         );
         $this->assertNull(
             $config->get('nothing')
         );
     }
 
-    /**
-     *
-     */
     public function testCustomDefinitions()
     {
         $blacklist = ['admin', 'root'];
         $whitelist = ['alice', 'bob'];
-        $requirements = ['xxx', 'yyy', 'zzz'];
+        $includes = ['aaa', 'bbb', 'ccc'];
+        $excludes = ['xxx', 'yyy', 'zzz'];
         $something = new stdClass();
 
         $config = new Config([
             'enabled' => false,
             'blacklist' => $blacklist,
             'whitelist' => $whitelist,
-            'requirements' => $requirements,
+            'includes' => $includes,
+            'excludes' => $excludes,
             'something' => $something,
         ]);
 
@@ -67,8 +70,12 @@ class ConfigTest extends \Codeception\Test\Unit
             $config->getWhitelist()
         );
         $this->assertSame(
-            $requirements,
-            $config->getRequirements()
+            $includes,
+            $config->getIncludes()
+        );
+        $this->assertSame(
+            $excludes,
+            $config->getExcludes()
         );
         $this->assertSame(
             $something,
@@ -76,6 +83,26 @@ class ConfigTest extends \Codeception\Test\Unit
         );
         $this->assertNull(
             $config->get('nothing')
+        );
+    }
+
+    public function testCompileBlacklist()
+    {
+        $config = new Config([
+            'blacklist' => ['aaa', 'bbb', 'ccc'],
+            'whitelist' => ['aaa', 'eee', 'xxx'],
+        ]);
+
+        $defaultBlacklist = ['aaa', 'ddd', 'eee'];
+
+        $actual = $config->compileBlacklist($defaultBlacklist);
+
+        sort($actual); // For assertion.
+        $expected = ['bbb', 'ccc', 'ddd'];
+
+        $this->assertSame(
+            $expected,
+            $actual
         );
     }
 }

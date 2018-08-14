@@ -12,12 +12,12 @@ use Mockery;
 
 class SkipTest extends Unit
 {
+    use AbstractResultTrail;
+
     /**
      * @var \Itineris\Preflight\Test\UnitTester
      */
     protected $tester;
-
-    use AbstractResultTrail;
 
     public function testStatus()
     {
@@ -30,8 +30,13 @@ class SkipTest extends Unit
         $this->assertSame(ResultInterface::STATUS_SKIP, $actual);
     }
 
-    function getSubject(CheckerInterface $checker): AbstractResult
+    protected function getSubject(CheckerInterface $checker): AbstractResult
     {
         return new Skip($checker);
+    }
+
+    protected function getSubjectWithMessage(CheckerInterface $checker, ?string $message): AbstractResult
+    {
+        return new Skip($checker, $message);
     }
 }

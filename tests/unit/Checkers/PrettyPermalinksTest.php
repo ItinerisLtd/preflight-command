@@ -6,6 +6,7 @@ namespace Itineris\Preflight\Test\Checkers;
 use Codeception\Test\Unit;
 use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
+use Itineris\Preflight\Config;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 use WP_Mock;
@@ -24,9 +25,10 @@ class PrettyPermalinksTest extends Unit
         WP_Mock::userFunction('get_option')
                ->andReturn('/%postname%/');
 
+        $config = new Config([]);
         $checker = new PrettyPermalinks();
 
-        $actual = $checker->check();
+        $actual = $checker->check($config);
 
         $this->assertInstanceOf(Success::class, $actual);
     }
@@ -36,9 +38,10 @@ class PrettyPermalinksTest extends Unit
         WP_Mock::userFunction('get_option')
                ->andReturn(false);
 
+        $config = new Config([]);
         $checker = new PrettyPermalinks();
 
-        $actual = $checker->check();
+        $actual = $checker->check($config);
 
         $this->assertInstanceOf(Failure::class, $actual);
     }

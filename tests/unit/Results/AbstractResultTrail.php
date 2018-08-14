@@ -40,5 +40,40 @@ trait AbstractResultTrail
         $this->assertInstanceOf(AbstractResult::class, $subject);
     }
 
-    abstract function getSubject(CheckerInterface $checker): AbstractResult;
+    public function testNullMessage()
+    {
+        $checker = Mockery::mock(CheckerInterface::class);
+
+        $subject = $this->getSubjectWithMessage($checker, null);
+
+        $actual = $subject->getMessage();
+
+        $this->assertSame('', $actual);
+    }
+
+    public function testNoMessage()
+    {
+        $checker = Mockery::mock(CheckerInterface::class);
+
+        $subject = $this->getSubject($checker);
+
+        $actual = $subject->getMessage();
+
+        $this->assertSame('', $actual);
+    }
+
+    public function testGetMessage()
+    {
+        $checker = Mockery::mock(CheckerInterface::class);
+
+        $subject = $this->getSubjectWithMessage($checker, 'Hello world');
+
+        $actual = $subject->getMessage();
+
+        $this->assertSame('Hello world', $actual);
+    }
+
+    abstract protected function getSubject(CheckerInterface $checker): AbstractResult;
+
+    abstract protected function getSubjectWithMessage(CheckerInterface $checker, ?string $message): AbstractResult;
 }

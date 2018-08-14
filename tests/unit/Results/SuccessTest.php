@@ -12,6 +12,8 @@ use Mockery;
 
 class SuccessTest extends Unit
 {
+    use AbstractResultTrail;
+
     /**
      * @var \Itineris\Preflight\Test\UnitTester
      */
@@ -28,10 +30,13 @@ class SuccessTest extends Unit
         $this->assertSame(ResultInterface::STATUS_SUCCESS, $actual);
     }
 
-    use AbstractResultTrail;
-
-    function getSubject(CheckerInterface $checker): AbstractResult
+    protected function getSubject(CheckerInterface $checker): AbstractResult
     {
         return new Success($checker);
+    }
+
+    protected function getSubjectWithMessage(CheckerInterface $checker, ?string $message): AbstractResult
+    {
+        return new Success($checker, $message);
     }
 }

@@ -15,11 +15,12 @@ interface CheckerInterface
 
     /**
      * Run the check and return a result.
-     * TODO: Accept config object/array.
+     *
+     * @param Config $config The config instance.
      *
      * @return ResultInterface
      */
-    public function check(): ResultInterface;
+    public function check(Config $config): ResultInterface;
 
     /**
      * Converts the checker into a plain PHP array

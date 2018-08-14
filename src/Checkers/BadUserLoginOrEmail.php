@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\Checkers;
 
+use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
+use Itineris\Preflight\Results\Error;
 use Itineris\Preflight\Results\Failure;
+use Itineris\Preflight\Results\Skip;
 use Itineris\Preflight\Results\Success;
 use WP_CLI\Fetchers\User;
 use WP_User;
@@ -12,7 +15,14 @@ use WP_User;
 class BadUserLoginOrEmail extends AbstractChecker
 {
     public const ID = 'bad-user-login-or-email';
-    public const DESCRIPTION = 'Disallow blacklisted username and email';
+    public const DESCRIPTION = 'Disallow blacklisted username and email.';
+    public const DEFAULT_BLACKLIST = [
+        'admin',
+        'administrator',
+        'webmaster',
+        'root',
+        'www',
+    ];
 
     /**
      * User fetcher.
@@ -32,30 +42,21 @@ class BadUserLoginOrEmail extends AbstractChecker
     }
 
     /**
-     * Run the check and return a result.
-     * TODO: Accept config object/array.
+     * {@inheritdoc}
      *
-     * @var WP_User[] $badUsers Array of bad Users.
+     * @param Config $config The config instance.
      *
      * @return ResultInterface
      */
-    public function check(): ResultInterface
+    public function run(Config $config): ResultInterface
     {
         // TODO: Check is not `is_numeric`.
-        $blacklist = [
-            'admin',
-            'administrator',
-            'webmaster',
-            'root',
-            'www',
-        ];
-
         $badUsers = array_filter(
             array_map(function (string $userLoginOrEmail): ?WP_User {
                 $user = $this->fetcher->get($userLoginOrEmail);
 
                 return ($user instanceof WP_User) ? $user : null;
-            }, $blacklist)
+            }, $config->compileBlacklist(self::DEFAULT_BLACKLIST))
         );
 
         if (! empty($badUsers)) {
@@ -63,6 +64,39 @@ class BadUserLoginOrEmail extends AbstractChecker
         }
 
         return new Success($this);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param Config $config The config instance.
+     *
+     * @return Skip|null
+     */
+    protected function maybeSkip(Config $config): ?Skip
+    {
+        $blacklist = $config->compileBlacklist(self::DEFAULT_BLACKLIST);
+
+        return empty($blacklist)
+            ? $this->makeSkip('Blacklist is empty.')
+            : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param Config $config The config instance.
+     *
+     * @return Error|null
+     */
+    protected function maybeError(Config $config): ?Error
+    {
+        $blacklist = $config->compileBlacklist(self::DEFAULT_BLACKLIST);
+        $numericBlacklist = array_filter($blacklist, 'is_numeric');
+
+        return empty($numericBlacklist)
+            ? null
+            : $this->makeError('Blacklist cannot contains numeric items');
     }
 
     /**

@@ -6,6 +6,8 @@ namespace Itineris\Preflight\Test\Checkers;
 use Itineris\Preflight\CheckerCollection;
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\Checkers\AbstractChecker;
+use Itineris\Preflight\Config;
+use Itineris\Preflight\Results\Disabled;
 use Mockery;
 
 trait AbstractCheckerTrail
@@ -57,6 +59,19 @@ trait AbstractCheckerTrail
                           ->once();
 
         $subject::register($checkerCollection);
+    }
+
+    public function testCheckDisabled()
+    {
+        $config = new Config([
+            'enabled' => false,
+        ]);
+
+        $subject = $this->getSubject();
+
+        $actual = $subject->check($config);
+
+        $this->assertInstanceOf(Disabled::class, $actual);
     }
 
     abstract protected function getSubject(): AbstractChecker;
