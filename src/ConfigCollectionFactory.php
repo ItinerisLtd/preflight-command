@@ -1,9 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace Itineris\Preflight\CLI;
+namespace Itineris\Preflight;
 
-use Itineris\Preflight\ConfigCollection;
 use Yosymfony\Toml\Exception\ParseException;
 use Yosymfony\Toml\Toml;
 
@@ -23,8 +22,8 @@ class ConfigCollectionFactory
         } catch (ParseException $parseException) {
             // Assume empty config.
             $definitions = [];
-        } finally {
-            return new ConfigCollection($definitions);
         }
+
+        return new ConfigCollection($definitions);
     }
 }
