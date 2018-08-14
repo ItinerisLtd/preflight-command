@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Test\Checkers;
 
 use Codeception\Test\Unit;
+use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
@@ -15,6 +16,13 @@ class PrettyPermalinksTest extends Unit
      * @var \Itineris\Preflight\Test\UnitTester
      */
     protected $tester;
+
+    public function testImplementCheckerInterface()
+    {
+        $checker = new PrettyPermalinks();
+
+        $this->assertInstanceOf(CheckerInterface::class, $checker);
+    }
 
     public function testGetId()
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Test\Checkers;
 
 use Codeception\Test\Unit;
+use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
@@ -17,6 +18,15 @@ class BadUserLoginOrEmailTest extends Unit
      * @var \Itineris\Preflight\Test\UnitTester
      */
     protected $tester;
+
+    public function testImplementCheckerInterface()
+    {
+        $fetcher = Mockery::mock(User::class);
+
+        $checker = new BadUserLoginOrEmail($fetcher);
+
+        $this->assertInstanceOf(CheckerInterface::class, $checker);
+    }
 
     public function testGetId()
     {
