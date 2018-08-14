@@ -16,7 +16,7 @@ class ChecklistCommand extends WP_CLI_Command
     ];
 
     /**
-     * Lists checkers (without running the checkers).
+     * Lists all registered checkers (without running them).
      *
      * ## OPTIONS
      *

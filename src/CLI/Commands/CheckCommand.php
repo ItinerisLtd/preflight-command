@@ -13,7 +13,7 @@ use WP_CLI_Command;
 class CheckCommand extends WP_CLI_Command
 {
     /**
-     * Run the checklist.
+     * Run the checklist and list the results.
      *
      * ## OPTIONS
      *
@@ -46,16 +46,16 @@ class CheckCommand extends WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     # List all results
+     *     # Run the checklist and list all results.
      *     $ wp preflight check
      *
-     *     # List all results in given format
+     *     # Run the checklist and list all results in given format
      *     $ wp preflight check --format=json
      *
-     *     # List all results with specific fields
+     *     # Run the checklist and list all results with specific fields
      *     $ wp preflight check --fields=id,status,message
      *
-     *     # List all results with all available fields in given format
+     *     # Run the checklist and list all results with all available fields in given format
      *     $ wp preflight check --fields=id,link,description,status,message --format=yaml
      */
     public function __invoke($_args, $assocArgs): void
