@@ -110,4 +110,14 @@ class Config
     {
         return (array) $this->get('whitelist') ?? [];
     }
+
+    /**
+     * Path getter.
+     *
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return (string) $this->get('path') ?? '';
+    }
 }
