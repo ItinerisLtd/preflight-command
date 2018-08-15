@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Checkers;
 
 use Itineris\Preflight\Config;
+use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Error;
-use Itineris\Preflight\Results\Failure;
-use Itineris\Preflight\Results\Success;
 use WP_CLI\Fetchers\User;
 use WP_User;
 
@@ -51,7 +50,6 @@ class BadUserLoginOrEmail extends AbstractChecker
      */
     protected function run(Config $config): ResultInterface
     {
-        // TODO: Check is not `is_numeric`.
         $badUsers = array_filter(
             array_map(function (string $userLoginOrEmail): ?WP_User {
                 $user = $this->fetcher->get($userLoginOrEmail);
@@ -61,22 +59,21 @@ class BadUserLoginOrEmail extends AbstractChecker
         );
 
         if (! empty($badUsers)) {
-            $messages = array_map(function (WP_User $user): string {
-                return sprintf(
-                    'User: %1$s <%2$s> (ID: %3$d) is blacklisted',
-                    $user->get('user_login'),
-                    $user->get('user_email'),
-                    $user->get('ID')
-                );
-            }, $badUsers);
-
-            return new Failure(
-                $this,
-                implode(PHP_EOL, $messages)
+            $messages = array_values(
+                array_map(function (WP_User $user): string {
+                    return sprintf(
+                        'User: %1$s <%2$s> (ID: %3$d) is blacklisted',
+                        $user->get('user_login'),
+                        $user->get('user_email'),
+                        $user->get('ID')
+                    );
+                }, $badUsers)
             );
+
+            return ResultFactory::makeFailure($this, $messages);
         }
 
-        return new Success($this);
+        return ResultFactory::makeSuccess($this);
     }
 
     /**
@@ -86,7 +83,7 @@ class BadUserLoginOrEmail extends AbstractChecker
      *
      * @return Error|null
      */
-    protected function maybeError(Config $config): ?Error
+    protected function maybeInvalidConfig(Config $config): ?Error
     {
         $error = $this->errorIfCompiledBlacklistIsEmpty($config);
 
@@ -99,7 +96,7 @@ class BadUserLoginOrEmail extends AbstractChecker
 
         return empty($numericBlacklist)
             ? null
-            : $this->makeError('Blacklist cannot contains numeric items');
+            : ResultFactory::makeError($this, 'Blacklist cannot contains numeric items');
     }
 
     /**

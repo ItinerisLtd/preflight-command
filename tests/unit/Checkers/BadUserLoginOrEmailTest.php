@@ -7,7 +7,7 @@ use Codeception\Test\Unit;
 use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Config;
-use Itineris\Preflight\Results\Error;
+use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 use Mockery;
@@ -66,15 +66,13 @@ class BadUserLoginOrEmailTest extends Unit
         ]);
         $checker = new BadUserLoginOrEmail($fetcher);
 
-        $failure = $checker->check($config);
+        $actual = $checker->check($config);
 
-        $this->assertInstanceOf(Failure::class, $failure);
-
-        $expected = "User: my-user-123 <root@example.test> (ID: 123) is blacklisted";
-        [
-            'message' => $message,
-        ] = $failure->toArray();
-        $this->assertSame($expected, $message);
+        $expected = ResultFactory::makeFailure(
+            $checker,
+            "User: my-user-123 <root@example.test> (ID: 123) is blacklisted"
+        );
+        $this->assertEquals($expected, $actual);
     }
 
     public function testCheckMultipleFailures()
@@ -123,13 +121,16 @@ class BadUserLoginOrEmailTest extends Unit
 
         $this->assertInstanceOf(Failure::class, $failure);
 
-        $expected = "User: admin <admin@example.test> (ID: 987) is blacklisted";
-        $expected .= PHP_EOL;
-        $expected .= "User: my-user-123 <root@example.test> (ID: 123) is blacklisted";
-        [
-            'message' => $message,
-        ] = $failure->toArray();
-        $this->assertSame($expected, $message);
+        $actual = $checker->check($config);
+
+        $expected = ResultFactory::makeFailure(
+            $checker,
+            [
+                "User: admin <admin@example.test> (ID: 987) is blacklisted",
+                "User: my-user-123 <root@example.test> (ID: 123) is blacklisted",
+            ]
+        );
+        $this->assertEquals($expected, $actual);
     }
 
     public function testCheckEmptyBlacklistError()
@@ -143,12 +144,8 @@ class BadUserLoginOrEmailTest extends Unit
 
         $actual = $checker->check($config);
 
-        $this->assertInstanceOf(Error::class, $actual);
-
-        [
-            'message' => $message,
-        ] = $actual->toArray();
-        $this->assertSame('Blacklist is empty.', $message);
+        $expected = ResultFactory::makeError($checker, 'Blacklist is empty.');
+        $this->assertEquals($expected, $actual);
     }
 
     public function testCheckNumericItemError()
@@ -164,11 +161,8 @@ class BadUserLoginOrEmailTest extends Unit
 
         $actual = $checker->check($config);
 
-        $this->assertInstanceOf(Error::class, $actual);
-        [
-            'message' => $message,
-        ] = $actual->toArray();
-        $this->assertSame('Blacklist cannot contains numeric items', $message);
+        $expected = ResultFactory::makeError($checker, 'Blacklist cannot contains numeric items');
+        $this->assertEquals($expected, $actual);
     }
 
     protected function getSubject(): AbstractChecker

@@ -16,22 +16,22 @@ abstract class AbstractResult implements ResultInterface
     protected $checker;
 
     /**
-     * The result message.
+     * The result messages.
      *
-     * @var string
+     * @var string[]
      */
-    protected $message;
+    protected $messages;
 
     /**
      * AbstractResult constructor.
      *
-     * @param CheckerInterface $checker The checker instance.
-     * @param null|string      $message Optional. The result message.
+     * @param CheckerInterface $checker  The checker instance.
+     * @param string[]         $messages The result messages.
      */
-    public function __construct(CheckerInterface $checker, ?string $message = null)
+    public function __construct(CheckerInterface $checker, array $messages)
     {
         $this->checker = $checker;
-        $this->message = $message ?? '';
+        $this->messages = $messages;
     }
 
     /**
@@ -45,19 +45,9 @@ abstract class AbstractResult implements ResultInterface
             $this->checker->toArray(),
             [
                 'status' => $this->getStatus(),
-                'message' => $this->getMessage(),
+                'messages' => $this->getMessages(),
             ]
         );
-    }
-
-    /**
-     * Returns the result message.
-     *
-     * @return string
-     */
-    protected function getMessage(): string
-    {
-        return $this->message;
     }
 
     /**
@@ -74,5 +64,15 @@ abstract class AbstractResult implements ResultInterface
                 get_class($this)
             )
         );
+    }
+
+    /**
+     * Returns the result message.
+     *
+     * @return string[]
+     */
+    protected function getMessages(): array
+    {
+        return $this->messages;
     }
 }

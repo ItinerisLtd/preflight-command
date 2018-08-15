@@ -40,7 +40,8 @@ class CheckCommand extends WP_CLI_Command
      *
      * These fields are available upon request:
      *
-     * * message
+     * * messages
+     * * message (implode all messages into one long string)
      * * description
      * * link
      *
@@ -52,11 +53,11 @@ class CheckCommand extends WP_CLI_Command
      *     # Run the checklist and list all results in given format
      *     $ wp preflight check --format=json
      *
-     *     # Run the checklist and list all results with specific fields
-     *     $ wp preflight check --fields=id,status,message
+     *     # Run the checklist and list all results with specific fields in given format
+     *     $ wp preflight check --fields=id,status,messages --format=yaml
      *
      *     # Run the checklist and list all results with all available fields in given format
-     *     $ wp preflight check --fields=id,link,description,status,message --format=yaml
+     *     $ wp preflight check --fields=id,link,status,description,message,messages --format=csv
      */
     public function __invoke($_args, $assocArgs): void
     {

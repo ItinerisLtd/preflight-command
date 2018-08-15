@@ -62,6 +62,7 @@ class ResultCollectionPresenter
     {
         $row = $result->toArray();
         $row['status'] = self::colorize($result, $row['status']);
+        $row['message'] = implode(PHP_EOL, $row['messages']);
 
         return $row;
     }

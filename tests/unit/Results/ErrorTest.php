@@ -5,7 +5,6 @@ namespace Itineris\Preflight\Test\Results;
 
 use Codeception\Test\Unit;
 use Itineris\Preflight\CheckerInterface;
-use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\AbstractResult;
 use Itineris\Preflight\Results\Error;
 use Mockery;
@@ -24,7 +23,7 @@ class ErrorTest extends Unit
         $checker = $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $result = new Error($checker);
+        $result = new Error($checker, []);
 
         [
             'status' => $status,
@@ -33,13 +32,8 @@ class ErrorTest extends Unit
         $this->assertSame('Error', $status);
     }
 
-    protected function getSubject(CheckerInterface $checker): AbstractResult
+    protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult
     {
-        return new Error($checker);
-    }
-
-    protected function getSubjectWithMessage(CheckerInterface $checker, ?string $message): AbstractResult
-    {
-        return new Error($checker, $message);
+        return new Error($checker, $messages);
     }
 }

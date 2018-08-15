@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Checkers;
 
 use Itineris\Preflight\Config;
+use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;
 
 class PrettyPermalinks extends AbstractChecker
@@ -23,7 +24,7 @@ class PrettyPermalinks extends AbstractChecker
     public function run(Config $config): ResultInterface
     {
         return get_option('permalink_structure')
-            ? $this->makeSuccess()
-            : $this->makeFailure('Permalink structure not defined.');
+            ? ResultFactory::makeSuccess($this)
+            : ResultFactory::makeFailure($this, 'Permalink structure not defined.');
     }
 }

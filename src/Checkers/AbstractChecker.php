@@ -6,11 +6,9 @@ namespace Itineris\Preflight\Checkers;
 use Itineris\Preflight\CheckerCollection;
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\Config;
+use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;
-use Itineris\Preflight\Results\Disabled;
 use Itineris\Preflight\Results\Error;
-use Itineris\Preflight\Results\Failure;
-use Itineris\Preflight\Results\Success;
 
 abstract class AbstractChecker implements CheckerInterface
 {
@@ -38,21 +36,6 @@ abstract class AbstractChecker implements CheckerInterface
     protected static function make(): self
     {
         return new static();
-    }
-
-    protected function makeSuccess(?string $message = null): Success
-    {
-        return new Success($this, $message);
-    }
-
-    protected function makeFailure(?string $message = null): Failure
-    {
-        return new Failure($this, $message);
-    }
-
-    protected function makeError(?string $message = null): Error
-    {
-        return new Error($this, $message);
     }
 
     /**
@@ -107,10 +90,10 @@ abstract class AbstractChecker implements CheckerInterface
     public function check(Config $config): ResultInterface
     {
         if (! $config->isEnabled()) {
-            return new Disabled($this);
+            return ResultFactory::makeDisabled($this);
         }
 
-        $error = $this->maybeError($config);
+        $error = $this->maybeInvalidConfig($config);
         if (null !== $error) {
             return $error;
         }
@@ -122,7 +105,7 @@ abstract class AbstractChecker implements CheckerInterface
     /**
      * Run the check and return a result.
      *
-     * Assume the checker is enabled and should not be skipped.
+     * Assume the checker is enabled and its config make sense.
      *
      * @param Config $config The config instance.
      *
@@ -131,13 +114,13 @@ abstract class AbstractChecker implements CheckerInterface
     abstract protected function run(Config $config): ResultInterface;
 
     /**
-     * Before actually run the check, whether this checker should throw error according to the config.
+     * Before actually run the check, check the config is valid.
      *
      * @param Config $config The config instance.
      *
      * @return Error|null
      */
-    protected function maybeError(Config $config): ?Error
+    protected function maybeInvalidConfig(Config $config): ?Error
     {
         return null;
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Checkers;
 
 use Itineris\Preflight\Config;
+use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Error;
 
 trait CompiledBlacklistAwareTrait
@@ -20,9 +21,7 @@ trait CompiledBlacklistAwareTrait
         $blacklist = $config->compileBlacklist(self::DEFAULT_BLACKLIST);
 
         return empty($blacklist)
-            ? $this->makeError('Blacklist is empty.')
+            ? ResultFactory::makeError($this, 'Blacklist is empty.')
             : null;
     }
-
-    abstract protected function makeError(?string $message = null): Error;
 }
