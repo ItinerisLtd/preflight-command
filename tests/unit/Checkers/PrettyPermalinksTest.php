@@ -43,6 +43,7 @@ class PrettyPermalinksTest extends Unit
 
         $actual = $checker->check($config);
 
+        // TODO: Check messages.
         $this->assertInstanceOf(Failure::class, $actual);
     }
 
