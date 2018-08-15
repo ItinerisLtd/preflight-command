@@ -4,17 +4,11 @@ declare(strict_types=1);
 namespace Itineris\Preflight\CLI\Commands;
 
 use Itineris\Preflight\CheckerCollectionFactory;
-use WP_CLI\Formatter;
+use Itineris\Preflight\CLI\CheckerCollectionPresenter;
 use WP_CLI_Command;
 
 class ChecklistCommand extends WP_CLI_Command
 {
-    private const AVAILABLE_FIELDS = [
-        'id',
-        'description',
-        'link',
-    ];
-
     /**
      * Lists all registered checkers (without running them).
      *
@@ -57,14 +51,9 @@ class ChecklistCommand extends WP_CLI_Command
      */
     public function __invoke($_args, $assocArgs): void
     {
-        $formatter = new Formatter($assocArgs, self::AVAILABLE_FIELDS);
-
-        $checkerCollection = CheckerCollectionFactory::make();
-
-        $items = (in_array($formatter->format, ['ids', 'count'], true))
-            ? $checkerCollection->pluckIds()
-            : $checkerCollection->toArray();
-
-        $formatter->display_items($items);
+        CheckerCollectionPresenter::display(
+            $assocArgs,
+            CheckerCollectionFactory::make()
+        );
     }
 }
