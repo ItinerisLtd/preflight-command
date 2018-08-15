@@ -7,6 +7,7 @@ use Codeception\Test\Unit;
 use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Config;
+use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 use WP_Mock;
@@ -43,8 +44,11 @@ class PrettyPermalinksTest extends Unit
 
         $actual = $checker->check($config);
 
-        // TODO: Check messages.
-        $this->assertInstanceOf(Failure::class, $actual);
+        $expected = ResultFactory::makeFailure(
+            $checker,
+            'Permalink structure not defined'
+        );
+        $this->assertEquals($expected, $actual);
     }
 
     protected function getSubject(): AbstractChecker
