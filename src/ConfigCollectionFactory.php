@@ -18,8 +18,10 @@ class ConfigCollectionFactory
     public static function makeFromFile(string $path): ConfigCollection
     {
         try {
+            // Toml::parseFile might return void.
             $definitions = (array) Toml::parseFile($path);
-        } catch (ParseException $parseException) {
+            // See: https://github.com/Automattic/VIP-Coding-Standards/pull/144 about UnusedCaughtExceptions.
+        } catch (ParseException $_) { // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
             // Assume empty config.
             $definitions = [];
         }

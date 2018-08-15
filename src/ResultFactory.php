@@ -22,8 +22,20 @@ class ResultFactory
     {
         return new Success(
             $checker,
-            self::castMessages($messages)
+            self::castIntoArray($messages)
         );
+    }
+
+    /**
+     * Cast messages into string array.
+     *
+     * @param null|string|string[] $messages Result message.
+     *
+     * @return string[]
+     */
+    private static function castIntoArray($messages): array
+    {
+        return (array) $messages ?? [];
     }
 
     /**
@@ -38,7 +50,7 @@ class ResultFactory
     {
         return new Failure(
             $checker,
-            self::castMessages($messages)
+            self::castIntoArray($messages)
         );
     }
 
@@ -54,7 +66,7 @@ class ResultFactory
     {
         return new Error(
             $checker,
-            self::castMessages($messages)
+            self::castIntoArray($messages)
         );
     }
 
@@ -70,19 +82,7 @@ class ResultFactory
     {
         return new Disabled(
             $checker,
-            self::castMessages($messages)
+            self::castIntoArray($messages)
         );
-    }
-
-    /**
-     * Cast messages into string array.
-     *
-     * @param null|string|string[] $messages Result message.
-     *
-     * @return string[]
-     */
-    private static function castMessages($messages): array
-    {
-        return (array) $messages ?? [];
     }
 }

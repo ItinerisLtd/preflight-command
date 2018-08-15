@@ -52,7 +52,7 @@ class BadUserLoginOrEmail extends AbstractChecker
     {
         $badUsers = array_filter(
             array_map(function (string $userLoginOrEmail): ?WP_User {
-                $user = $this->fetcher->get($userLoginOrEmail);
+                $user = $this->fetcher->get($userLoginOrEmail); // phpcs:ignore WordPressVIPMinimum.Variables
 
                 return ($user instanceof WP_User) ? $user : null;
             }, $config->compileBlacklist(self::DEFAULT_BLACKLIST))

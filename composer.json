@@ -33,6 +33,7 @@
     },
     "require-dev": {
         "10up/wp_mock": "^0.3.0",
+        "automattic/vipwpcs": "dev-master",
         "codeception/base": "^2.4",
         "mockery/mockery": "^1.1",
         "roave/security-advisories": "dev-master",
@@ -40,12 +41,6 @@
     },
     "config": {
         "sort-packages": true
-    },
-    "extra": {
-        "scripts-dev": {
-            "post-install-cmd": "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
-            "post-update-cmd": "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs"
-        }
     },
     "autoload": {
         "psr-4": {
