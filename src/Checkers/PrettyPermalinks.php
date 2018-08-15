@@ -25,6 +25,6 @@ class PrettyPermalinks extends AbstractChecker
     {
         return get_option('permalink_structure')
             ? ResultFactory::makeSuccess($this)
-            : ResultFactory::makeFailure($this, 'Permalink structure not defined.');
+            : ResultFactory::makeFailure($this, 'Permalink structure not defined');
     }
 }

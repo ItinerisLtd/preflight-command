@@ -11,7 +11,10 @@
     <exclude-pattern>/vendor/*</exclude-pattern>
 
     <rule ref="PSR2"/>
-    <rule ref="WordPressVIPMinimum"/>
+
+    <rule ref="WordPressVIPMinimum">
+        <exclude name="WordPressVIPMinimum.VIP.RestrictedFunctions.wp_remote_get_wp_remote_get"/>
+    </rule>
 
     <rule ref="WordPress">
         <exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine"/>

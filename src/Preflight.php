@@ -5,6 +5,7 @@ namespace Itineris\Preflight;
 
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
+use Itineris\Preflight\Checkers\RobotsTxt;
 use Itineris\Preflight\CLI\Commands\CheckCommand;
 use Itineris\Preflight\CLI\Commands\ChecklistCommand;
 use Itineris\Preflight\CLI\Commands\CommandNamespace;
@@ -23,6 +24,7 @@ class Preflight
     private const CHECKERS = [
         BadUserLoginOrEmail::class,
         PrettyPermalinks::class,
+        RobotsTxt::class,
     ];
 
     /**
