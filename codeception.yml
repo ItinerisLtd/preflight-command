@@ -6,6 +6,9 @@ paths:
   support: tests/_support
   envs: tests/_envs
 actor_suffix: Tester
+settings:
+  # randomize test order
+  shuffle: true
 extensions:
   enabled:
   - Codeception\Extension\RunFailed

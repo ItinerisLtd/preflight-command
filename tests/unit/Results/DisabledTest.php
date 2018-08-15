@@ -5,7 +5,6 @@ namespace Itineris\Preflight\Test\Results;
 
 use Codeception\Test\Unit;
 use Itineris\Preflight\CheckerInterface;
-use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\AbstractResult;
 use Itineris\Preflight\Results\Disabled;
 use Mockery;
@@ -24,7 +23,7 @@ class DisabledTest extends Unit
         $checker = $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $result = new Disabled($checker);
+        $result = new Disabled($checker, []);
 
         [
             'status' => $status,
@@ -33,13 +32,8 @@ class DisabledTest extends Unit
         $this->assertSame('Disabled', $status);
     }
 
-    protected function getSubject(CheckerInterface $checker): AbstractResult
+    protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult
     {
-        return new Disabled($checker);
-    }
-
-    protected function getSubjectWithMessage(CheckerInterface $checker, ?string $message): AbstractResult
-    {
-        return new Disabled($checker, $message);
+        return new Disabled($checker, $messages);
     }
 }

@@ -19,6 +19,12 @@ class ResultCollectionPresenter
         'status',
     ];
 
+    /**
+     * Display a result collection in a given format.
+     *
+     * @param array            $assocArgs        Associative CLI argument.
+     * @param ResultCollection $resultCollection The checker collection instance.
+     */
     public static function display(array $assocArgs, ResultCollection $resultCollection): void
     {
         // TODO: Use null coalescing assignment operator.
@@ -45,14 +51,30 @@ class ResultCollectionPresenter
         }, $resultCollection->all());
     }
 
+    /**
+     * Converts the underlying result into a plain PHP array which printable as console table row.
+     *
+     * @param ResultInterface $result The result instance.
+     *
+     * @return array
+     */
     private static function toRow(ResultInterface $result): array
     {
         $row = $result->toArray();
         $row['status'] = self::colorize($result, $row['status']);
+        $row['message'] = implode(PHP_EOL, $row['messages']);
 
         return $row;
     }
 
+    /**
+     * Colorize a string for output.
+     *
+     * @param ResultInterface $result The result instance.
+     * @param string          $text   The text to be printed.
+     *
+     * @return string
+     */
     private static function colorize(ResultInterface $result, string $text): string
     {
         $colors = [

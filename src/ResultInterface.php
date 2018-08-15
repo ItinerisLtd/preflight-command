@@ -6,7 +6,7 @@ namespace Itineris\Preflight;
 interface ResultInterface
 {
     /**
-     * Converts the underlying checker into a plain PHP array.
+     * Converts the underlying result into a plain PHP array.
      *
      * @return array
      */

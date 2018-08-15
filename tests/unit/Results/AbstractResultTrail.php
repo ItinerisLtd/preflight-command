@@ -19,7 +19,7 @@ trait AbstractResultTrail
         $checker = $checker = Mockery::mock(CheckerInterface::class);
         $checker->shouldReceive('toArray')->andReturn($checkerArray);
 
-        $subject = $this->getSubject($checker);
+        $subject = $this->getSubject($checker, []);
 
         $actual = $subject->toArray();
 
@@ -30,7 +30,7 @@ trait AbstractResultTrail
     {
         $checker = Mockery::mock(CheckerInterface::class);
 
-        $subject = $this->getSubject($checker);
+        $subject = $this->getSubject($checker, []);
 
         $this->assertInstanceOf(ResultInterface::class, $subject);
     }
@@ -39,54 +39,25 @@ trait AbstractResultTrail
     {
         $checker = Mockery::mock(CheckerInterface::class);
 
-        $subject = $this->getSubject($checker);
+        $subject = $this->getSubject($checker, []);
 
         $this->assertInstanceOf(AbstractResult::class, $subject);
     }
 
-    public function testNullMessage()
+    public function testGetMessages()
     {
         $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $subject = $this->getSubjectWithMessage($checker, null);
+        $expected = ['Hello world', 'Good luck'];
+        $subject = $this->getSubject($checker, $expected);
 
         [
-            'message' => $actual,
+            'messages' => $actual,
         ] = $subject->toArray();
 
-        $this->assertSame('', $actual);
+        $this->assertSame($expected, $actual);
     }
 
-    public function testNoMessage()
-    {
-        $checker = Mockery::mock(CheckerInterface::class);
-        $checker->allows('toArray')->andReturn([]);
-
-        $subject = $this->getSubject($checker);
-
-        [
-            'message' => $actual,
-        ] = $subject->toArray();
-
-        $this->assertSame('', $actual);
-    }
-
-    public function testGetMessage()
-    {
-        $checker = Mockery::mock(CheckerInterface::class);
-        $checker->allows('toArray')->andReturn([]);
-
-        $subject = $this->getSubjectWithMessage($checker, 'Hello world');
-
-        [
-            'message' => $actual,
-        ] = $subject->toArray();
-
-        $this->assertSame('Hello world', $actual);
-    }
-
-    abstract protected function getSubject(CheckerInterface $checker): AbstractResult;
-
-    abstract protected function getSubjectWithMessage(CheckerInterface $checker, ?string $message): AbstractResult;
+    abstract protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult;
 }
