@@ -7,6 +7,7 @@ use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\RobotsTxt;
 use Itineris\Preflight\Checkers\Sitemap;
+use Itineris\Preflight\Checkers\UniqueSaltConstants;
 use Itineris\Preflight\CLI\Commands\CheckCommand;
 use Itineris\Preflight\CLI\Commands\ChecklistCommand;
 use Itineris\Preflight\CLI\Commands\CommandNamespace;
@@ -27,6 +28,7 @@ class Preflight
         PrettyPermalinks::class,
         RobotsTxt::class,
         Sitemap::class,
+        UniqueSaltConstants::class,
     ];
 
     /**
