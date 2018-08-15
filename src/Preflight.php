@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Itineris\Preflight;
 
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
+use Itineris\Preflight\Checkers\DefinedSaltConstants;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\RobotsTxt;
 use Itineris\Preflight\Checkers\Sitemap;
@@ -25,6 +26,7 @@ class Preflight
 
     private const CHECKERS = [
         BadUserLoginOrEmail::class,
+        DefinedSaltConstants::class,
         PrettyPermalinks::class,
         RobotsTxt::class,
         Sitemap::class,
