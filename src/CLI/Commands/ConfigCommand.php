@@ -46,7 +46,7 @@ class ConfigCommand extends WP_CLI_Command
             WP_CLI::error("File '$path' does not exist.");
         }
 
-        $contents = file_get_contents($path); // phpcs:ignore WordPress.WP.AlternativeFunctions
+        $contents = file_get_contents($path); // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData
 
         $contentsWithoutLineBreaks = str_replace(["\r", "\n"], '', $contents);
         if (empty($contentsWithoutLineBreaks)) {
@@ -72,14 +72,16 @@ class ConfigCommand extends WP_CLI_Command
     public function edit(): void
     {
         $path = ConfigPath::get();
-        $contents = file_get_contents($path); // phpcs:ignore WordPress.WP.AlternativeFunctions
-
+        $contents = file_get_contents($path); // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData
         $result = launch_editor_for_input($contents, 'preflight.toml', 'toml');
 
         if (false === $result) {
             WP_CLI::warning("No changes made to '$path'. Aborted!");
         } else {
-            file_put_contents($path, $result); // phpcs:ignore WordPress.WP.AlternativeFunctions
+            // phpcs:disable WordPress.VIP.FileSystemWritesDisallow
+            // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
+            file_put_contents($path, $result);
+            // phpcs:enable
         }
     }
 

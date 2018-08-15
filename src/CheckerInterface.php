@@ -25,6 +25,8 @@ interface CheckerInterface
     /**
      * Converts the underlying checker into a plain PHP array.
      *
+     * TODO: Rethink this interface. Maybe ::getId(), ::getDescription(), ::getLink()?
+     *
      * @return array
      */
     public function toArray(): array;

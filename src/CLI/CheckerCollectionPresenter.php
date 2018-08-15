@@ -18,7 +18,7 @@ class CheckerCollectionPresenter
     /**
      * Display a checker collection in a given format.
      *
-     * @param array             $assocArgs Associative CLI argument.
+     * @param array             $assocArgs         Associative CLI argument.
      * @param CheckerCollection $checkerCollection The checker collection instance.
      */
     public static function display(array $assocArgs, CheckerCollection $checkerCollection): void
@@ -41,7 +41,7 @@ class CheckerCollectionPresenter
      *
      * @return string[]
      */
-    public function pluckIds(CheckerCollection $checkerCollection): array
+    public static function pluckIds(CheckerCollection $checkerCollection): array
     {
         return array_keys(
             $checkerCollection->all()
