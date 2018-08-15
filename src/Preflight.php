@@ -6,6 +6,7 @@ namespace Itineris\Preflight;
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\RobotsTxt;
+use Itineris\Preflight\Checkers\Sitemap;
 use Itineris\Preflight\CLI\Commands\CheckCommand;
 use Itineris\Preflight\CLI\Commands\ChecklistCommand;
 use Itineris\Preflight\CLI\Commands\CommandNamespace;
@@ -25,6 +26,7 @@ class Preflight
         BadUserLoginOrEmail::class,
         PrettyPermalinks::class,
         RobotsTxt::class,
+        Sitemap::class,
     ];
 
     /**

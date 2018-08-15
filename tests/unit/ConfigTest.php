@@ -36,6 +36,10 @@ class ConfigTest extends \Codeception\Test\Unit
             [],
             $config->getExcludes()
         );
+        $this->assertSame(
+            '',
+            $config->getPath()
+        );
         $this->assertNull(
             $config->get('nothing')
         );
@@ -56,6 +60,7 @@ class ConfigTest extends \Codeception\Test\Unit
             'includes' => $includes,
             'excludes' => $excludes,
             'something' => $something,
+            'path' => '/abc',
         ]);
 
         $this->assertFalse(
@@ -80,6 +85,10 @@ class ConfigTest extends \Codeception\Test\Unit
         $this->assertSame(
             $something,
             $config->get('something')
+        );
+        $this->assertSame(
+            '/abc',
+            $config->getPath()
         );
         $this->assertNull(
             $config->get('nothing')
