@@ -117,10 +117,6 @@ class BadUserLoginOrEmailTest extends Unit
         ]);
         $checker = new BadUserLoginOrEmail($fetcher);
 
-        $failure = $checker->check($config);
-
-        $this->assertInstanceOf(Failure::class, $failure);
-
         $actual = $checker->check($config);
 
         $expected = ResultFactory::makeFailure(
