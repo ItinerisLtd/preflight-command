@@ -57,9 +57,8 @@
     "prefer-stable": true,
     "scripts": {
         "check-style": "phpcs --standard=ruleset.xml --colors -p -s",
-        "pre-tag": [
+        "pretag": [
             "composer normalize",
-            "doctoc README.md",
             "github_changelog_generator --no-verbose"
         ],
         "test": "codecept run"
