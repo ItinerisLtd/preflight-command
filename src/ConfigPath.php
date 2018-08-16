@@ -10,15 +10,18 @@ class ConfigPath
     /**
      * Returns the expected path to the preflight.toml.
      *
-     * @return WP_Error|string
+     * @return string|null
      */
-    public static function get()
+    public static function get(): ?string
     {
-        if (! defined('ABSPATH')) {
-            // TODO: Test me!
-            return new WP_Error("Constant 'ABSPATH' not defined. Did WordPress loaded? Aborted!");
+        if (defined('PREFLIGHT_DIR')) {
+            return constant('PREFLIGHT_DIR') . 'preflight.toml';
         }
 
-        return ABSPATH . 'preflight.toml';
+        if (defined('ABSPATH')) {
+            return constant('ABSPATH') . 'preflight.toml';
+        }
+
+        return null;
     }
 }

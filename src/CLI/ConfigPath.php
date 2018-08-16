@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\CLI;
 
-use Itineris\Preflight\ConfigPath as TomlPath;
+use Itineris\Preflight\ConfigPath as BaseConfigPath;
 use WP_CLI;
 
 class ConfigPath
@@ -15,10 +15,12 @@ class ConfigPath
      */
     public static function get(): string
     {
-        $path = TomlPath::get();
+        $path = BaseConfigPath::get();
 
-        if (is_wp_error($path)) {
-            WP_CLI::error($path);
+        if (empty($path)) {
+            WP_CLI::error(
+                "Both 'PREFLIGHT_DIR' and 'ABSPATH' constants not defined. Unable to find 'preflight.toml'"
+            );
         }
 
         return $path;
