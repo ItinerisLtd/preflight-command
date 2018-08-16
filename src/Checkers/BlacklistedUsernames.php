@@ -46,7 +46,7 @@ class BlacklistedUsernames extends AbstractChecker
         if (! empty($blacklistedUsers)) {
             $messages = array_map(function (WP_User $user): string {
                 return sprintf(
-                    'ID: %1$d %2$s <%3$s> is blacklisted',
+                    'ID: %1$d %2$s <%3$s>',
                     $user->get('ID'),
                     $user->get('user_login'),
                     $user->get('user_email')
