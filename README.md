@@ -30,15 +30,61 @@ $ wp preflight check --format=yaml --fields=id,status,description,messages
 
 ## For Itineris Team
 
-Copy this to `<web>/web/wp/preflight.toml`:
+**Note: The `preflight.toml` path will change in next release!**
+
+Tips: `$ wp help preflight config`
+
+Copy this to `<bedrock>/web/wp/preflight.toml`:
 
 ```toml
 # <web>/web/wp/preflight.toml
 
+# Use TOML v0.4.0 syntax
+# See: https://github.com/toml-lang/toml/blob/master/versions/en/toml-v0.4.0.md
 
+# TOML v0.5.0 not yet supported
 
+# Use expected production URL (i.e: client's URL)
+# Starts with 'https://'
+[production-site-url]
+url = 'https://preflightcommand.local/'
 
+[production-home-url]
+url = 'https://preflightcommand.local'
 
+# Everything above is mandatory
+# -----------------------------
+# Everything below is example
+# All of them are optional
+# Remove if possible
+
+[blacklisted-usernames]
+blacklist = [
+  'itineris',
+  'tim',
+]
+whitelist = [
+  'root',
+]
+
+[blacklisted-user-emails]
+blacklist = [
+  'hello@itineris.co.uk',
+]
+whitelist = [
+  'root@example.test',
+]
+
+# This is default. Remove if possible
+[sitemap]
+path = '/sitemap_index.xml' # Yoast SEO
 ```
 
-Tips: Use `$ wp preflight config edit`
+### For Itineris Team
+
+```bash
+$ composer test
+$ composer check-style
+```
+
+Pull requests without tests will not be accepted!
