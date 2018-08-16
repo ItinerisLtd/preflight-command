@@ -41,13 +41,13 @@ abstract class AbstractResult implements ResultInterface
      */
     public function toArray(): array
     {
-        return array_merge(
-            $this->checker->toArray(),
-            [
-                'status' => $this->getStatus(),
-                'messages' => $this->getMessages(),
-            ]
-        );
+        return [
+            'id' => $this->checker->getId(),
+            'link' => $this->checker->getLink(),
+            'description' => $this->checker->getDescription(),
+            'status' => $this->getStatus(),
+            'messages' => $this->getMessages(),
+        ];
     }
 
     /**
