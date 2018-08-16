@@ -12,6 +12,8 @@ trait CompiledIncludesAwareTrait
     /**
      * Returns error if compiled includes is empty.
      *
+     * TODO: Test me!
+     *
      * @param Config $config          The config instance.
      * @param array  $defaultIncludes The default includes.
      *
