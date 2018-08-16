@@ -54,6 +54,8 @@ class ResultCollectionPresenter
     /**
      * Converts the underlying result into a plain PHP array which printable as console table row.
      *
+     * Note: One checker might yields multiple result instances.
+     *
      * @param ResultInterface $result The result instance.
      *
      * @return array
