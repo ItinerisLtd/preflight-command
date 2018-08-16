@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\Test\Validators;
 
+use Codeception\Test\Unit;
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Success;
@@ -10,8 +11,10 @@ use Itineris\Preflight\Validators\HttpsUrls;
 use Mockery;
 use WP_Mock;
 
-class HttpsUrlsTest extends \Codeception\Test\Unit
+class HttpsUrlsTest extends Unit
 {
+    use AbstractValidatorTestTrait;
+
     /**
      * @var \Itineris\Preflight\Test\UnitTester
      */
@@ -155,18 +158,8 @@ class HttpsUrlsTest extends \Codeception\Test\Unit
         $this->assertEquals($expected, $actual);
     }
 
-    public function testMakeFilter()
+    protected function getSubjectClass(): string
     {
-        $checker = Mockery::mock(CheckerInterface::class);
-        $expected = Mockery::mock(HttpsUrls::class);
-
-        WP_Mock::userFunction('Itineris\Preflight\Validators\apply_filters')
-               ->withArgs([HttpsUrls::MAKE_HOOK, Mockery::type(HttpsUrls::class), $checker, 'Hello World'])
-               ->andReturn($expected)
-               ->once();
-
-        $actual = HttpsUrls::make($checker, 'Hello World');
-
-        $this->assertSame($expected, $actual);
+        return HttpsUrls::class;
     }
 }

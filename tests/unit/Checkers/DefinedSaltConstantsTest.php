@@ -7,8 +7,10 @@ use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\DefinedSaltConstants;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
-use Itineris\Preflight\Results\Success;
+use Itineris\Preflight\ResultInterface;
+use Itineris\Preflight\Validators\DefinedConstants;
 use Mockery;
+use WP_Mock;
 
 class DefinedSaltConstantsTest extends \Codeception\Test\Unit
 {
@@ -19,104 +21,39 @@ class DefinedSaltConstantsTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-    public function testCheckSuccess()
+    public function testUsingDefinedConstantsValidator()
     {
-        $this->setUpConstants(__FUNCTION__);
-
+        $constantNames = ['AAA', 'BBB'];
         $config = Mockery::mock(Config::class);
         $config->expects('isEnabled')
-               ->andReturn(true);
+               ->withNoArgs()
+               ->andReturnTrue()
+               ->once();
         $config->expects('compileIncludes')
-               ->with(DefinedSaltConstants::DEFAULT_INCLUDES)
-               ->andReturn([
-                   __FUNCTION__ . '_PEPPER_42',
-                   __FUNCTION__ . '_PEPPER_LIFE',
-                   __FUNCTION__ . '_PEPPER_UNIQUE',
-               ])
+               ->withArgs([DefinedSaltConstants::DEFAULT_INCLUDES])
+               ->andReturn($constantNames)
                ->twice();
+
+        $expected = Mockery::mock(ResultInterface::class);
+        $validator = Mockery::mock(DefinedConstants::class);
+        $validator->expects('validate')
+                  ->withArgs($constantNames)
+                  ->andReturn($expected);
 
         $checker = new DefinedSaltConstants();
 
-        $actual = $checker->check($config);
-
-        $this->assertInstanceOf(Success::class, $actual);
-    }
-
-    protected function setUpConstants(string $prefix)
-    {
-        define($prefix . '_PEPPER_42', 'meaning of life');
-        define($prefix . '_PEPPER_LIFE', 'meaning of life');
-        define($prefix . '_PEPPER_UNIQUE', 'meaning of after life?');
-    }
-
-    public function testCheckFailure()
-    {
-        $this->setUpConstants(__FUNCTION__);
-
-        $config = Mockery::mock(Config::class);
-        $config->expects('isEnabled')
-               ->andReturn(true);
-        $config->expects('compileIncludes')
-               ->with(DefinedSaltConstants::DEFAULT_INCLUDES)
-               ->andReturn([
-                   __FUNCTION__ . '_PEPPER_42',
-                   __FUNCTION__ . '_PEPPER_LIFE',
-                   __FUNCTION__ . '_PEPPER_UNIQUE',
-                   __FUNCTION__ . '_PEPPER_UNDEFINED_1',
-               ])
-               ->twice();
-
-        $checker = new DefinedSaltConstants();
+        WP_Mock::userFunction('Itineris\Preflight\Validators\apply_filters')
+               ->with(DefinedConstants::MAKE_HOOK, Mockery::type(DefinedConstants::class), $checker, Mockery::any())
+               ->andReturn($validator)
+               ->once();
 
         $actual = $checker->check($config);
 
-        $expected = ResultFactory::makeFailure(
-            $checker,
-            [
-                'Salt constants are not defined:',
-                __FUNCTION__ . '_PEPPER_UNDEFINED_1',
-            ]
-        );
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testCheckFailureMultipleUndefined()
-    {
-        $this->setUpConstants(__FUNCTION__);
-
-        $config = Mockery::mock(Config::class);
-        $config->expects('isEnabled')
-               ->andReturn(true);
-        $config->expects('compileIncludes')
-               ->with(DefinedSaltConstants::DEFAULT_INCLUDES)
-               ->andReturn([
-                   __FUNCTION__ . '_PEPPER_42',
-                   __FUNCTION__ . '_PEPPER_LIFE',
-                   __FUNCTION__ . '_PEPPER_UNIQUE',
-                   __FUNCTION__ . '_PEPPER_UNDEFINED_1',
-                   __FUNCTION__ . '_PEPPER_UNDEFINED_2',
-               ])
-               ->twice();
-
-        $checker = new DefinedSaltConstants();
-
-        $actual = $checker->check($config);
-
-        $expected = ResultFactory::makeFailure(
-            $checker,
-            [
-                'Salt constants are not defined:',
-                __FUNCTION__ . '_PEPPER_UNDEFINED_1',
-                __FUNCTION__ . '_PEPPER_UNDEFINED_2',
-            ]
-        );
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     public function testCheckEmptyIncludesError()
     {
-        $this->setUpConstants(__FUNCTION__);
-
         $config = new Config([
             'excludes' => DefinedSaltConstants::DEFAULT_INCLUDES,
         ]);
