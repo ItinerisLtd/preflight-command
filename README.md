@@ -25,19 +25,63 @@ $ wp preflight checklist
 $ wp preflight config validate
 $ wp preflight check
 
-$ wp preflight check --format=yaml --fields=id,status,description,messages
+$ wp preflight check --fields=id,status,message,description,link
+$ wp preflight check --fields=id,description,link,status,messages --format=yaml
+```
+
+## `preflight.toml`
+
+Default location is `ABSPATH . 'preflight.toml'`
+
+Customizable by `PREFLIGHT_DIR`. Must be ends with `/`
+
+If `PREFLIGHT_DIR` constant is defined, we look for `PREFLIGHT_DIR . 'preflight.toml'`. 
+
+Tips: `$ wp preflight config path`
+
+### Normal WP
+
+```php
+// wp-config.php
+
+// One level up from `wp-config.php`
+define( 'PREFLIGHT_DIR', dirname( __FILE__, 2 ) . '/' );
+
+// One level up from `wp-config.php`
+define( 'PREFLIGHT_DIR', '/absolute/path/to/the/dir/' );
+```
+
+### Bedrock
+
+This means `<bedrock>/config/preflight.toml`:
+
+```php
+// <bedrock>/config/application.php
+
+Config::define('PREFLIGHT_DIR', __DIR__ . '/');
+```
+
+### Old Bedrock without `roots/wp-config`
+
+This means `<bedrock>/config/preflight.toml`:
+
+```php
+// <bedrock>/config/application.php
+
+// Not recommanded. Update Bedrock!!!!
+define('PREFLIGHT_DIR', __DIR__ . '/');
 ```
 
 ## For Itineris Team
 
-**Note: The `preflight.toml` path will change in next release!**
+Tips: 
+- `$ wp help preflight config`
+- `$ wp preflight config validate`
 
-Tips: `$ wp help preflight config`
-
-Copy this to `<bedrock>/web/wp/preflight.toml`:
+Put this (`preflight.toml`) under `PREFLIGHT_DIR` or `ABSPATH`:
 
 ```toml
-# <web>/web/wp/preflight.toml
+# preflight.toml
 
 # Use TOML v0.4.0 syntax
 # See: https://github.com/toml-lang/toml/blob/master/versions/en/toml-v0.4.0.md
