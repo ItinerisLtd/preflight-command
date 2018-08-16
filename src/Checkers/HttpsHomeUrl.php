@@ -18,8 +18,6 @@ class HttpsHomeUrl extends AbstractChecker
      *
      * @param Config $config The config instance.
      *
-     * @see https://codex.wordpress.org/Using_Permalinks#Check_for_permalink_structure
-     *
      * @return ResultInterface
      */
     public function run(Config $config): ResultInterface
