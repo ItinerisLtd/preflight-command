@@ -45,7 +45,7 @@ class SitemapTest extends Unit
     public function testCheckSuccess()
     {
         WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
-               ->with('/sitemap.xml')
+               ->with('/sitemap_index.xml')
                ->andReturn('https://example.test/sitemap.xml');
 
         WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_get')
@@ -67,7 +67,7 @@ class SitemapTest extends Unit
     public function testCheckFailure404()
     {
         WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
-               ->with('/sitemap.xml')
+               ->with('/sitemap_index.xml')
                ->andReturn('https://example.test/sitemap.xml');
 
         WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_get')
@@ -93,7 +93,7 @@ class SitemapTest extends Unit
     public function testCheckFailureEmptyString()
     {
         WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
-               ->with('/sitemap.xml')
+               ->with('/sitemap_index.xml')
                ->andReturn('https://example.test/sitemap.xml');
 
         WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_get')
