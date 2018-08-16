@@ -114,4 +114,24 @@ class ConfigTest extends \Codeception\Test\Unit
             $actual
         );
     }
+
+    public function testCompileIncludes()
+    {
+        $config = new Config([
+            'includes' => ['aaa', 'bbb', 'ccc'],
+            'excludes' => ['aaa', 'eee', 'xxx'],
+        ]);
+
+        $defaultIncludes = ['aaa', 'ddd', 'eee'];
+
+        $actual = $config->compileIncludes($defaultIncludes);
+
+        sort($actual); // For assertion.
+        $expected = ['bbb', 'ccc', 'ddd'];
+
+        $this->assertSame(
+            $expected,
+            $actual
+        );
+    }
 }

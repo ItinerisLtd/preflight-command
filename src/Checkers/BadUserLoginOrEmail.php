@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\Checkers;
 
+use Itineris\Preflight\Checkers\Traits\CompiledBlacklistAwareTrait;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;

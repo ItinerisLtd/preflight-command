@@ -49,26 +49,6 @@ class Config
     }
 
     /**
-     * Includes getter.
-     *
-     * @return array
-     */
-    public function getIncludes(): array
-    {
-        return (array) $this->get('includes') ?? [];
-    }
-
-    /**
-     * Excludes getter.
-     *
-     * @return array
-     */
-    public function getExcludes(): array
-    {
-        return (array) $this->get('excludes') ?? [];
-    }
-
-    /**
      * Compile blacklist.
      *
      * Default blacklist plus config blacklist minus config whitelist.
@@ -80,14 +60,28 @@ class Config
      */
     public function compileBlacklist(array $defaultBlacklist): array
     {
-        $blacklist = array_merge(
+        return $this->mergeThenDiff(
             $defaultBlacklist,
-            $this->getBlacklist()
-        );
-
-        return array_diff(
-            $blacklist,
+            $this->getBlacklist(),
             $this->getWhitelist()
+        );
+    }
+
+    /**
+     * Merges two arrays and then excludes items from the third.
+     * Implies the resulting array items are unique.
+     *
+     * @param array $original Items that to be added.
+     * @param array $merge    Items that to be added.
+     * @param array $diff     Items that to be removed.
+     *
+     * @return array
+     */
+    protected function mergeThenDiff(array $original, array $merge, array $diff): array
+    {
+        return array_diff(
+            array_merge($original, $merge),
+            $diff
         );
     }
 
@@ -119,5 +113,44 @@ class Config
     public function getPath(): string
     {
         return (string) $this->get('path') ?? '';
+    }
+
+    /**
+     * Compile includes.
+     *
+     * Default includes plus config includes minus config excludes.
+     * Config excludes has higher priority.
+     *
+     * @param array $defaultIncludes The default includes.
+     *
+     * @return array
+     */
+    public function compileIncludes(array $defaultIncludes): array
+    {
+        return $this->mergeThenDiff(
+            $defaultIncludes,
+            $this->getIncludes(),
+            $this->getExcludes()
+        );
+    }
+
+    /**
+     * Includes getter.
+     *
+     * @return array
+     */
+    public function getIncludes(): array
+    {
+        return (array) $this->get('includes') ?? [];
+    }
+
+    /**
+     * Excludes getter.
+     *
+     * @return array
+     */
+    public function getExcludes(): array
+    {
+        return (array) $this->get('excludes') ?? [];
     }
 }

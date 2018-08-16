@@ -51,4 +51,9 @@
     <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
         <exclude-pattern>/src/CLI/Commands/*Command.php</exclude-pattern>
     </rule>
+
+    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+        <!--This is because this rule gives internal error Undefined index: parenthesis_owner-->
+        <exclude-pattern>/src/Checkers/UniqueSaltConstants.php</exclude-pattern>
+    </rule>
 </ruleset>

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Itineris\Preflight\Checkers;
+namespace Itineris\Preflight\Checkers\Traits;
 
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
