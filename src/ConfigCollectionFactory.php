@@ -20,8 +20,10 @@ class ConfigCollectionFactory
         try {
             // Toml::parseFile might return void.
             $definitions = (array) Toml::parseFile($path);
-            // See: https://github.com/Automattic/VIP-Coding-Standards/pull/144 about UnusedCaughtExceptions.
-        } catch (ParseException $_) { // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
+
+            // See: Automattic/VIP-Coding-Standards#144 on Github.
+            // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
+        } catch (ParseException $_) {
             // Assume empty config.
             $definitions = [];
         }

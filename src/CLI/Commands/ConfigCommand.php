@@ -45,8 +45,8 @@ class ConfigCommand extends WP_CLI_Command
         if (! file_exists($path)) {
             WP_CLI::error("File '$path' does not exist.");
         }
-
-        $contents = file_get_contents($path); // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData
+        // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData.fileGetContentsUknown
+        $contents = file_get_contents($path);
 
         $contentsWithoutLineBreaks = str_replace(["\r", "\n"], '', $contents);
         if (empty($contentsWithoutLineBreaks)) {
@@ -72,7 +72,8 @@ class ConfigCommand extends WP_CLI_Command
     public function edit(): void
     {
         $path = ConfigPath::get();
-        $contents = file_get_contents($path); // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData
+        // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData.fileGetContentsUknown
+        $contents = file_get_contents($path);
         $result = launch_editor_for_input($contents, 'preflight.toml', 'toml');
 
         if (false === $result) {
