@@ -18,18 +18,15 @@ class DisabledTest extends Unit
      */
     protected $tester;
 
-    public function testStatus()
+    public function testGetStatus()
     {
-        $checker = $checker = Mockery::mock(CheckerInterface::class);
-        $checker->allows('toArray')->andReturn([]);
+        $checker = Mockery::mock(CheckerInterface::class);
 
         $result = new Disabled($checker, []);
 
-        [
-            'status' => $status,
-        ] = $result->toArray();
+        $expected = $result->getStatus();
 
-        $this->assertSame('Disabled', $status);
+        $this->assertSame('Disabled', $expected);
     }
 
     protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult

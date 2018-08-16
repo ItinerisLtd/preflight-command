@@ -60,7 +60,14 @@ class ResultCollectionPresenter
      */
     private static function toRow(ResultInterface $result): array
     {
-        $row = $result->toArray();
+        $row = [
+            'id' => $result->getChecker()->getId(),
+            'link' => $result->getChecker()->getLink(),
+            'description' => $result->getChecker()->getDescription(),
+            'status' => $result->getStatus(),
+            'messages' => $result->getMessages(),
+        ];
+
         $row['status'] = self::colorize($result, $row['status']);
         $row['message'] = implode(PHP_EOL, $row['messages']);
 

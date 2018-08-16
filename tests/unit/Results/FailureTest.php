@@ -18,18 +18,15 @@ class FailureTest extends Unit
      */
     protected $tester;
 
-    public function testStatus()
+    public function testGetStatus()
     {
         $checker = $checker = Mockery::mock(CheckerInterface::class);
-        $checker->allows('toArray')->andReturn([]);
 
         $result = new Failure($checker, []);
 
-        [
-            'status' => $status,
-        ] = $result->toArray();
+        $expected = $result->getStatus();
 
-        $this->assertSame('Failure', $status);
+        $this->assertSame('Failure', $expected);
     }
 
     protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult

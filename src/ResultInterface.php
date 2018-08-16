@@ -6,11 +6,27 @@ namespace Itineris\Preflight;
 interface ResultInterface
 {
     /**
-     * Converts the underlying result into a plain PHP array.
+     * Returns the checker which yields this result instance.
      *
-     * TODO: Rethink this interface. Maybe ::getCheckerId(), ::getStatus(), ::getMessages()?
+     * Note: One checker might yields multiple result instances.
      *
-     * @return array
+     * @return CheckerInterface
      */
-    public function toArray(): array;
+    public function getChecker(): CheckerInterface;
+
+    /**
+     * Returns the status.
+     *
+     * @return string
+     */
+    public function getStatus(): string;
+
+    /**
+     * Returns the result messages.
+     *
+     * One array item stands for one line of message.
+     *
+     * @return string[]
+     */
+    public function getMessages(): array;
 }

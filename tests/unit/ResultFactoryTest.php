@@ -5,6 +5,10 @@ namespace Itineris\Preflight\Test;
 use Closure;
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
+use Itineris\Preflight\Results\Disabled;
+use Itineris\Preflight\Results\Error;
+use Itineris\Preflight\Results\Failure;
+use Itineris\Preflight\Results\Success;
 use Mockery;
 
 class ResultFactoryTest extends \Codeception\Test\Unit
@@ -20,67 +24,59 @@ class ResultFactoryTest extends \Codeception\Test\Unit
             return ResultFactory::makeSuccess(...$args);
         };
 
-        $this->testSimpleStringMessages($make);
-        $this->testNoMessages($make);
-        $this->testNullMessages($make);
-        $this->testArrayMessages($make);
+        $this->testSimpleStringMessages($make, Success::class);
+        $this->testNoMessages($make, Success::class);
+        $this->testNullMessages($make, Success::class);
+        $this->testArrayMessages($make, Success::class);
     }
 
-    private function testSimpleStringMessages(Closure $make)
+    private function testSimpleStringMessages(Closure $make, string $expectedClass)
     {
         $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $subject = $make([$checker, 'Hello world']);
+        $actual = $make([$checker, 'Hello world']);
 
-        [
-            'messages' => $actual,
-        ] = $subject->toArray();
+        $expected = new $expectedClass($checker, ['Hello world']);
 
-        $this->assertSame(['Hello world'], $actual);
+        $this->assertEquals($expected, $actual);
     }
 
-    private function testNoMessages(Closure $make)
+    private function testNoMessages(Closure $make, string $expectedClass)
     {
         $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $subject = $make([$checker]);
+        $actual = $make([$checker]);
 
-        [
-            'messages' => $actual,
-        ] = $subject->toArray();
+        $expected = new $expectedClass($checker, []);
 
-        $this->assertSame([], $actual);
+        $this->assertEquals($expected, $actual);
     }
 
-    private function testNullMessages(Closure $make)
+    private function testNullMessages(Closure $make, string $expectedClass)
     {
         $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $subject = $make([$checker, null]);
+        $actual = $make([$checker, null]);
 
-        [
-            'messages' => $actual,
-        ] = $subject->toArray();
+        $expected = new $expectedClass($checker, []);
 
-        $this->assertSame([], $actual);
+        $this->assertEquals($expected, $actual);
     }
 
-    private function testArrayMessages(Closure $make)
+    private function testArrayMessages(Closure $make, string $expectedClass)
     {
         $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $expected = ['Hello world', 'Bye'];
-        $subject = $make([$checker, $expected]);
+        $message = ['Hello world', 'Bye'];
+        $actual = $make([$checker, $message]);
 
-        [
-            'messages' => $actual,
-        ] = $subject->toArray();
+        $expected = new $expectedClass($checker, $message);
 
-        $this->assertSame($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testMakeFailure()
@@ -89,10 +85,10 @@ class ResultFactoryTest extends \Codeception\Test\Unit
             return ResultFactory::makeFailure(...$args);
         };
 
-        $this->testSimpleStringMessages($make);
-        $this->testNoMessages($make);
-        $this->testNullMessages($make);
-        $this->testArrayMessages($make);
+        $this->testSimpleStringMessages($make, Failure::class);
+        $this->testNoMessages($make, Failure::class);
+        $this->testNullMessages($make, Failure::class);
+        $this->testArrayMessages($make, Failure::class);
     }
 
     public function testMakeError()
@@ -101,10 +97,10 @@ class ResultFactoryTest extends \Codeception\Test\Unit
             return ResultFactory::makeError(...$args);
         };
 
-        $this->testSimpleStringMessages($make);
-        $this->testNoMessages($make);
-        $this->testNullMessages($make);
-        $this->testArrayMessages($make);
+        $this->testSimpleStringMessages($make, Error::class);
+        $this->testNoMessages($make, Error::class);
+        $this->testNullMessages($make, Error::class);
+        $this->testArrayMessages($make, Error::class);
     }
 
     public function testMakeDisabled()
@@ -113,9 +109,9 @@ class ResultFactoryTest extends \Codeception\Test\Unit
             return ResultFactory::makeDisabled(...$args);
         };
 
-        $this->testSimpleStringMessages($make);
-        $this->testNoMessages($make);
-        $this->testNullMessages($make);
-        $this->testArrayMessages($make);
+        $this->testSimpleStringMessages($make, Disabled::class);
+        $this->testNoMessages($make, Disabled::class);
+        $this->testNullMessages($make, Disabled::class);
+        $this->testArrayMessages($make, Disabled::class);
     }
 }
