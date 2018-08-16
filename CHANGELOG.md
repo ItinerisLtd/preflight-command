@@ -1,8 +1,28 @@
 # Change Log
 
-## [0.1.0](https://github.com/ItinerisLtd/preflight-command/tree/0.1.0) (2018-08-15)
+## [0.2.0](https://github.com/ItinerisLtd/preflight-command/tree/0.2.0) (2018-08-16)
+[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.1.0...0.2.0)
+
 **Merged pull requests:**
 
+- Bikeshedding Round 3 [\#17](https://github.com/ItinerisLtd/preflight-command/pull/17) ([TangRufus](https://github.com/TangRufus))
+- Add `ProductionHomeUrl` and `ProductionSiteUrl` [\#16](https://github.com/ItinerisLtd/preflight-command/pull/16) ([TangRufus](https://github.com/TangRufus))
+- Bikeshedding again [\#15](https://github.com/ItinerisLtd/preflight-command/pull/15) ([TangRufus](https://github.com/TangRufus))
+- Extract `BlacklistedUsernames` and `BlacklistedUserEmails` [\#14](https://github.com/ItinerisLtd/preflight-command/pull/14) ([TangRufus](https://github.com/TangRufus))
+- Add `HttpsHomeUrl` and `HttpsSiteUrl` checkers [\#13](https://github.com/ItinerisLtd/preflight-command/pull/13) ([TangRufus](https://github.com/TangRufus))
+- Create LICENSE [\#11](https://github.com/ItinerisLtd/preflight-command/pull/11) ([TangRufus](https://github.com/TangRufus))
+- Bikeshedding [\#10](https://github.com/ItinerisLtd/preflight-command/pull/10) ([TangRufus](https://github.com/TangRufus))
+- Add `DefinedSaltConstants` and `UniqueSaltConstants` [\#9](https://github.com/ItinerisLtd/preflight-command/pull/9) ([TangRufus](https://github.com/TangRufus))
+- Add `Checkers/Sitemap` [\#8](https://github.com/ItinerisLtd/preflight-command/pull/8) ([TangRufus](https://github.com/TangRufus))
+- Add `Checkers/RobotsTxt` [\#7](https://github.com/ItinerisLtd/preflight-command/pull/7) ([TangRufus](https://github.com/TangRufus))
+- Apply code style [\#6](https://github.com/ItinerisLtd/preflight-command/pull/6) ([TangRufus](https://github.com/TangRufus))
+- Refactor: Results accept multi-line messages  [\#5](https://github.com/ItinerisLtd/preflight-command/pull/5) ([TangRufus](https://github.com/TangRufus))
+- Extract `CheckerCollectionPresenter` [\#4](https://github.com/ItinerisLtd/preflight-command/pull/4) ([TangRufus](https://github.com/TangRufus))
+
+## [0.1.0](https://github.com/ItinerisLtd/preflight-command/tree/0.1.0) (2018-08-14)
+**Merged pull requests:**
+
+- Version bump 0.1.0 [\#3](https://github.com/ItinerisLtd/preflight-command/pull/3) ([TangRufus](https://github.com/TangRufus))
 - First release [\#2](https://github.com/ItinerisLtd/preflight-command/pull/2) ([TangRufus](https://github.com/TangRufus))
 
 
