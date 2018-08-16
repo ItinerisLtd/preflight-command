@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Itineris\Preflight\Test\Validator;
+namespace Itineris\Preflight\Test\Validators;
 
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
