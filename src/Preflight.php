@@ -5,6 +5,8 @@ namespace Itineris\Preflight;
 
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Checkers\DefinedSaltConstants;
+use Itineris\Preflight\Checkers\HttpsHomeUrl;
+use Itineris\Preflight\Checkers\HttpsSiteUrl;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\RobotsTxt;
 use Itineris\Preflight\Checkers\Sitemap;
@@ -27,6 +29,8 @@ class Preflight
     private const CHECKERS = [
         BadUserLoginOrEmail::class,
         DefinedSaltConstants::class,
+        HttpsHomeUrl::class,
+        HttpsSiteUrl::class,
         PrettyPermalinks::class,
         RobotsTxt::class,
         Sitemap::class,
@@ -38,7 +42,6 @@ class Preflight
      */
     public static function run(): void
     {
-        // TODO: CommandNamespace?
         foreach (self::COMMANDS as $name => $callable) {
             WP_CLI::add_command($name, $callable);
         }
