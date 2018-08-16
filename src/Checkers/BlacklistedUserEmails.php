@@ -17,6 +17,7 @@ class BlacklistedUserEmails extends AbstractChecker
     public const ID = 'blacklisted-user-emails';
     public const DESCRIPTION = 'Disallow blacklisted user emails.';
     public const DEFAULT_BLACKLIST = [
+        'dev-email@flywheel.local',
         'root@example.test',
     ];
     const FAILURE_MESSAGE = 'Blacklisted user emails found:';
