@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Itineris\Preflight;
 
 use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
+use Itineris\Preflight\Checkers\BlacklistedUserEmails;
+use Itineris\Preflight\Checkers\BlacklistedUsernames;
 use Itineris\Preflight\Checkers\DefinedSaltConstants;
 use Itineris\Preflight\Checkers\HttpsHomeUrl;
 use Itineris\Preflight\Checkers\HttpsSiteUrl;
@@ -27,7 +29,8 @@ class Preflight
     ];
 
     private const CHECKERS = [
-        BadUserLoginOrEmail::class,
+        BlacklistedUserEmails::class,
+        BlacklistedUsernames::class,
         DefinedSaltConstants::class,
         HttpsHomeUrl::class,
         HttpsSiteUrl::class,
