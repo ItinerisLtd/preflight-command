@@ -8,7 +8,6 @@ use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
-use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 use WP_Mock;
 

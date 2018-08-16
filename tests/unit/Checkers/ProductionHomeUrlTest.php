@@ -28,7 +28,7 @@ class ProductionHomeUrlTest extends Unit
                ->once();
 
         $config = new Config([
-            'url' => 'https://my.production.site'
+            'url' => 'https://my.production.site',
         ]);
         $checker = new ProductionHomeUrl();
 
@@ -45,7 +45,7 @@ class ProductionHomeUrlTest extends Unit
                ->once();
 
         $config = new Config([
-            'url' => 'https://your.production.site/'
+            'url' => 'https://your.production.site/',
         ]);
         $checker = new ProductionHomeUrl();
 
@@ -62,7 +62,7 @@ class ProductionHomeUrlTest extends Unit
                ->once();
 
         $config = new Config([
-            'url' => 'https://their.production.site/'
+            'url' => 'https://their.production.site/',
         ]);
         $checker = new ProductionHomeUrl();
 
@@ -88,7 +88,7 @@ class ProductionHomeUrlTest extends Unit
         $expected = ResultFactory::makeError(
             $checker,
             [
-                'Expected URL not defined in preflight.toml.'
+                'Expected URL not defined in preflight.toml.',
             ]
         );
         $this->assertEquals($expected, $actual);

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight;
 
-use Itineris\Preflight\Checkers\BadUserLoginOrEmail;
 use Itineris\Preflight\Checkers\BlacklistedUserEmails;
 use Itineris\Preflight\Checkers\BlacklistedUsernames;
 use Itineris\Preflight\Checkers\DefinedSaltConstants;
