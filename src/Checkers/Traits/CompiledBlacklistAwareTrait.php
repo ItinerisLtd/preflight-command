@@ -12,8 +12,6 @@ trait CompiledBlacklistAwareTrait
     /**
      * Returns error if compiled blacklist is empty.
      *
-     * TODO: Test me!
-     *
      * @param Config $config The config instance.
      *
      * @return Error|null
