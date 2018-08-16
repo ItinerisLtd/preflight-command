@@ -29,7 +29,7 @@ class BlacklistedEmailsTest extends Unit
         WP_Mock::userFunction('Itineris\Preflight\Checkers\get_user_by')
                ->with('email', Mockery::type('string'))
                ->andReturnFalse()
-               ->times(1);
+               ->twice();
 
         $config = new Config([]);
         $checker = new BlacklistedUserEmails();
