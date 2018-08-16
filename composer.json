@@ -1,7 +1,7 @@
 {
     "name": "itinerisltd/preflight-command",
     "type": "wp-cli-package",
-    "description": "TODO",
+    "description": "Check for common mistakes and enforce best practices before take off.",
     "keywords": [
         "wordpress",
         "wp",

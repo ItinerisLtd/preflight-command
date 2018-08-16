@@ -6,7 +6,7 @@ namespace Itineris\Preflight\CLI\Commands;
 use WP_CLI\Dispatcher\CommandNamespace as BaseCommandNamespace;
 
 /**
- * Check for common mistakes before take off.
+ * Check for common mistakes and enforce best practices before take off.
  *
  * ## EXAMPLES
  *
