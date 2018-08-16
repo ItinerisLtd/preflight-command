@@ -42,7 +42,6 @@ class Preflight
      */
     public static function run(): void
     {
-        // TODO: CommandNamespace?
         foreach (self::COMMANDS as $name => $callable) {
             WP_CLI::add_command($name, $callable);
         }
