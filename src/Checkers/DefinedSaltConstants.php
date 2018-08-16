@@ -5,9 +5,9 @@ namespace Itineris\Preflight\Checkers;
 
 use Itineris\Preflight\Checkers\Traits\CompiledIncludesAwareTrait;
 use Itineris\Preflight\Config;
-use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Error;
+use Itineris\Preflight\Validators\DefinedConstants;
 
 class DefinedSaltConstants extends AbstractChecker
 {
@@ -35,21 +35,11 @@ class DefinedSaltConstants extends AbstractChecker
      */
     protected function run(Config $config): ResultInterface
     {
-        $notDefined = array_filter(
-            $config->compileIncludes(static::DEFAULT_INCLUDES),
-            function (string $key): bool {
-                // phpcs:ignore WordPressVIPMinimum.Constants.ConstantString.NotCheckingConstantName
-                return ! defined($key);
-            }
-        );
+        $includes = $config->compileIncludes(static::DEFAULT_INCLUDES);
 
-        if (! empty($notDefined)) {
-            $messages = array_merge(['Salt constants are not defined:'], $notDefined);
+        $validator = DefinedConstants::make($this);
 
-            return ResultFactory::makeFailure($this, $messages);
-        }
-
-        return ResultFactory::makeSuccess($this);
+        return $validator->validate(...$includes);
     }
 
     /**
