@@ -22,15 +22,15 @@ class SitemapTest extends Unit
 
     public function testCheckCustomPath()
     {
-        WP_Mock::userFunction('home_url')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
                ->with('/my-custom-sitemap.txt')
                ->andReturn('https://example.test/my-custom-sitemap.txt');
 
-        WP_Mock::userFunction('wp_remote_get')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_get')
                ->with('https://example.test/my-custom-sitemap.txt')
                ->andReturn(['fake-status' => 200]);
 
-        WP_Mock::userFunction('wp_remote_retrieve_response_code')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_retrieve_response_code')
                ->with(['fake-status' => 200])
                ->andReturn(200);
 
@@ -44,15 +44,15 @@ class SitemapTest extends Unit
 
     public function testCheckSuccess()
     {
-        WP_Mock::userFunction('home_url')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
                ->with('/sitemap.xml')
                ->andReturn('https://example.test/sitemap.xml');
 
-        WP_Mock::userFunction('wp_remote_get')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_get')
                ->with('https://example.test/sitemap.xml')
                ->andReturn(['fake-status' => 200]);
 
-        WP_Mock::userFunction('wp_remote_retrieve_response_code')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_retrieve_response_code')
                ->with(['fake-status' => 200])
                ->andReturn(200);
 
@@ -66,15 +66,15 @@ class SitemapTest extends Unit
 
     public function testCheckFailure404()
     {
-        WP_Mock::userFunction('home_url')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
                ->with('/sitemap.xml')
                ->andReturn('https://example.test/sitemap.xml');
 
-        WP_Mock::userFunction('wp_remote_get')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_get')
                ->with('https://example.test/sitemap.xml')
                ->andReturn(['fake-status' => 404]);
 
-        WP_Mock::userFunction('wp_remote_retrieve_response_code')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_retrieve_response_code')
                ->with(['fake-status' => 404])
                ->andReturn(404);
 
@@ -92,15 +92,15 @@ class SitemapTest extends Unit
 
     public function testCheckFailureEmptyString()
     {
-        WP_Mock::userFunction('home_url')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
                ->with('/sitemap.xml')
                ->andReturn('https://example.test/sitemap.xml');
 
-        WP_Mock::userFunction('wp_remote_get')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_get')
                ->with('https://example.test/sitemap.xml')
                ->andReturn(['fake-status' => 404]);
 
-        WP_Mock::userFunction('wp_remote_retrieve_response_code')
+        WP_Mock::userFunction('Itineris\Preflight\Checkers\wp_remote_retrieve_response_code')
                ->with(['fake-status' => 404])
                ->andReturn('');
 
