@@ -22,9 +22,20 @@ class RobotsTxt extends AbstractChecker
     public function run(Config $config): ResultInterface
     {
         $url = home_url('/robots.txt');
-        $responseCode = wp_remote_retrieve_response_code(
-            wp_remote_get($url)
-        );
+
+        $response = wp_remote_get($url);
+
+        if (is_wp_error($response)) {
+            return ResultFactory::makeFailure(
+                $this,
+                array_merge(
+                    ['Unable to reach ' . $url],
+                    $response->get_error_messages()
+                )
+            );
+        }
+
+        $responseCode = wp_remote_retrieve_response_code($response);
 
         if (! is_int($responseCode)) {
             return ResultFactory::makeFailure($this, 'Unable to reach ' . $url);
