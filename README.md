@@ -11,11 +11,80 @@ Check for common mistakes and enforce best practices before take off.
 TODO: Write the readme!
 
 ```bash
+# We need WP CLI v2
+$ wp cli update
+
 $ wp package install itinerisltd/preflight-command:@stable
 
 $ wp help preflight
+$ wp help preflight <subcommand>
+
+$ cd /path/to/my/site
 
 $ wp preflight checklist
 $ wp preflight config validate
 $ wp preflight check
+
+$ wp preflight check --format=yaml --fields=id,status,description,messages
 ```
+
+## For Itineris Team
+
+**Note: The `preflight.toml` path will change in next release!**
+
+Tips: `$ wp help preflight config`
+
+Copy this to `<bedrock>/web/wp/preflight.toml`:
+
+```toml
+# <web>/web/wp/preflight.toml
+
+# Use TOML v0.4.0 syntax
+# See: https://github.com/toml-lang/toml/blob/master/versions/en/toml-v0.4.0.md
+
+# TOML v0.5.0 not yet supported
+
+# Use expected production URL (i.e: client's URL)
+# Starts with 'https://'
+[production-site-url]
+url = 'https://preflightcommand.local/'
+
+[production-home-url]
+url = 'https://preflightcommand.local'
+
+# Everything above is mandatory
+# -----------------------------
+# Everything below is example
+# All of them are optional
+# Remove if possible
+
+[blacklisted-usernames]
+blacklist = [
+  'itineris',
+  'tim',
+]
+whitelist = [
+  'root',
+]
+
+[blacklisted-user-emails]
+blacklist = [
+  'hello@itineris.co.uk',
+]
+whitelist = [
+  'root@example.test',
+]
+
+# This is default. Remove if possible
+[sitemap]
+path = '/sitemap_index.xml' # Yoast SEO
+```
+
+### For Itineris Team
+
+```bash
+$ composer test
+$ composer check-style
+```
+
+Pull requests without tests will not be accepted!

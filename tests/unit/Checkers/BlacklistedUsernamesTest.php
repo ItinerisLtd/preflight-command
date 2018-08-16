@@ -69,7 +69,7 @@ class BlacklistedUsernamesTest extends Unit
             $checker,
             [
                 BlacklistedUsernames::FAILURE_MESSAGE,
-                'ID: 456 root <root@example.test> is blacklisted'
+                'ID: 456 root <root@example.test> is blacklisted',
             ]
         );
         $this->assertEquals($expected, $actual);
