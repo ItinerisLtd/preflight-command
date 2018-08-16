@@ -37,25 +37,9 @@ abstract class AbstractResult implements ResultInterface
     /**
      * {@inheritdoc}
      *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return array_merge(
-            $this->checker->toArray(),
-            [
-                'status' => $this->getStatus(),
-                'messages' => $this->getMessages(),
-            ]
-        );
-    }
-
-    /**
-     * Returns the status.
-     *
      * @return string
      */
-    protected function getStatus(): string
+    public function getStatus(): string
     {
         return basename(
             str_replace(
@@ -67,12 +51,22 @@ abstract class AbstractResult implements ResultInterface
     }
 
     /**
-     * Returns the result message.
+     * {@inheritdoc}
      *
      * @return string[]
      */
-    protected function getMessages(): array
+    public function getMessages(): array
     {
         return $this->messages;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return CheckerInterface
+     */
+    public function getChecker(): CheckerInterface
+    {
+        return $this->checker;
     }
 }

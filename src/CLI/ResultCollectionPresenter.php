@@ -54,13 +54,22 @@ class ResultCollectionPresenter
     /**
      * Converts the underlying result into a plain PHP array which printable as console table row.
      *
+     * Note: One checker might yields multiple result instances.
+     *
      * @param ResultInterface $result The result instance.
      *
      * @return array
      */
     private static function toRow(ResultInterface $result): array
     {
-        $row = $result->toArray();
+        $row = [
+            'id' => $result->getChecker()->getId(),
+            'link' => $result->getChecker()->getLink(),
+            'description' => $result->getChecker()->getDescription(),
+            'status' => $result->getStatus(),
+            'messages' => $result->getMessages(),
+        ];
+
         $row['status'] = self::colorize($result, $row['status']);
         $row['message'] = implode(PHP_EOL, $row['messages']);
 

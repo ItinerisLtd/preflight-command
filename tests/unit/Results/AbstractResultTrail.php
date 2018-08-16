@@ -10,20 +10,15 @@ use Mockery;
 
 trait AbstractResultTrail
 {
-    public function testToArrayContainsCheckerInfo()
+    public function testGetChecker()
     {
-        $checkerArray = [
-            'a' => 'b',
-            'c' => 'd',
-        ];
-        $checker = $checker = Mockery::mock(CheckerInterface::class);
-        $checker->shouldReceive('toArray')->andReturn($checkerArray);
+        $expected = Mockery::mock(CheckerInterface::class);
 
-        $subject = $this->getSubject($checker, []);
+        $subject = $this->getSubject($expected, []);
 
-        $actual = $subject->toArray();
+        $actual = $subject->getChecker();
 
-        $this->assertArraySubset($checkerArray, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     public function testImplementResultInterface()
@@ -47,14 +42,11 @@ trait AbstractResultTrail
     public function testGetMessages()
     {
         $checker = Mockery::mock(CheckerInterface::class);
-        $checker->allows('toArray')->andReturn([]);
 
         $expected = ['Hello world', 'Good luck'];
         $subject = $this->getSubject($checker, $expected);
 
-        [
-            'messages' => $actual,
-        ] = $subject->toArray();
+        $actual = $subject->getMessages();
 
         $this->assertSame($expected, $actual);
     }

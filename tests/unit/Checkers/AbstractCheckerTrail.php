@@ -21,18 +21,22 @@ trait AbstractCheckerTrail
         $this->assertSame($subject::ID, $actual);
     }
 
-    public function testToArray()
+    public function testGetLink()
     {
         $subject = $this->getSubject();
 
-        $actual = $subject->toArray();
+        $actual = $subject->getLink();
 
-        $expected = [
-            'id' => $subject::ID,
-            'link' => $subject::LINK_BASE . $subject::ID . '/',
-            'description' => $subject::DESCRIPTION,
-        ];
-        $this->assertSame($expected, $actual);
+        $this->assertSame($subject::LINK_BASE . $subject::ID . '/', $actual);
+    }
+
+    public function testGetDescription()
+    {
+        $subject = $this->getSubject();
+
+        $actual = $subject->getDescription();
+
+        $this->assertSame($subject::DESCRIPTION, $actual);
     }
 
     public function testImplementCheckerInterface()

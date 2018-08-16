@@ -53,11 +53,11 @@ class CheckCommand extends WP_CLI_Command
      *     # Run the checklist and list all results in given format
      *     $ wp preflight check --format=json
      *
-     *     # Run the checklist and list all results with specific fields in given format
-     *     $ wp preflight check --fields=id,status,messages --format=yaml
+     *     # Run the checklist and list all results with given fields
+     *     $ wp preflight check --fields=id,status,message,description,link
      *
-     *     # Run the checklist and list all results with all available fields in given format
-     *     $ wp preflight check --fields=id,link,status,description,message,messages --format=csv
+     *     # Run the checklist and list all results with given fields in given format
+     *     $ wp preflight check --fields=id,description,link,status,messages --format=yaml
      */
     public function __invoke($_args, $assocArgs): void
     {

@@ -29,7 +29,7 @@ class BlacklistedEmailsTest extends Unit
         WP_Mock::userFunction('Itineris\Preflight\Checkers\get_user_by')
                ->with('email', Mockery::type('string'))
                ->andReturnFalse()
-               ->times(1);
+               ->twice();
 
         $config = new Config([]);
         $checker = new BlacklistedUserEmails();
@@ -69,7 +69,7 @@ class BlacklistedEmailsTest extends Unit
             $checker,
             [
                 BlacklistedUserEmails::FAILURE_MESSAGE,
-                'ID: 456 root <root@example.test> is blacklisted',
+                'ID: 456 root <root@example.test>',
             ]
         );
         $this->assertEquals($expected, $actual);
@@ -125,8 +125,8 @@ class BlacklistedEmailsTest extends Unit
             $checker,
             [
                 BlacklistedUserEmails::FAILURE_MESSAGE,
-                'ID: 987 root <root@example.test> is blacklisted',
-                'ID: 123 my-user-123 <my-user-123@example.test> is blacklisted',
+                'ID: 987 root <root@example.test>',
+                'ID: 123 my-user-123 <my-user-123@example.test>',
             ]
         );
         $this->assertEquals($expected, $actual);

@@ -58,7 +58,11 @@ class CheckerCollectionPresenter
     private static function toArray(CheckerCollection $checkerCollection): array
     {
         return array_map(function (CheckerInterface $checker): array {
-            return $checker->toArray();
+            return [
+                'id' => $checker->getId(),
+                'description' => $checker->getDescription(),
+                'link' => $checker->getLink(),
+            ];
         }, $checkerCollection->all());
     }
 }

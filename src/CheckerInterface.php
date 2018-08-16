@@ -14,6 +14,20 @@ interface CheckerInterface
     public function getId(): string;
 
     /**
+     * Returns the URL to the checker document web page.
+     *
+     * @return string
+     */
+    public function getLink(): string;
+
+    /**
+     * Returns the description of the checker.
+     *
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
      * Run the check and return a result.
      *
      * @param Config $config The config instance.
@@ -21,13 +35,4 @@ interface CheckerInterface
      * @return ResultInterface
      */
     public function check(Config $config): ResultInterface;
-
-    /**
-     * Converts the underlying checker into a plain PHP array.
-     *
-     * TODO: Rethink this interface. Maybe ::getId(), ::getDescription(), ::getLink()?
-     *
-     * @return array
-     */
-    public function toArray(): array;
 }

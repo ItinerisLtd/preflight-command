@@ -24,18 +24,8 @@ abstract class AbstractChecker implements CheckerInterface
     public static function register(CheckerCollection $checkerCollection): void
     {
         $checkerCollection->set(
-            static::make()
+            new static()
         );
-    }
-
-    /**
-     * Returns an instance of this class.
-     *
-     * @return AbstractChecker
-     */
-    protected static function make(): self
-    {
-        return new static();
     }
 
     /**
@@ -47,25 +37,11 @@ abstract class AbstractChecker implements CheckerInterface
     }
 
     /**
-     * Converts the underlying checker into a plain PHP array.
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->getId(),
-            'link' => $this->getLink(),
-            'description' => $this->getDescription(),
-        ];
-    }
-
-    /**
      * Returns the URL to the checker document web page.
      *
      * @return string
      */
-    protected function getLink(): string
+    public function getLink(): string
     {
         return self::LINK_BASE . $this->getId() . '/';
     }
@@ -75,7 +51,7 @@ abstract class AbstractChecker implements CheckerInterface
      *
      * @return string
      */
-    protected function getDescription(): string
+    public function getDescription(): string
     {
         return static::DESCRIPTION;
     }
