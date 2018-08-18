@@ -8,9 +8,9 @@ use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;
 use WP_CLI;
 
-class LatestPlugins extends AbstractChecker
+class OutdatedPlugins extends AbstractChecker
 {
-    public const ID = 'updated-plugins';
+    public const ID = 'outdated-plugins';
     public const DESCRIPTION = 'Ensure all plugins are up-to-date.';
     public const FAILURE_MESSAGE = 'Plugin updates available:';
 

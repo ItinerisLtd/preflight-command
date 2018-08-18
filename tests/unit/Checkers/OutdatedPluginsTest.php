@@ -5,13 +5,13 @@ namespace Itineris\Preflight\Test\Checkers;
 
 use Codeception\Test\Unit;
 use Itineris\Preflight\Checkers\AbstractChecker;
-use Itineris\Preflight\Checkers\LatestPlugins;
+use Itineris\Preflight\Checkers\OutdatedPlugins;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Success;
 use Mockery;
 
-class LatestPluginsTest extends Unit
+class OutdatedPluginsTest extends Unit
 {
     use AbstractCheckerTrail;
 
@@ -28,7 +28,7 @@ class LatestPluginsTest extends Unit
                ->andReturn([])
                ->once();
 
-        $checker = new LatestPlugins();
+        $checker = new OutdatedPlugins();
 
         $actual = $checker->check(
             new Config([])
@@ -51,7 +51,7 @@ class LatestPluginsTest extends Unit
                ])
                ->once();
 
-        $checker = new LatestPlugins();
+        $checker = new OutdatedPlugins();
 
         $actual = $checker->check(
             new Config([
@@ -78,7 +78,7 @@ class LatestPluginsTest extends Unit
                ])
                ->once();
 
-        $checker = new LatestPlugins();
+        $checker = new OutdatedPlugins();
 
         $actual = $checker->check(
             new Config([])
@@ -113,7 +113,7 @@ class LatestPluginsTest extends Unit
                ])
                ->once();
 
-        $checker = new LatestPlugins();
+        $checker = new OutdatedPlugins();
 
         $actual = $checker->check(
             new Config([])
@@ -149,7 +149,7 @@ class LatestPluginsTest extends Unit
                ])
                ->once();
 
-        $checker = new LatestPlugins();
+        $checker = new OutdatedPlugins();
 
         $actual = $checker->check(
             new Config([
@@ -171,6 +171,6 @@ class LatestPluginsTest extends Unit
 
     protected function getSubject(): AbstractChecker
     {
-        return new LatestPlugins();
+        return new OutdatedPlugins();
     }
 }
