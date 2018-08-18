@@ -11,8 +11,7 @@ class Sitemap extends AbstractChecker
 {
     public const ID = 'sitemap';
     public const DESCRIPTION = 'Ensure sitemap is 200 OK.';
-
-    private const DEFAULT_PATH = '/sitemap_index.xml';
+    protected const DEFAULT_PATH = '/sitemap_index.xml';
 
     /**
      * {@inheritdoc}

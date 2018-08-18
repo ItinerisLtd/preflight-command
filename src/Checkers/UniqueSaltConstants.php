@@ -15,7 +15,7 @@ class UniqueSaltConstants extends AbstractChecker
 
     public const ID = 'unique-salt-constants';
     public const DESCRIPTION = 'Ensure each salt constant is unique.';
-    const DEFAULT_INCLUDES = [
+    public const DEFAULT_INCLUDES = [
         'AUTH_KEY',
         'SECURE_AUTH_KEY',
         'LOGGED_IN_KEY',

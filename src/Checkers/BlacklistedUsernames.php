@@ -24,7 +24,7 @@ class BlacklistedUsernames extends AbstractChecker
         'webmaster',
         'www',
     ];
-    const FAILURE_MESSAGE = 'Blacklisted usernames found:';
+    public const FAILURE_MESSAGE = 'Blacklisted usernames found:';
 
     /**
      * {@inheritdoc}

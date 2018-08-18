@@ -20,7 +20,7 @@ class BlacklistedUserEmails extends AbstractChecker
         'dev-email@flywheel.local',
         'root@example.test',
     ];
-    const FAILURE_MESSAGE = 'Blacklisted user emails found:';
+    public const FAILURE_MESSAGE = 'Blacklisted user emails found:';
 
     /**
      * {@inheritdoc}

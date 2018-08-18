@@ -17,7 +17,7 @@ class RequiredSaltConstants extends AbstractChecker
 
     public const ID = 'required-salt-constants';
     public const DESCRIPTION = 'Ensure required salt constants are defined.';
-    const DEFAULT_INCLUDES = [
+    public const DEFAULT_INCLUDES = [
         'AUTH_KEY',
         'SECURE_AUTH_KEY',
         'LOGGED_IN_KEY',
