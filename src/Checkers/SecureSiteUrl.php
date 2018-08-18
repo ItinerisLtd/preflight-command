@@ -8,11 +8,11 @@ use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Validators\HttpsUrls;
 
-class HttpsSiteUrl extends AbstractChecker
+class SecureSiteUrl extends AbstractChecker
 {
     use ValidatorAwareTrait;
 
-    public const ID = 'https-site-url';
+    public const ID = 'secure-site-url';
     public const DESCRIPTION = 'Ensure site URL is secure (HTTPS).';
     public const FAILURE_MESSAGE = 'Insecure site URL (non-HTTPS)';
 

@@ -8,11 +8,11 @@ use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Validators\HttpsUrls;
 
-class HttpsHomeUrl extends AbstractChecker
+class SecureHomeUrl extends AbstractChecker
 {
     use ValidatorAwareTrait;
 
-    public const ID = 'https-home-url';
+    public const ID = 'secure-home-url';
     public const DESCRIPTION = 'Ensure home URL is secure (HTTPS).';
     public const FAILURE_MESSAGE = 'Insecure home URL (non-HTTPS)';
 

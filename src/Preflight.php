@@ -6,8 +6,8 @@ namespace Itineris\Preflight;
 use Itineris\Preflight\Checkers\AllowIndexing;
 use Itineris\Preflight\Checkers\BlacklistedUserEmails;
 use Itineris\Preflight\Checkers\BlacklistedUsernames;
-use Itineris\Preflight\Checkers\HttpsHomeUrl;
-use Itineris\Preflight\Checkers\HttpsSiteUrl;
+use Itineris\Preflight\Checkers\SecureHomeUrl;
+use Itineris\Preflight\Checkers\SecureSiteUrl;
 use Itineris\Preflight\Checkers\InactivePlugins;
 use Itineris\Preflight\Checkers\OutdatedCore;
 use Itineris\Preflight\Checkers\OutdatedPackages;
@@ -39,8 +39,6 @@ class Preflight
         AllowIndexing::class,
         BlacklistedUserEmails::class,
         BlacklistedUsernames::class,
-        HttpsHomeUrl::class,
-        HttpsSiteUrl::class,
         InactivePlugins::class,
         OutdatedCore::class,
         OutdatedPackages::class,
@@ -48,6 +46,8 @@ class Preflight
         PrettyPermalinks::class,
         RequiredSaltConstants::class,
         RobotsTxt::class,
+        SecureHomeUrl::class,
+        SecureSiteUrl::class,
         Sitemap::class,
         UniqueSaltConstants::class,
     ];
