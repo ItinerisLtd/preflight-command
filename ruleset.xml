@@ -57,6 +57,7 @@
     <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
         <!--This is because this rule gives internal error Undefined index: parenthesis_owner-->
         <exclude-pattern>/src/Checkers/LatestPlugins.php</exclude-pattern>
+        <exclude-pattern>/src/Checkers/InactivePlugins.php</exclude-pattern>
         <exclude-pattern>/src/Checkers/UniqueSaltConstants.php</exclude-pattern>
     </rule>
 </ruleset>
