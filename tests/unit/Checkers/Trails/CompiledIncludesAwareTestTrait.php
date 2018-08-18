@@ -6,16 +6,21 @@ namespace Itineris\Preflight\Test\Checkers\Trails;
 use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
+use Mockery;
 
 trait CompiledIncludesAwareTestTrait
 {
     public function testCheckEmptyIncludesError()
     {
-        $subject = $this->getSubject();
+        $config = Mockery::mock(
+            new Config([])
+        );
+        $config->expects('compileIncludes')
+               ->with(Mockery::type('array'))
+               ->andReturn([])
+               ->once();
 
-        $config = new Config([
-            'whitelist' => $subject::DEFAULT_INCLUDES,
-        ]);
+        $subject = $this->getSubject();
 
         $actual = $subject->check($config);
 
