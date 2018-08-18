@@ -17,9 +17,9 @@ class ConfigPathTest extends Unit
     public function testGetPreflightDir()
     {
         WP_Mock::userFunction('Itineris\Preflight\defined')
-                ->with('PREFLIGHT_DIR')
-                ->andReturnTrue()
-                ->once();
+               ->with('PREFLIGHT_DIR')
+               ->andReturnTrue()
+               ->once();
 
         WP_Mock::userFunction('Itineris\Preflight\constant')
                ->with('PREFLIGHT_DIR')

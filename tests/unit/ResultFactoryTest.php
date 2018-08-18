@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace Itineris\Preflight\Test;
 
 use Closure;
+use Codeception\Test\Unit;
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Disabled;
@@ -11,7 +13,7 @@ use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 use Mockery;
 
-class ResultFactoryTest extends \Codeception\Test\Unit
+class ResultFactoryTest extends Unit
 {
     /**
      * @var \Itineris\Preflight\Test\UnitTester

@@ -14,7 +14,7 @@ use Mockery;
 use WP_Mock;
 use WP_User;
 
-class BlacklistedEmailsTest extends Unit
+class BlacklistedUserEmailsTest extends Unit
 {
     use AbstractCheckerTrail;
     use CompiledBlacklistAwareTestTrait;
