@@ -33,7 +33,7 @@ $ wp preflight check --fields=id,description,link,status,messages --format=yaml
 
 Default location is `ABSPATH . 'preflight.toml'`
 
-Customizable by `PREFLIGHT_DIR`. Must be ends with `/`
+Customizable by `PREFLIGHT_DIR`.
 
 If `PREFLIGHT_DIR` constant is defined, we look for `PREFLIGHT_DIR . 'preflight.toml'`. 
 
@@ -45,7 +45,7 @@ Tips: `$ wp preflight config path`
 // wp-config.php
 
 // One level up from `wp-config.php`
-define( 'PREFLIGHT_DIR', dirname( __FILE__, 2 ) . '/' );
+define( 'PREFLIGHT_DIR', dirname( __FILE__, 2 ));
 
 // One level up from `wp-config.php`
 define( 'PREFLIGHT_DIR', '/absolute/path/to/the/dir/' );
@@ -58,7 +58,7 @@ This means `<bedrock>/config/preflight.toml`:
 ```php
 // <bedrock>/config/application.php
 
-Config::define('PREFLIGHT_DIR', __DIR__ . '/');
+Config::define('PREFLIGHT_DIR', __DIR__);
 ```
 
 ### Old Bedrock without `roots/wp-config`
@@ -69,7 +69,7 @@ This means `<bedrock>/config/preflight.toml`:
 // <bedrock>/config/application.php
 
 // Not recommanded. Update Bedrock!!!!
-define('PREFLIGHT_DIR', __DIR__ . '/');
+define('PREFLIGHT_DIR', __DIR__);
 ```
 
 ## For Itineris Team

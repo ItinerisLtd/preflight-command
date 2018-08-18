@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight;
 
+use function WP_CLI\Utils\normalize_path;
+use function WP_CLI\Utils\trailingslashit;
+
 class ConfigPath
 {
     /**
@@ -12,14 +15,20 @@ class ConfigPath
      */
     public static function get(): ?string
     {
+        $dir = null;
         if (defined('PREFLIGHT_DIR')) {
-            return constant('PREFLIGHT_DIR') . 'preflight.toml';
+            $dir = constant('PREFLIGHT_DIR');
+        } elseif (defined('ABSPATH')) {
+            // TODO: Is ABSPATH checking necessary?
+            $dir = constant('ABSPATH');
         }
 
-        if (defined('ABSPATH')) {
-            return constant('ABSPATH') . 'preflight.toml';
+        if (empty($dir)) {
+            return null;
         }
 
-        return null;
+        $path = trailingslashit($dir) . 'preflight.toml';
+
+        return normalize_path($path);
     }
 }
