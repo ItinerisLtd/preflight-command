@@ -59,7 +59,7 @@ class UniqueSaltConstants extends AbstractChecker
         );
 
         if (! empty($duplicated)) {
-            $messages = array_merge(['Salt constant values are not unique (or not defined):'], $duplicated);
+            $messages = array_merge(['Salt constants are not unique (or not defined):'], $duplicated);
 
             return ResultFactory::makeFailure($this, $messages);
         }

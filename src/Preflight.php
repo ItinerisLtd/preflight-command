@@ -6,7 +6,6 @@ namespace Itineris\Preflight;
 use Itineris\Preflight\Checkers\AllowIndexing;
 use Itineris\Preflight\Checkers\BlacklistedUserEmails;
 use Itineris\Preflight\Checkers\BlacklistedUsernames;
-use Itineris\Preflight\Checkers\DefinedSaltConstants;
 use Itineris\Preflight\Checkers\HttpsHomeUrl;
 use Itineris\Preflight\Checkers\HttpsSiteUrl;
 use Itineris\Preflight\Checkers\InactivePlugins;
@@ -17,6 +16,7 @@ use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\ProductionHomeUrl;
 use Itineris\Preflight\Checkers\ProductionSiteUrl;
 use Itineris\Preflight\Checkers\RequiredPlugins;
+use Itineris\Preflight\Checkers\RequiredSaltConstants;
 use Itineris\Preflight\Checkers\RobotsTxt;
 use Itineris\Preflight\Checkers\Sitemap;
 use Itineris\Preflight\Checkers\UniqueSaltConstants;
@@ -39,7 +39,6 @@ class Preflight
         AllowIndexing::class,
         BlacklistedUserEmails::class,
         BlacklistedUsernames::class,
-        DefinedSaltConstants::class,
         HttpsHomeUrl::class,
         HttpsSiteUrl::class,
         InactivePlugins::class,
@@ -50,6 +49,7 @@ class Preflight
         ProductionHomeUrl::class,
         ProductionSiteUrl::class,
         RequiredPlugins::class,
+        RequiredSaltConstants::class,
         RobotsTxt::class,
         Sitemap::class,
         UniqueSaltConstants::class,

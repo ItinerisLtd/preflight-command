@@ -8,15 +8,15 @@ use Itineris\Preflight\Checkers\Traits\ValidatorAwareTrait;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Error;
-use Itineris\Preflight\Validators\DefinedConstants;
+use Itineris\Preflight\Validators\RequiredConstants;
 
-class DefinedSaltConstants extends AbstractChecker
+class RequiredSaltConstants extends AbstractChecker
 {
     use ValidatorAwareTrait;
     use CompiledIncludesAwareTrait;
 
-    public const ID = 'defined-salt-constants';
-    public const DESCRIPTION = 'Ensure each salt constant is unique.';
+    public const ID = 'required-salt-constants';
+    public const DESCRIPTION = 'Ensure required salt constants are defined.';
     const DEFAULT_INCLUDES = [
         'AUTH_KEY',
         'SECURE_AUTH_KEY',
@@ -59,10 +59,10 @@ class DefinedSaltConstants extends AbstractChecker
      *
      * Used by the constructor.
      *
-     * @return DefinedConstants
+     * @return RequiredConstants
      */
-    protected function makeDefaultValidator(): DefinedConstants
+    protected function makeDefaultValidator(): RequiredConstants
     {
-        return new DefinedConstants($this);
+        return new RequiredConstants($this, 'Required salt constants are not defined:');
     }
 }
