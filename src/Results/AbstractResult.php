@@ -25,10 +25,10 @@ abstract class AbstractResult implements ResultInterface
     /**
      * AbstractResult constructor.
      *
-     * @param CheckerInterface $checker  The checker instance.
-     * @param string[]         $messages The result messages.
+     * @param CheckerInterface $checker     The checker instance.
+     * @param string|string[]  ...$messages The result messages.
      */
-    public function __construct(CheckerInterface $checker, array $messages)
+    public function __construct(CheckerInterface $checker, string ...$messages)
     {
         $this->checker = $checker;
         $this->messages = $messages;
