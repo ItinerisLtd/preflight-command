@@ -67,6 +67,6 @@ class BlacklistedUserEmails extends AbstractChecker
      */
     protected function maybeInvalidConfig(Config $config): ?Error
     {
-        return $this->errorIfCompiledBlacklistIsEmpty($config);
+        return $this->errorIfCompiledBlacklistIsEmpty($config, static::DEFAULT_BLACKLIST);
     }
 }
