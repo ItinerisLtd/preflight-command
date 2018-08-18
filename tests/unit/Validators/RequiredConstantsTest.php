@@ -8,10 +8,10 @@ use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Success;
 use Itineris\Preflight\Validators\AbstractValidator;
-use Itineris\Preflight\Validators\DefinedConstants;
+use Itineris\Preflight\Validators\RequiredConstants;
 use Mockery;
 
-class DefinedConstantsTest extends Unit
+class RequiredConstantsTest extends Unit
 {
     use AbstractValidatorTestTrait;
 
@@ -26,7 +26,7 @@ class DefinedConstantsTest extends Unit
 
         $checker = Mockery::mock(CheckerInterface::class);
 
-        $validator = new DefinedConstants($checker);
+        $validator = new RequiredConstants($checker);
 
         $actual = $validator->validate(
             __FUNCTION__ . '_SUGAR_42',
@@ -50,7 +50,7 @@ class DefinedConstantsTest extends Unit
 
         $checker = Mockery::mock(CheckerInterface::class);
 
-        $validator = new DefinedConstants($checker);
+        $validator = new RequiredConstants($checker);
 
         $actual = $validator->validate(
             __FUNCTION__ . '_SUGAR_42',
@@ -61,7 +61,7 @@ class DefinedConstantsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'Constants are not defined:',
+                'Required constants are not defined:',
                 __FUNCTION__ . '_SUGAR_UNDEFINED_1',
             ]
         );
@@ -74,7 +74,7 @@ class DefinedConstantsTest extends Unit
 
         $checker = Mockery::mock(CheckerInterface::class);
 
-        $validator = new DefinedConstants($checker);
+        $validator = new RequiredConstants($checker);
 
         $actual = $validator->validate(
             __FUNCTION__ . '_SUGAR_42',
@@ -86,7 +86,7 @@ class DefinedConstantsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'Constants are not defined:',
+                'Required constants are not defined:',
                 __FUNCTION__ . '_SUGAR_UNDEFINED_1',
                 __FUNCTION__ . '_SUGAR_UNDEFINED_2',
             ]
@@ -96,6 +96,6 @@ class DefinedConstantsTest extends Unit
 
     protected function getSubject(CheckerInterface $checker, string $message): AbstractValidator
     {
-        return new DefinedConstants($checker, $message);
+        return new RequiredConstants($checker, $message);
     }
 }

@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Test\Checkers;
 
 use Itineris\Preflight\Checkers\AbstractChecker;
-use Itineris\Preflight\Checkers\DefinedSaltConstants;
+use Itineris\Preflight\Checkers\RequiredSaltConstants;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Validators\AbstractValidator;
 use Mockery;
 
-class DefinedSaltConstantsTest extends \Codeception\Test\Unit
+class RequiredSaltConstantsTest extends \Codeception\Test\Unit
 {
     use AbstractCheckerTrail;
 
@@ -29,7 +29,7 @@ class DefinedSaltConstantsTest extends \Codeception\Test\Unit
                ->andReturnTrue()
                ->once();
         $config->expects('compileIncludes')
-               ->withArgs([DefinedSaltConstants::DEFAULT_INCLUDES])
+               ->withArgs([RequiredSaltConstants::DEFAULT_INCLUDES])
                ->andReturn($constantNames)
                ->twice();
 
@@ -39,7 +39,7 @@ class DefinedSaltConstantsTest extends \Codeception\Test\Unit
                   ->withArgs($constantNames)
                   ->andReturn($expected);
 
-        $checker = new DefinedSaltConstants($validator);
+        $checker = new RequiredSaltConstants($validator);
 
         $actual = $checker->check($config);
 
@@ -52,9 +52,9 @@ class DefinedSaltConstantsTest extends \Codeception\Test\Unit
     public function testCheckEmptyIncludesError()
     {
         $config = new Config([
-            'excludes' => DefinedSaltConstants::DEFAULT_INCLUDES,
+            'excludes' => RequiredSaltConstants::DEFAULT_INCLUDES,
         ]);
-        $checker = new DefinedSaltConstants();
+        $checker = new RequiredSaltConstants();
 
         $actual = $checker->check($config);
 
@@ -66,6 +66,6 @@ class DefinedSaltConstantsTest extends \Codeception\Test\Unit
     {
         $validator = Mockery::mock(AbstractValidator::class);
 
-        return new DefinedSaltConstants($validator);
+        return new RequiredSaltConstants($validator);
     }
 }
