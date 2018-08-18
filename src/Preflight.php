@@ -8,6 +8,7 @@ use Itineris\Preflight\Checkers\BlacklistedUsernames;
 use Itineris\Preflight\Checkers\DefinedSaltConstants;
 use Itineris\Preflight\Checkers\HttpsHomeUrl;
 use Itineris\Preflight\Checkers\HttpsSiteUrl;
+use Itineris\Preflight\Checkers\InactivePlugins;
 use Itineris\Preflight\Checkers\LatestPlugins;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\ProductionHomeUrl;
@@ -36,6 +37,7 @@ class Preflight
         DefinedSaltConstants::class,
         HttpsHomeUrl::class,
         HttpsSiteUrl::class,
+        InactivePlugins::class,
         LatestPlugins::class,
         PrettyPermalinks::class,
         ProductionHomeUrl::class,
