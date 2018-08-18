@@ -9,6 +9,7 @@ use Itineris\Preflight\Checkers\DefinedSaltConstants;
 use Itineris\Preflight\Checkers\HttpsHomeUrl;
 use Itineris\Preflight\Checkers\HttpsSiteUrl;
 use Itineris\Preflight\Checkers\InactivePlugins;
+use Itineris\Preflight\Checkers\OutdatedCore;
 use Itineris\Preflight\Checkers\OutdatedPlugins;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\ProductionHomeUrl;
@@ -39,6 +40,7 @@ class Preflight
         HttpsHomeUrl::class,
         HttpsSiteUrl::class,
         InactivePlugins::class,
+        OutdatedCore::class,
         OutdatedPlugins::class,
         PrettyPermalinks::class,
         ProductionHomeUrl::class,
