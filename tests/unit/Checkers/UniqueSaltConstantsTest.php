@@ -13,7 +13,7 @@ use Mockery;
 
 class UniqueSaltConstantsTest extends Unit
 {
-    use AbstractCheckerTrail;
+    use AbstractCheckerTestTrail;
 
     /**
      * @var \Itineris\Preflight\Test\UnitTester

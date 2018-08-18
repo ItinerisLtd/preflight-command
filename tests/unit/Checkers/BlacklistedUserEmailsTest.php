@@ -16,7 +16,7 @@ use WP_User;
 
 class BlacklistedUserEmailsTest extends Unit
 {
-    use AbstractCheckerTrail;
+    use AbstractCheckerTestTrail;
     use CompiledBlacklistAwareTestTrait;
 
     /**

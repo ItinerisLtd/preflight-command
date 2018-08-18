@@ -14,7 +14,7 @@ use WP_Mock;
 
 class HttpsSiteUrlTest extends Unit
 {
-    use AbstractCheckerTrail;
+    use AbstractCheckerTestTrail;
 
     /**
      * @var \Itineris\Preflight\Test\UnitTester

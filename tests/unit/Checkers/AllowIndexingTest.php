@@ -13,7 +13,7 @@ use WP_Mock;
 
 class AllowIndexingTest extends Unit
 {
-    use AbstractCheckerTrail;
+    use AbstractCheckerTestTrail;
 
     /**
      * @var \Itineris\Preflight\Test\UnitTester
