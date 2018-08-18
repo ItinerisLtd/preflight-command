@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight;
 
+use Itineris\Preflight\Checkers\AllowIndexing;
 use Itineris\Preflight\Checkers\BlacklistedUserEmails;
 use Itineris\Preflight\Checkers\BlacklistedUsernames;
 use Itineris\Preflight\Checkers\DefinedSaltConstants;
@@ -34,6 +35,7 @@ class Preflight
     ];
 
     private const CHECKERS = [
+        AllowIndexing::class,
         BlacklistedUserEmails::class,
         BlacklistedUsernames::class,
         DefinedSaltConstants::class,
