@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Checkers;
 
 use Itineris\Preflight\Checkers\Traits\CompiledIncludesAwareTrait;
+use Itineris\Preflight\Checkers\Traits\ValidatorAwareTrait;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Error;
@@ -11,6 +12,7 @@ use Itineris\Preflight\Validators\DefinedConstants;
 
 class DefinedSaltConstants extends AbstractChecker
 {
+    use ValidatorAwareTrait;
     use CompiledIncludesAwareTrait;
 
     public const ID = 'defined-salt-constants';
@@ -37,9 +39,7 @@ class DefinedSaltConstants extends AbstractChecker
     {
         $includes = $config->compileIncludes(static::DEFAULT_INCLUDES);
 
-        $validator = DefinedConstants::make($this);
-
-        return $validator->validate(...$includes);
+        return $this->validator->validate(...$includes);
     }
 
     /**
@@ -52,5 +52,17 @@ class DefinedSaltConstants extends AbstractChecker
     protected function maybeInvalidConfig(Config $config): ?Error
     {
         return $this->errorIfCompiledIncludesIsEmpty($config, self::DEFAULT_INCLUDES);
+    }
+
+    /**
+     * Returns a default validator instance.
+     *
+     * Used by the constructor.
+     *
+     * @return DefinedConstants
+     */
+    protected function makeDefaultValidator(): DefinedConstants
+    {
+        return new DefinedConstants($this);
     }
 }

@@ -11,8 +11,7 @@ use Itineris\Preflight\Results\Success;
 
 abstract class AbstractValidator
 {
-    public const DEFAULT_FAILURE_MESSAGE = self::DEFAULT_FAILURE_MESSAGE;
-    public const MAKE_HOOK = self::MAKE_HOOK;
+    public const DEFAULT_FAILURE_MESSAGE = 'Something went wrong:';
 
     /**
      * The checker instance.
@@ -27,27 +26,6 @@ abstract class AbstractValidator
      * @var string
      */
     protected $failureMessage;
-
-    /**
-     * Make a HttpsUrls instance.
-     *
-     * Apply the make filter to allow swapping this instance.
-     * Main goal is to make validators testable/mock-able.
-     *
-     * @param CheckerInterface $checker        The checker instance.
-     * @param null|string      $failureMessage Optional. The first line of teh failure message.
-     *
-     * @return self
-     */
-    public static function make(CheckerInterface $checker, ?string $failureMessage = null): self
-    {
-        return apply_filters(
-            static::MAKE_HOOK,
-            new static($checker, $failureMessage),
-            $checker,
-            $failureMessage
-        );
-    }
 
     /**
      * HttpsUrls constructor.
@@ -65,11 +43,13 @@ abstract class AbstractValidator
     /**
      * Returns result instance.
      *
+     * TODO: Should I be protected?
+     *
      * @param string|string[] ...$messages Failure message. If empty, assume success.
      *
      * @return Failure|Success
      */
-    protected function report(string ...$messages): ResultInterface
+    public function report(string ...$messages): ResultInterface
     {
         if (! empty($messages)) {
             return ResultFactory::makeFailure(

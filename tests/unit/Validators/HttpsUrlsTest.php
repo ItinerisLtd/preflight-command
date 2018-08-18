@@ -7,6 +7,7 @@ use Codeception\Test\Unit;
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Success;
+use Itineris\Preflight\Validators\AbstractValidator;
 use Itineris\Preflight\Validators\HttpsUrls;
 use Mockery;
 use WP_Mock;
@@ -158,8 +159,8 @@ class HttpsUrlsTest extends Unit
         $this->assertEquals($expected, $actual);
     }
 
-    protected function getSubjectClass(): string
+    protected function getSubject(CheckerInterface $checker, string $message): AbstractValidator
     {
-        return HttpsUrls::class;
+        return new HttpsUrls($checker, $message);
     }
 }

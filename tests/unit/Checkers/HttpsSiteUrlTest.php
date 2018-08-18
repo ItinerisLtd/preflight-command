@@ -8,7 +8,7 @@ use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\HttpsSiteUrl;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
-use Itineris\Preflight\Validators\HttpsUrls;
+use Itineris\Preflight\Validators\AbstractValidator;
 use Mockery;
 use WP_Mock;
 
@@ -21,7 +21,7 @@ class HttpsSiteUrlTest extends Unit
      */
     protected $tester;
 
-    public function testUsingHttpsUrlsValidator()
+    public function testUsingValidator()
     {
         WP_Mock::userFunction('Itineris\Preflight\Checkers\site_url')
                ->withNoArgs()
@@ -30,17 +30,12 @@ class HttpsSiteUrlTest extends Unit
 
         $expected = Mockery::mock(ResultInterface::class);
 
-        $validator = Mockery::mock(HttpsUrls::class);
+        $validator = Mockery::mock(AbstractValidator::class);
         $validator->expects('validate')
                   ->with('https://example.com/blog')
                   ->andReturn($expected);
 
-        $checker = new HttpsSiteUrl();
-
-        WP_Mock::userFunction('Itineris\Preflight\Validators\apply_filters')
-               ->with(HttpsUrls::MAKE_HOOK, Mockery::type(HttpsUrls::class), $checker, HttpsSiteUrl::FAILURE_MESSAGE)
-               ->andReturn($validator)
-               ->once();
+        $checker = new HttpsSiteUrl($validator);
 
         $actual = $checker->check(
             new Config([])
@@ -51,6 +46,8 @@ class HttpsSiteUrlTest extends Unit
 
     protected function getSubject(): AbstractChecker
     {
-        return new HttpsSiteUrl();
+        $validator = Mockery::mock(AbstractValidator::class);
+
+        return new HttpsSiteUrl($validator);
     }
 }

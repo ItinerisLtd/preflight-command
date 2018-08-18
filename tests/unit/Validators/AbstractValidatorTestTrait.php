@@ -4,27 +4,58 @@ declare(strict_types=1);
 namespace Itineris\Preflight\Test\Validators;
 
 use Itineris\Preflight\CheckerInterface;
+use Itineris\Preflight\Results\Success;
+use Itineris\Preflight\Validators\AbstractValidator;
 use Mockery;
-use WP_Mock;
 
 trait AbstractValidatorTestTrait
 {
-    public function testMakeFilter()
+    public function testReportSuccess()
     {
-        $subjectClass = $this->getSubjectClass();
-
         $checker = Mockery::mock(CheckerInterface::class);
-        $expected = Mockery::mock($subjectClass);
 
-        WP_Mock::userFunction('Itineris\Preflight\Validators\apply_filters')
-               ->withArgs([$subjectClass::MAKE_HOOK, Mockery::type($subjectClass), $checker, 'Hello World'])
-               ->andReturn($expected)
-               ->once();
+        $subject = $this->getSubject($checker, 'You shall not pass!');
 
-        $actual = $subjectClass::make($checker, 'Hello World');
+        $actual = $subject->report();
 
-        $this->assertSame($expected, $actual);
+        $this->assertInstanceOf(Success::class, $actual);
     }
 
-    abstract protected function getSubjectClass(): string;
+    public function testReportFailureMessage()
+    {
+        $checker = Mockery::mock(CheckerInterface::class);
+
+        $subject = $this->getSubject($checker, 'You shall not pass!');
+
+        $result = $subject->report('I am a servant of the Secret Fire, wielder of the flame of Anor.');
+
+        $actual = $result->getMessages();
+
+        $this->assertSame([
+            'You shall not pass!',
+            'I am a servant of the Secret Fire, wielder of the flame of Anor.',
+        ], $actual);
+    }
+
+    public function testReportMultipleFailureMessages()
+    {
+        $checker = Mockery::mock(CheckerInterface::class);
+
+        $subject = $this->getSubject($checker, 'You shall not pass!');
+
+        $result = $subject->report(
+            'I am a servant of the Secret Fire, wielder of the flame of Anor.',
+            'You cannot pass.'
+        );
+
+        $actual = $result->getMessages();
+
+        $this->assertSame([
+            'You shall not pass!',
+            'I am a servant of the Secret Fire, wielder of the flame of Anor.',
+            'You cannot pass.',
+        ], $actual);
+    }
+
+    abstract protected function getSubject(CheckerInterface $checker, string $message): AbstractValidator;
 }

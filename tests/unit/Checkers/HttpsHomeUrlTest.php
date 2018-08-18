@@ -8,7 +8,7 @@ use Itineris\Preflight\Checkers\AbstractChecker;
 use Itineris\Preflight\Checkers\HttpsHomeUrl;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
-use Itineris\Preflight\Validators\HttpsUrls;
+use Itineris\Preflight\Validators\AbstractValidator;
 use Mockery;
 use WP_Mock;
 
@@ -21,7 +21,7 @@ class HttpsHomeUrlTest extends Unit
      */
     protected $tester;
 
-    public function testUsingHttpsUrlsValidator()
+    public function testUsingValidator()
     {
         WP_Mock::userFunction('Itineris\Preflight\Checkers\home_url')
                ->withNoArgs()
@@ -30,17 +30,12 @@ class HttpsHomeUrlTest extends Unit
 
         $expected = Mockery::mock(ResultInterface::class);
 
-        $validator = Mockery::mock(HttpsUrls::class);
+        $validator = Mockery::mock(AbstractValidator::class);
         $validator->expects('validate')
                   ->with('https://example.com')
                   ->andReturn($expected);
 
-        $checker = new HttpsHomeUrl();
-
-        WP_Mock::userFunction('Itineris\Preflight\Validators\apply_filters')
-               ->with(HttpsUrls::MAKE_HOOK, Mockery::type(HttpsUrls::class), $checker, HttpsHomeUrl::FAILURE_MESSAGE)
-               ->andReturn($validator)
-               ->once();
+        $checker = new HttpsHomeUrl($validator);
 
         $actual = $checker->check(
             new Config([])
@@ -51,6 +46,8 @@ class HttpsHomeUrlTest extends Unit
 
     protected function getSubject(): AbstractChecker
     {
-        return new HttpsHomeUrl();
+        $validator = Mockery::mock(AbstractValidator::class);
+
+        return new HttpsHomeUrl($validator);
     }
 }

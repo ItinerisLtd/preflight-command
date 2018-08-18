@@ -7,6 +7,7 @@ use Codeception\Test\Unit;
 use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Success;
+use Itineris\Preflight\Validators\AbstractValidator;
 use Itineris\Preflight\Validators\DefinedConstants;
 use Mockery;
 
@@ -93,8 +94,8 @@ class DefinedConstantsTest extends Unit
         $this->assertEquals($expected, $actual);
     }
 
-    protected function getSubjectClass(): string
+    protected function getSubject(CheckerInterface $checker, string $message): AbstractValidator
     {
-        return DefinedConstants::class;
+        return new DefinedConstants($checker, $message);
     }
 }

@@ -43,7 +43,7 @@ abstract class AbstractChecker implements CheckerInterface
      */
     public function getLink(): string
     {
-        return self::LINK_BASE . $this->getId() . '/';
+        return static::LINK_BASE . $this->getId() . '/';
     }
 
     /**
