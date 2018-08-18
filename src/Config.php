@@ -172,4 +172,23 @@ class Config
             $this->getIncludes()
         );
     }
+
+    /**
+     * Compile whitelist.
+     *
+     * Default whitelist plus config whitelist minus config whitelist.
+     * Config blacklist has higher priority.
+     *
+     * @param array $defaultWhitelist The default whitelist.
+     *
+     * @return array
+     */
+    public function compileWhitelist(array $defaultWhitelist)
+    {
+        return $this->mergeThenDiff(
+            $defaultWhitelist,
+            $this->getWhitelist(),
+            $this->getBlacklist()
+        );
+    }
 }

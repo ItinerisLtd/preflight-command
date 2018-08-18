@@ -115,6 +115,26 @@ class ConfigTest extends \Codeception\Test\Unit
         );
     }
 
+    public function testCompileWhitelist()
+    {
+        $config = new Config([
+            'blacklist' => ['aaa', 'eee', 'xxx'],
+            'whitelist' => ['aaa', 'bbb', 'ccc'],
+        ]);
+
+        $defaultWhitelist = ['aaa', 'ddd', 'eee'];
+
+        $actual = $config->compileWhitelist($defaultWhitelist);
+
+        sort($actual); // For assertion.
+        $expected = ['bbb', 'ccc', 'ddd'];
+
+        $this->assertSame(
+            $expected,
+            $actual
+        );
+    }
+
     public function testCompileIncludes()
     {
         $config = new Config([
