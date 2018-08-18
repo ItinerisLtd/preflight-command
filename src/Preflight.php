@@ -11,6 +11,7 @@ use Itineris\Preflight\Checkers\HttpsHomeUrl;
 use Itineris\Preflight\Checkers\HttpsSiteUrl;
 use Itineris\Preflight\Checkers\InactivePlugins;
 use Itineris\Preflight\Checkers\OutdatedCore;
+use Itineris\Preflight\Checkers\OutdatedPackages;
 use Itineris\Preflight\Checkers\OutdatedPlugins;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\ProductionHomeUrl;
@@ -43,6 +44,7 @@ class Preflight
         HttpsSiteUrl::class,
         InactivePlugins::class,
         OutdatedCore::class,
+        OutdatedPackages::class,
         OutdatedPlugins::class,
         PrettyPermalinks::class,
         ProductionHomeUrl::class,
