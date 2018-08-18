@@ -153,4 +153,25 @@ class Config
     {
         return (array) $this->get('excludes') ?? [];
     }
+
+    /**
+     * Compile excludes.
+     *
+     * Default excludes plus config excludes minus config includes.
+     * Config includes has higher priority.
+     *
+     * TODO: Test me!
+     *
+     * @param array $defaultExcludes The default excludes.
+     *
+     * @return array
+     */
+    public function compileExcludes(array $defaultExcludes): array
+    {
+        return $this->mergeThenDiff(
+            $defaultExcludes,
+            $this->getExcludes(),
+            $this->getIncludes()
+        );
+    }
 }
