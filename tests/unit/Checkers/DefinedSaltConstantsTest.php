@@ -8,9 +8,8 @@ use Itineris\Preflight\Checkers\DefinedSaltConstants;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\ResultInterface;
-use Itineris\Preflight\Validators\DefinedConstants;
+use Itineris\Preflight\Validators\AbstractValidator;
 use Mockery;
-use WP_Mock;
 
 class DefinedSaltConstantsTest extends \Codeception\Test\Unit
 {
@@ -35,23 +34,21 @@ class DefinedSaltConstantsTest extends \Codeception\Test\Unit
                ->twice();
 
         $expected = Mockery::mock(ResultInterface::class);
-        $validator = Mockery::mock(DefinedConstants::class);
+        $validator = Mockery::mock(AbstractValidator::class);
         $validator->expects('validate')
                   ->withArgs($constantNames)
                   ->andReturn($expected);
 
-        $checker = new DefinedSaltConstants();
-
-        WP_Mock::userFunction('Itineris\Preflight\Validators\apply_filters')
-               ->with(DefinedConstants::MAKE_HOOK, Mockery::type(DefinedConstants::class), $checker, Mockery::any())
-               ->andReturn($validator)
-               ->once();
+        $checker = new DefinedSaltConstants($validator);
 
         $actual = $checker->check($config);
 
         $this->assertSame($expected, $actual);
     }
 
+    /**
+     * TODO: Move into trait.
+     */
     public function testCheckEmptyIncludesError()
     {
         $config = new Config([
@@ -67,6 +64,8 @@ class DefinedSaltConstantsTest extends \Codeception\Test\Unit
 
     protected function getSubject(): AbstractChecker
     {
-        return new DefinedSaltConstants();
+        $validator = Mockery::mock(AbstractValidator::class);
+
+        return new DefinedSaltConstants($validator);
     }
 }

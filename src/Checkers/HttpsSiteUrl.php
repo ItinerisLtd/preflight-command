@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\Checkers;
 
+use Itineris\Preflight\Checkers\Traits\ValidatorAwareTrait;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Validators\HttpsUrls;
 
 class HttpsSiteUrl extends AbstractChecker
 {
+    use ValidatorAwareTrait;
+
     public const ID = 'https-site-url';
     public const DESCRIPTION = 'Ensure site URL is secure (HTTPS).';
     public const FAILURE_MESSAGE = 'Insecure site URL (non-HTTPS)';
@@ -22,10 +25,20 @@ class HttpsSiteUrl extends AbstractChecker
      */
     public function run(Config $config): ResultInterface
     {
-        $validator = HttpsUrls::make($this, static::FAILURE_MESSAGE);
-
-        return $validator->validate(
+        return $this->validator->validate(
             site_url()
         );
+    }
+
+    /**
+     * Returns a default validator instance.
+     *
+     * Used by the constructor.
+     *
+     * @return HttpsUrls
+     */
+    protected function makeDefaultValidator(): HttpsUrls
+    {
+        return new HttpsUrls($this);
     }
 }
