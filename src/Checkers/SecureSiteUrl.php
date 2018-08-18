@@ -6,13 +6,13 @@ namespace Itineris\Preflight\Checkers;
 use Itineris\Preflight\Checkers\Traits\ValidatorAwareTrait;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
-use Itineris\Preflight\Validators\HttpsUrls;
+use Itineris\Preflight\Validators\SecureUrls;
 
-class HttpsSiteUrl extends AbstractChecker
+class SecureSiteUrl extends AbstractChecker
 {
     use ValidatorAwareTrait;
 
-    public const ID = 'https-site-url';
+    public const ID = 'secure-site-url';
     public const DESCRIPTION = 'Ensure site URL is secure (HTTPS).';
     public const FAILURE_MESSAGE = 'Insecure site URL (non-HTTPS)';
 
@@ -35,10 +35,10 @@ class HttpsSiteUrl extends AbstractChecker
      *
      * Used by the constructor.
      *
-     * @return HttpsUrls
+     * @return SecureUrls
      */
-    protected function makeDefaultValidator(): HttpsUrls
+    protected function makeDefaultValidator(): SecureUrls
     {
-        return new HttpsUrls($this);
+        return new SecureUrls($this);
     }
 }

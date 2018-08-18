@@ -10,7 +10,7 @@ use Itineris\Preflight\Config;
 use Itineris\Preflight\Results\Disabled;
 use Mockery;
 
-trait AbstractCheckerTrail
+trait AbstractCheckerTestTrail
 {
     public function testGetId()
     {

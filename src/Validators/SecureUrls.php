@@ -7,10 +7,9 @@ use Itineris\Preflight\ResultInterface;
 use Itineris\Preflight\Results\Failure;
 use Itineris\Preflight\Results\Success;
 
-class HttpsUrls extends AbstractValidator
+class SecureUrls extends AbstractValidator
 {
-    public const DEFAULT_FAILURE_MESSAGE = 'URLs are not HTTPS:';
-    public const MAKE_HOOK = 'preflight_https_urls_validator_make';
+    public const DEFAULT_FAILURE_MESSAGE = 'URLs are insecure (non-HTTPS):';
 
     /**
      * Validates URLs are HTTPS.

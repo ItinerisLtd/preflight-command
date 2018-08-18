@@ -8,11 +8,11 @@ use Itineris\Preflight\CheckerInterface;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Success;
 use Itineris\Preflight\Validators\AbstractValidator;
-use Itineris\Preflight\Validators\HttpsUrls;
+use Itineris\Preflight\Validators\SecureUrls;
 use Mockery;
 use WP_Mock;
 
-class HttpsUrlsTest extends Unit
+class SecureUrlsTest extends Unit
 {
     use AbstractValidatorTestTrait;
 
@@ -29,7 +29,7 @@ class HttpsUrlsTest extends Unit
                ->once();
 
         $checker = Mockery::mock(CheckerInterface::class);
-        $validator = new HttpsUrls($checker);
+        $validator = new SecureUrls($checker);
 
         $actual = $validator->validate('https://example.com/blog');
 
@@ -44,14 +44,14 @@ class HttpsUrlsTest extends Unit
                ->once();
 
         $checker = Mockery::mock(CheckerInterface::class);
-        $validator = new HttpsUrls($checker);
+        $validator = new SecureUrls($checker);
 
         $actual = $validator->validate('http://example.com/blog');
 
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'URLs are not HTTPS:',
+                'URLs are insecure (non-HTTPS):',
                 'http://example.com/blog',
             ]
         );
@@ -66,7 +66,7 @@ class HttpsUrlsTest extends Unit
                ->once();
 
         $checker = Mockery::mock(CheckerInterface::class);
-        $validator = new HttpsUrls($checker, 'Doing it wrong');
+        $validator = new SecureUrls($checker, 'Doing it wrong');
 
         $actual = $validator->validate('http://example.com/blog');
 
@@ -88,14 +88,14 @@ class HttpsUrlsTest extends Unit
                ->once();
 
         $checker = Mockery::mock(CheckerInterface::class);
-        $validator = new HttpsUrls($checker);
+        $validator = new SecureUrls($checker);
 
         $actual = $validator->validate('boom!');
 
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'URLs are not HTTPS:',
+                'URLs are insecure (non-HTTPS):',
                 'boom!',
             ]
         );
@@ -110,14 +110,14 @@ class HttpsUrlsTest extends Unit
                ->once();
 
         $checker = Mockery::mock(CheckerInterface::class);
-        $validator = new HttpsUrls($checker);
+        $validator = new SecureUrls($checker);
 
         $actual = $validator->validate('boom://');
 
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'URLs are not HTTPS:',
+                'URLs are insecure (non-HTTPS):',
                 'boom://',
             ]
         );
@@ -140,7 +140,7 @@ class HttpsUrlsTest extends Unit
                ->once();
 
         $checker = Mockery::mock(CheckerInterface::class);
-        $validator = new HttpsUrls($checker);
+        $validator = new SecureUrls($checker);
 
         $actual = $validator->validate(
             'http://example.com',
@@ -151,7 +151,7 @@ class HttpsUrlsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'URLs are not HTTPS:',
+                'URLs are insecure (non-HTTPS):',
                 'http://example.com',
                 'boom://',
             ]
@@ -161,6 +161,6 @@ class HttpsUrlsTest extends Unit
 
     protected function getSubject(CheckerInterface $checker, string $message): AbstractValidator
     {
-        return new HttpsUrls($checker, $message);
+        return new SecureUrls($checker, $message);
     }
 }

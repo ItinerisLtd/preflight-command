@@ -16,7 +16,7 @@ use WP_User;
 
 class BlacklistedUsernamesTest extends Unit
 {
-    use AbstractCheckerTrail;
+    use AbstractCheckerTestTrail;
     use CompiledBlacklistAwareTestTrait;
 
     /**

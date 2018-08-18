@@ -6,13 +6,13 @@ namespace Itineris\Preflight\Checkers;
 use Itineris\Preflight\Checkers\Traits\ValidatorAwareTrait;
 use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultInterface;
-use Itineris\Preflight\Validators\HttpsUrls;
+use Itineris\Preflight\Validators\SecureUrls;
 
-class HttpsHomeUrl extends AbstractChecker
+class SecureHomeUrl extends AbstractChecker
 {
     use ValidatorAwareTrait;
 
-    public const ID = 'https-home-url';
+    public const ID = 'secure-home-url';
     public const DESCRIPTION = 'Ensure home URL is secure (HTTPS).';
     public const FAILURE_MESSAGE = 'Insecure home URL (non-HTTPS)';
 
@@ -35,10 +35,10 @@ class HttpsHomeUrl extends AbstractChecker
      *
      * Used by the constructor.
      *
-     * @return HttpsUrls
+     * @return SecureUrls
      */
-    protected function makeDefaultValidator(): HttpsUrls
+    protected function makeDefaultValidator(): SecureUrls
     {
-        return new HttpsUrls($this);
+        return new SecureUrls($this);
     }
 }
