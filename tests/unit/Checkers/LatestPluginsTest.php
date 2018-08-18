@@ -10,8 +10,6 @@ use Itineris\Preflight\Config;
 use Itineris\Preflight\ResultFactory;
 use Itineris\Preflight\Results\Success;
 use Mockery;
-use Mockery\Mock;
-use WP_Mock;
 
 class LatestPluginsTest extends Unit
 {
@@ -24,7 +22,7 @@ class LatestPluginsTest extends Unit
 
     public function testSuccess()
     {
-        Mockery::mock( 'alias:WP_CLI')
+        Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
                ->with(Mockery::type('string'), Mockery::type('array'))
                ->andReturn([])
@@ -41,7 +39,7 @@ class LatestPluginsTest extends Unit
 
     public function testSuccessExcludes()
     {
-        Mockery::mock( 'alias:WP_CLI')
+        Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
                ->with(Mockery::type('string'), Mockery::type('array'))
                ->andReturn([
@@ -49,7 +47,7 @@ class LatestPluginsTest extends Unit
                        'name' => 'my-plugin',
                        'version' => '1.0.0',
                        'update_version' => '2.0.0',
-                   ]
+                   ],
                ])
                ->once();
 
@@ -68,7 +66,7 @@ class LatestPluginsTest extends Unit
 
     public function testFailure()
     {
-        Mockery::mock( 'alias:WP_CLI')
+        Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
                ->with(Mockery::type('string'), Mockery::type('array'))
                ->andReturn([
@@ -76,7 +74,7 @@ class LatestPluginsTest extends Unit
                        'name' => 'my-plugin',
                        'version' => '1.0.0',
                        'update_version' => '2.0.0',
-                   ]
+                   ],
                ])
                ->once();
 
@@ -98,7 +96,7 @@ class LatestPluginsTest extends Unit
 
     public function testMultipleFailure()
     {
-        Mockery::mock( 'alias:WP_CLI')
+        Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
                ->with(Mockery::type('string'), Mockery::type('array'))
                ->andReturn([
@@ -111,7 +109,7 @@ class LatestPluginsTest extends Unit
                        'name' => 'my-plugin-b',
                        'version' => '0.1.0.alpha',
                        'update_version' => '2.0.0.beta.123',
-                   ]
+                   ],
                ])
                ->once();
 
@@ -134,7 +132,7 @@ class LatestPluginsTest extends Unit
 
     public function testFailureExclude()
     {
-        Mockery::mock( 'alias:WP_CLI')
+        Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
                ->with(Mockery::type('string'), Mockery::type('array'))
                ->andReturn([
@@ -147,7 +145,7 @@ class LatestPluginsTest extends Unit
                        'name' => 'my-plugin-b',
                        'version' => '0.1.0.alpha',
                        'update_version' => '2.0.0.beta.123',
-                   ]
+                   ],
                ])
                ->once();
 
@@ -157,7 +155,7 @@ class LatestPluginsTest extends Unit
             new Config([
                 'excludes' => [
                     'my-plugin-a',
-                ]
+                ],
             ])
         );
 

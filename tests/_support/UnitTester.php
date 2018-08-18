@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace Itineris\Preflight\Test;
+
+use Codeception\Actor;
 
 /**
  * Inherited Methods
@@ -16,7 +19,7 @@ namespace Itineris\Preflight\Test;
  * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = null)
  * @SuppressWarnings(PHPMD)
  */
-class UnitTester extends \Codeception\Actor
+class UnitTester extends Actor
 {
     use _generated\UnitTesterActions;
 

@@ -160,8 +160,6 @@ class Config
      * Default excludes plus config excludes minus config includes.
      * Config includes has higher priority.
      *
-     * TODO: Test me!
-     *
      * @param array $defaultExcludes The default excludes.
      *
      * @return array

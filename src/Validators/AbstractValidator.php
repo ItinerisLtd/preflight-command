@@ -60,4 +60,13 @@ abstract class AbstractValidator
 
         return ResultFactory::makeSuccess($this->checker);
     }
+
+    /**
+     * Validates and returns a result instance.
+     *
+     * Define expected parameters in subclass.
+     *
+     * @return Success|Failure
+     */
+    abstract public function validate(): ResultInterface;
 }

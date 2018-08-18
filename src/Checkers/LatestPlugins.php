@@ -40,7 +40,7 @@ class LatestPlugins extends AbstractChecker
             return ! in_array($plugin['name'], $excludes, true);
         });
 
-        $messages = array_map(function(array $plugin): string {
+        $messages = array_map(function (array $plugin): string {
             return "${plugin['name']} (${plugin['version']} => ${plugin['update_version']})";
         }, $outdatedPlugins);
 

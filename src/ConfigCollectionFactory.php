@@ -23,7 +23,7 @@ class ConfigCollectionFactory
 
             // See: Automattic/VIP-Coding-Standards#144 on Github.
             // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
-        } catch (ParseException $_) {
+        } catch (ParseException $_parseException) {
             // Assume empty config.
             $definitions = [];
         }
