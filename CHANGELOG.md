@@ -1,10 +1,19 @@
 # Change Log
 
 ## [0.3.0](https://github.com/ItinerisLtd/preflight-command/tree/0.3.0) (2018-08-18)
+[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.3.0...0.3.0)
+
+**Merged pull requests:**
+
+- Extract `ProductionHomeUrl`, `ProductionSiteUrl`, `RequiredPlugins` to preflight-extra [\#40](https://github.com/ItinerisLtd/preflight-command/pull/40) ([TangRufus](https://github.com/TangRufus))
+- Reamde: Fix broken links [\#39](https://github.com/ItinerisLtd/preflight-command/pull/39) ([TangRufus](https://github.com/TangRufus))
+
+## [0.3.0](https://github.com/ItinerisLtd/preflight-command/tree/0.3.0) (2018-08-18)
 [Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.2.0...0.3.0)
 
 **Merged pull requests:**
 
+- Version bump 0.3.0 [\#38](https://github.com/ItinerisLtd/preflight-command/pull/38) ([TangRufus](https://github.com/TangRufus))
 - Rename: `Defined` --\> `Required` [\#37](https://github.com/ItinerisLtd/preflight-command/pull/37) ([TangRufus](https://github.com/TangRufus))
 - ConfigPath: trailing slash and normalize path [\#36](https://github.com/ItinerisLtd/preflight-command/pull/36) ([TangRufus](https://github.com/TangRufus))
 - Ensure result messages are strings [\#35](https://github.com/ItinerisLtd/preflight-command/pull/35) ([TangRufus](https://github.com/TangRufus))

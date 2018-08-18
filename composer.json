@@ -41,6 +41,9 @@
         "roave/security-advisories": "dev-master",
         "wp-coding-standards/wpcs": "^1.0"
     },
+    "suggest": {
+        "itinerisltd/preflight-extra": "Extra preflight-command checkers for professional developers"
+    },
     "config": {
         "sort-packages": true
     },
