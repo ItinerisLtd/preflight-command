@@ -13,6 +13,7 @@ use Itineris\Preflight\Checkers\OutdatedPlugins;
 use Itineris\Preflight\Checkers\PrettyPermalinks;
 use Itineris\Preflight\Checkers\ProductionHomeUrl;
 use Itineris\Preflight\Checkers\ProductionSiteUrl;
+use Itineris\Preflight\Checkers\RequiredPlugins;
 use Itineris\Preflight\Checkers\RobotsTxt;
 use Itineris\Preflight\Checkers\Sitemap;
 use Itineris\Preflight\Checkers\UniqueSaltConstants;
@@ -42,6 +43,7 @@ class Preflight
         PrettyPermalinks::class,
         ProductionHomeUrl::class,
         ProductionSiteUrl::class,
+        RequiredPlugins::class,
         RobotsTxt::class,
         Sitemap::class,
         UniqueSaltConstants::class,

@@ -18,6 +18,7 @@ trait CompiledBlacklistAwareTrait
      */
     protected function errorIfCompiledBlacklistIsEmpty(Config $config): ?Error
     {
+        // TODO: Pass default blacklist by method parameter.
         $blacklist = $config->compileBlacklist(self::DEFAULT_BLACKLIST);
 
         return empty($blacklist)
