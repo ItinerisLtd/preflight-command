@@ -22,7 +22,7 @@ class ErrorTest extends Unit
     {
         $checker = $checker = Mockery::mock(CheckerInterface::class);
 
-        $result = new Error($checker, []);
+        $result = new Error($checker);
 
         $expected = $result->getStatus();
 
@@ -31,6 +31,6 @@ class ErrorTest extends Unit
 
     protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult
     {
-        return new Error($checker, $messages);
+        return new Error($checker, ...$messages);
     }
 }

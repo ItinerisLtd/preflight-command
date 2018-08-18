@@ -22,7 +22,7 @@ class DisabledTest extends Unit
     {
         $checker = Mockery::mock(CheckerInterface::class);
 
-        $result = new Disabled($checker, []);
+        $result = new Disabled($checker);
 
         $expected = $result->getStatus();
 
@@ -31,6 +31,6 @@ class DisabledTest extends Unit
 
     protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult
     {
-        return new Disabled($checker, $messages);
+        return new Disabled($checker, ...$messages);
     }
 }

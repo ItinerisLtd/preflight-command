@@ -22,7 +22,7 @@ class ResultFactory
     {
         return new Success(
             $checker,
-            self::castIntoArray($messages)
+            ...self::castIntoArray($messages)
         );
     }
 
@@ -50,7 +50,7 @@ class ResultFactory
     {
         return new Failure(
             $checker,
-            self::castIntoArray($messages)
+            ...self::castIntoArray($messages)
         );
     }
 
@@ -66,7 +66,7 @@ class ResultFactory
     {
         return new Error(
             $checker,
-            self::castIntoArray($messages)
+            ...self::castIntoArray($messages)
         );
     }
 
@@ -82,7 +82,7 @@ class ResultFactory
     {
         return new Disabled(
             $checker,
-            self::castIntoArray($messages)
+            ...self::castIntoArray($messages)
         );
     }
 }

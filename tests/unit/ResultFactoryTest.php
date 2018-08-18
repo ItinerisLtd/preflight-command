@@ -39,7 +39,7 @@ class ResultFactoryTest extends Unit
 
         $actual = $make([$checker, 'Hello world']);
 
-        $expected = new $expectedClass($checker, ['Hello world']);
+        $expected = new $expectedClass($checker, 'Hello world');
 
         $this->assertEquals($expected, $actual);
     }
@@ -51,7 +51,7 @@ class ResultFactoryTest extends Unit
 
         $actual = $make([$checker]);
 
-        $expected = new $expectedClass($checker, []);
+        $expected = new $expectedClass($checker);
 
         $this->assertEquals($expected, $actual);
     }
@@ -63,7 +63,7 @@ class ResultFactoryTest extends Unit
 
         $actual = $make([$checker, null]);
 
-        $expected = new $expectedClass($checker, []);
+        $expected = new $expectedClass($checker);
 
         $this->assertEquals($expected, $actual);
     }
@@ -73,10 +73,10 @@ class ResultFactoryTest extends Unit
         $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $message = ['Hello world', 'Bye'];
-        $actual = $make([$checker, $message]);
+        $messages = ['Hello world', 'Bye'];
+        $actual = $make([$checker, $messages]);
 
-        $expected = new $expectedClass($checker, $message);
+        $expected = new $expectedClass($checker, ...$messages);
 
         $this->assertEquals($expected, $actual);
     }

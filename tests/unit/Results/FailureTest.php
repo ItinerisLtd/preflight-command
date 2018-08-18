@@ -22,7 +22,7 @@ class FailureTest extends Unit
     {
         $checker = $checker = Mockery::mock(CheckerInterface::class);
 
-        $result = new Failure($checker, []);
+        $result = new Failure($checker);
 
         $expected = $result->getStatus();
 
@@ -31,6 +31,6 @@ class FailureTest extends Unit
 
     protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult
     {
-        return new Failure($checker, $messages);
+        return new Failure($checker, ...$messages);
     }
 }

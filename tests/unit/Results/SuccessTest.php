@@ -23,7 +23,7 @@ class SuccessTest extends Unit
         $checker = $checker = Mockery::mock(CheckerInterface::class);
         $checker->allows('toArray')->andReturn([]);
 
-        $result = new Success($checker, []);
+        $result = new Success($checker);
 
         $expected = $result->getStatus();
 
@@ -32,6 +32,6 @@ class SuccessTest extends Unit
 
     protected function getSubject(CheckerInterface $checker, array $messages): AbstractResult
     {
-        return new Success($checker, $messages);
+        return new Success($checker, ...$messages);
     }
 }
