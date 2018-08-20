@@ -1,10 +1,20 @@
 # Change Log
 
-## [0.3.0](https://github.com/ItinerisLtd/preflight-command/tree/0.3.0) (2018-08-18)
-[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.3.0...0.3.0)
+## [0.5.0](https://github.com/ItinerisLtd/preflight-command/tree/0.5.0) (2018-08-21)
+[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.4.0...0.5.0)
 
 **Merged pull requests:**
 
+- InactivePlugins: Use excludes instead of whitelist [\#44](https://github.com/ItinerisLtd/preflight-command/pull/44) ([TangRufus](https://github.com/TangRufus))
+- Delete CONTRIBUTING.md [\#43](https://github.com/ItinerisLtd/preflight-command/pull/43) ([TangRufus](https://github.com/TangRufus))
+- Composer: Aliase dev-master to 0.4.x-dev [\#42](https://github.com/ItinerisLtd/preflight-command/pull/42) ([TangRufus](https://github.com/TangRufus))
+
+## [0.4.0](https://github.com/ItinerisLtd/preflight-command/tree/0.4.0) (2018-08-18)
+[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.3.0...0.4.0)
+
+**Merged pull requests:**
+
+- Version bump 0.4.0 [\#41](https://github.com/ItinerisLtd/preflight-command/pull/41) ([TangRufus](https://github.com/TangRufus))
 - Extract `ProductionHomeUrl`, `ProductionSiteUrl`, `RequiredPlugins` to preflight-extra [\#40](https://github.com/ItinerisLtd/preflight-command/pull/40) ([TangRufus](https://github.com/TangRufus))
 - Reamde: Fix broken links [\#39](https://github.com/ItinerisLtd/preflight-command/pull/39) ([TangRufus](https://github.com/TangRufus))
 
