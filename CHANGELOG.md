@@ -1,10 +1,18 @@
 # Change Log
 
-## [0.5.0](https://github.com/ItinerisLtd/preflight-command/tree/0.5.0) (2018-08-21)
+## [0.5.1](https://github.com/ItinerisLtd/preflight-command/tree/0.5.1) (2018-08-21)
+[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.5.0...0.5.1)
+
+**Merged pull requests:**
+
+- OutdatedCore: Fix `wp core check-update` not returning array when up-to-date [\#46](https://github.com/ItinerisLtd/preflight-command/pull/46) ([TangRufus](https://github.com/TangRufus))
+
+## [0.5.0](https://github.com/ItinerisLtd/preflight-command/tree/0.5.0) (2018-08-20)
 [Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.4.0...0.5.0)
 
 **Merged pull requests:**
 
+- Version bump 0.5.0 [\#45](https://github.com/ItinerisLtd/preflight-command/pull/45) ([TangRufus](https://github.com/TangRufus))
 - InactivePlugins: Use excludes instead of whitelist [\#44](https://github.com/ItinerisLtd/preflight-command/pull/44) ([TangRufus](https://github.com/TangRufus))
 - Delete CONTRIBUTING.md [\#43](https://github.com/ItinerisLtd/preflight-command/pull/43) ([TangRufus](https://github.com/TangRufus))
 - Composer: Aliase dev-master to 0.4.x-dev [\#42](https://github.com/ItinerisLtd/preflight-command/pull/42) ([TangRufus](https://github.com/TangRufus))
