@@ -37,7 +37,7 @@ class InactivePluginsTest extends Unit
         $this->assertInstanceOf(Success::class, $actual);
     }
 
-    public function testSuccessWhitelist()
+    public function testSuccessExcludes()
     {
         Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
@@ -53,7 +53,7 @@ class InactivePluginsTest extends Unit
 
         $actual = $checker->check(
             new Config([
-                'whitelist' => [
+                'excludes' => [
                     'my-plugin',
                 ],
             ])
@@ -122,7 +122,7 @@ class InactivePluginsTest extends Unit
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFailureWhitelist()
+    public function testFailureExcludes()
     {
         Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
@@ -141,7 +141,7 @@ class InactivePluginsTest extends Unit
 
         $actual = $checker->check(
             new Config([
-                'whitelist' => [
+                'excludes' => [
                     'my-plugin-a',
                 ],
             ])

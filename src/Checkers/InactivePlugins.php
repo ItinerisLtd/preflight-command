@@ -35,7 +35,7 @@ class InactivePlugins extends AbstractChecker
             ]
         );
 
-        $excludes = $config->compileWhitelist([]);
+        $excludes = $config->compileExcludes([]);
         $deactivatedPlugins = array_filter($deactivatedPlugins, function (array $plugin) use ($excludes): bool {
             return ! in_array($plugin['name'], $excludes, true);
         });
