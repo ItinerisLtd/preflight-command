@@ -24,7 +24,7 @@ class OutdatedCoreTest extends \Codeception\Test\Unit
         Mockery::mock('alias:WP_CLI')
                ->expects('runcommand')
                ->with(Mockery::type('string'), Mockery::type('array'))
-               ->andReturn([])
+               ->andReturnNull()
                ->once();
 
         $checker = new OutdatedCore();
