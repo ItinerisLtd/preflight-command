@@ -35,9 +35,12 @@ class OutdatedCore extends AbstractChecker
             ]
         );
 
-        $messages = array_map(function (array $core): string {
-            return "${core['version']} (${core['update_type']})";
-        }, $newerCores);
+        $messages = [];
+        if (is_array($newerCores)) {
+            $messages = array_map(function (array $core): string {
+                return "${core['version']} (${core['update_type']})";
+            }, $newerCores);
+        }
 
         return (empty($messages))
             ? ResultFactory::makeSuccess($this)
