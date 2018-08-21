@@ -1,0 +1,29 @@
+who-is-user = 'i am user'
+who-am-i = 'user'
+
+[user]
+name = 'user'
+
+[checker-1]
+nothing = 'null'
+url = 'https://user.com'
+paths = [
+  '/user',
+  '/user-2',
+]
+whitelist = [
+  '/user-1',
+]
+
+#[checker-2]
+#enabled = true
+#  [[checker-2.groups]]
+#    code = 404
+#    paths = [
+#      '/user/not-found',
+#    ]
+#  [[checker-2.groups]]
+#    code = 500
+#    paths = [
+#      '/five-hurdred',
+#    ]

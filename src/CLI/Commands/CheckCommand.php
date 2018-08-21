@@ -61,7 +61,7 @@ class CheckCommand extends WP_CLI_Command
      */
     public function __invoke($_args, $assocArgs): void
     {
-        $configCollection = ConfigCollectionFactory::makeFromFile(
+        $configCollection = ConfigCollectionFactory::makeFromFiles(
             ConfigPath::get()
         );
         $checkerCollection = CheckerCollectionFactory::make();
