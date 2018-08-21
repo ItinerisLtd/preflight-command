@@ -32,12 +32,18 @@ class ConfigCollectionFactoryTest extends Unit
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * TODO: Verify this does what it meant to do.
-     */
     public function testEmptyToml()
     {
-        $actual = ConfigCollectionFactory::makeFromFile(codecept_root_dir('empty.toml'));
+        $actual = ConfigCollectionFactory::makeFromFile(codecept_data_dir('empty.toml'));
+
+        $expected = new ConfigCollection([]);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testCommentToml()
+    {
+        $actual = ConfigCollectionFactory::makeFromFile(codecept_data_dir('comment.toml'));
 
         $expected = new ConfigCollection([]);
 
