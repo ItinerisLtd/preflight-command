@@ -16,7 +16,7 @@ class ConfigCollectionFactoryTest extends Unit
 
     public function testFileNotExist()
     {
-        $actual = ConfigCollectionFactory::makeFromFile('/file/not/exist.toml');
+        $actual = ConfigCollectionFactory::makeFromFiles('/file/not/exist.toml');
 
         $expected = new ConfigCollection([]);
 
@@ -25,7 +25,7 @@ class ConfigCollectionFactoryTest extends Unit
 
     public function testTomlSyntaxError()
     {
-        $actual = ConfigCollectionFactory::makeFromFile(codecept_root_dir('composer.json'));
+        $actual = ConfigCollectionFactory::makeFromFiles(codecept_root_dir('composer.json'));
 
         $expected = new ConfigCollection([]);
 
@@ -34,7 +34,7 @@ class ConfigCollectionFactoryTest extends Unit
 
     public function testEmptyToml()
     {
-        $actual = ConfigCollectionFactory::makeFromFile(codecept_data_dir('empty.toml'));
+        $actual = ConfigCollectionFactory::makeFromFiles(codecept_data_dir('empty.toml'));
 
         $expected = new ConfigCollection([]);
 
@@ -43,7 +43,7 @@ class ConfigCollectionFactoryTest extends Unit
 
     public function testCommentToml()
     {
-        $actual = ConfigCollectionFactory::makeFromFile(codecept_data_dir('comment.toml'));
+        $actual = ConfigCollectionFactory::makeFromFiles(codecept_data_dir('comment.toml'));
 
         $expected = new ConfigCollection([]);
 
@@ -52,7 +52,7 @@ class ConfigCollectionFactoryTest extends Unit
 
     public function testMakeFromFile()
     {
-        $actual = ConfigCollectionFactory::makeFromFile(codecept_data_dir('simple.toml'));
+        $actual = ConfigCollectionFactory::makeFromFiles(codecept_data_dir('simple.toml'));
 
         $expected = [
             'airline' => 'Itineris Air',
@@ -64,6 +64,130 @@ class ConfigCollectionFactoryTest extends Unit
             'the-pilot' => [
                 'name' => 'Tang Rufus',
                 'email' => 'tangrufus@gmail.com',
+            ],
+        ];
+
+        $this->assertAttributeSame($expected, 'definitions', $actual);
+    }
+
+    public function testMergeTwoFiles()
+    {
+        $actual = ConfigCollectionFactory::makeFromFiles(
+            codecept_data_dir('base.toml'),
+            codecept_data_dir('package.toml')
+        );
+
+        $expected = [
+            'who-is-base' => 'i am base',
+            'who-am-i' => 'package',
+            'base' => [
+                'name' => 'base',
+            ],
+            'checker-1' => [
+                'enabled' => false,
+                'url' => 'https://package.com',
+                'paths' => [
+                    '/base',
+                    '/package',
+                ],
+                'something' => 'else',
+                'whitelist' => [
+                    '/package-1',
+                ],
+            ],
+            'who-is-package' => 'i am package',
+            'package' => [
+                'name' => 'package',
+            ],
+        ];
+
+        $this->assertAttributeSame($expected, 'definitions', $actual);
+    }
+
+    public function testMergeThreeFiles()
+    {
+        $actual = ConfigCollectionFactory::makeFromFiles(
+            codecept_data_dir('base.toml'),
+            codecept_data_dir('package.toml'),
+            codecept_data_dir('user.toml')
+        );
+
+        $expected = [
+            'who-is-base' => 'i am base',
+            'who-am-i' => 'user',
+            'base' => [
+                'name' => 'base',
+            ],
+            'checker-1' => [
+                'enabled' => false,
+                'url' => 'https://user.com',
+                'paths' => [
+                    '/base',
+                    '/package',
+                    '/user',
+                    '/user-2',
+                ],
+                'something' => 'else',
+                'whitelist' => [
+                    '/package-1',
+                    '/user-1',
+                ],
+                'nothing' => 'null',
+            ],
+            'who-is-package' => 'i am package',
+            'package' => [
+                'name' => 'package',
+            ],
+            'who-is-user' => 'i am user',
+            'user' => [
+                'name' => 'user',
+            ],
+        ];
+
+        $this->assertAttributeSame($expected, 'definitions', $actual);
+    }
+
+    public function testMergeInvalidFiles()
+    {
+        $actual = ConfigCollectionFactory::makeFromFiles(
+            codecept_data_dir('base.toml'),
+            codecept_root_dir('composer.json'),
+            codecept_data_dir('comment.toml'),
+            codecept_data_dir('package.toml'),
+            codecept_data_dir('empty.toml'),
+            codecept_data_dir('user.toml'),
+            '/file/not/exist.toml'
+        );
+
+        $expected = [
+            'who-is-base' => 'i am base',
+            'who-am-i' => 'user',
+            'base' => [
+                'name' => 'base',
+            ],
+            'checker-1' => [
+                'enabled' => false,
+                'url' => 'https://user.com',
+                'paths' => [
+                    '/base',
+                    '/package',
+                    '/user',
+                    '/user-2',
+                ],
+                'something' => 'else',
+                'whitelist' => [
+                    '/package-1',
+                    '/user-1',
+                ],
+                'nothing' => 'null',
+            ],
+            'who-is-package' => 'i am package',
+            'package' => [
+                'name' => 'package',
+            ],
+            'who-is-user' => 'i am user',
+            'user' => [
+                'name' => 'user',
             ],
         ];
 

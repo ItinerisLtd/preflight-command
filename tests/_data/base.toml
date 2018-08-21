@@ -1,0 +1,26 @@
+who-is-base = 'i am base'
+who-am-i = 'base'
+
+[base]
+name = 'base'
+
+[checker-1]
+enabled = true
+url = 'https://base.com'
+paths = [
+  '/base',
+]
+
+#[checker-2]
+#enabled = true
+#  [[checker-2.groups]]
+#    code = 200
+#    paths = [
+#      '/',
+#      '/hello-world',
+#    ]
+#  [[checker-2.groups]]
+#    code = 404
+#    paths = [
+#      '/not-found',
+#    ]

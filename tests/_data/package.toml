@@ -1,0 +1,36 @@
+who-is-package = 'i am package'
+who-am-i = 'package'
+
+[package]
+name = 'package'
+
+[checker-1]
+enabled = false
+something = 'else'
+url = 'https://package.com'
+paths = [
+  '/package',
+]
+whitelist = [
+  '/package-1',
+]
+
+#[checker-2]
+#enabled = true
+#  [[checker-2.groups]]
+#    code = 404
+#    paths = [
+#      '/package/not-found',
+#    ]
+#  [[checker-2.groups]]
+#    code = 200
+#    paths = [
+#      '/package/2',
+#      '/package/hello-world-2',
+#      '/',
+#    ]
+#  [[checker-2.groups]]
+#    code = 520
+#    paths = [
+#      '/birthday',
+#    ]
