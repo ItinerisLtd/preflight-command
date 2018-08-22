@@ -69,6 +69,9 @@
     "scripts": {
         "check-style": "phpcs --standard=ruleset.xml --colors -p -s",
         "pretag": [
+            "composer update",
+            "@test",
+            "@check-style",
             "composer normalize",
             "github_changelog_generator --no-verbose"
         ],
