@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Commands | WP Preflight Command</title>
+    <meta name="description" content="Check for common WordPress mistakes &amp; enforce best practices before take off">
+    
+    
+    <link rel="preload" href="/preflight-command/assets/css/0.styles.1d4c92a9.css" as="style"><link rel="preload" href="/preflight-command/assets/js/app.78fb251a.js" as="script"><link rel="preload" href="/preflight-command/assets/js/20.efcc19a8.js" as="script"><link rel="prefetch" href="/preflight-command/assets/js/9.053f6007.js"><link rel="prefetch" href="/preflight-command/assets/js/2.234811cb.js"><link rel="prefetch" href="/preflight-command/assets/js/3.166ac9fb.js"><link rel="prefetch" href="/preflight-command/assets/js/4.755bf9dd.js"><link rel="prefetch" href="/preflight-command/assets/js/5.88da4c9a.js"><link rel="prefetch" href="/preflight-command/assets/js/6.f9f11319.js"><link rel="prefetch" href="/preflight-command/assets/js/7.f75c5f0c.js"><link rel="prefetch" href="/preflight-command/assets/js/8.5bc8046e.js"><link rel="prefetch" href="/preflight-command/assets/js/10.acaa1fb6.js"><link rel="prefetch" href="/preflight-command/assets/js/11.aa530a70.js"><link rel="prefetch" href="/preflight-command/assets/js/12.a80cd305.js"><link rel="prefetch" href="/preflight-command/assets/js/13.2ce8378e.js"><link rel="prefetch" href="/preflight-command/assets/js/14.8a9f2b59.js"><link rel="prefetch" href="/preflight-command/assets/js/15.44b2789b.js"><link rel="prefetch" href="/preflight-command/assets/js/16.f31b39a7.js"><link rel="prefetch" href="/preflight-command/assets/js/17.f64e88c6.js"><link rel="prefetch" href="/preflight-command/assets/js/18.a445772e.js"><link rel="prefetch" href="/preflight-command/assets/js/19.a46dbd7d.js"><link rel="prefetch" href="/preflight-command/assets/js/21.36d356df.js"><link rel="prefetch" href="/preflight-command/assets/js/22.d09091d6.js">
+    <link rel="stylesheet" href="/preflight-command/assets/css/0.styles.1d4c92a9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/preflight-command/" class="home-link router-link-active"><!----> <span class="site-name">WP Preflight Command</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/preflight-command/" class="nav-link">Home</a></div><div class="nav-item"><a href="/preflight-command/quick-start/" class="nav-link">Quick Start</a></div><div class="nav-item"><a href="/preflight-command/config/" class="nav-link">Config</a></div><div class="nav-item"><a href="/preflight-command/commands/" class="nav-link router-link-exact-active router-link-active">Commands</a></div><div class="nav-item"><a href="/preflight-command/checkers/" class="nav-link">Checkers</a></div><div class="nav-item"><a href="https://itineris.co.uk" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Itineris
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/ItinerisLtd/preflight-command" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/preflight-command/" class="nav-link">Home</a></div><div class="nav-item"><a href="/preflight-command/quick-start/" class="nav-link">Quick Start</a></div><div class="nav-item"><a href="/preflight-command/config/" class="nav-link">Config</a></div><div class="nav-item"><a href="/preflight-command/commands/" class="nav-link router-link-exact-active router-link-active">Commands</a></div><div class="nav-item"><a href="/preflight-command/checkers/" class="nav-link">Checkers</a></div><div class="nav-item"><a href="https://itineris.co.uk" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Itineris
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/ItinerisLtd/preflight-command" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/preflight-command/" class="sidebar-link">Home</a></li><li><a href="/preflight-command/quick-start/" class="sidebar-link">Quick Start 🛫</a></li><li><a href="/preflight-command/config/" class="sidebar-link">Config</a></li><li><a href="/preflight-command/commands/" class="active sidebar-link">Commands</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/preflight-command/commands/#wp-preflight-check" class="sidebar-link">$ wp preflight check</a></li><li class="sidebar-sub-header"><a href="/preflight-command/commands/#wp-preflight-checklist" class="sidebar-link">$ wp preflight checklist</a></li><li class="sidebar-sub-header"><a href="/preflight-command/commands/#wp-preflight-config" class="sidebar-link">$ wp preflight config</a></li><li class="sidebar-sub-header"><a href="/preflight-command/commands/#misc" class="sidebar-link">Misc</a></li></ul></li><li><a href="/preflight-command/checkers/" class="sidebar-link">Checkers</a></li></ul> </div> <div class="page"> <div class="content"><h1 id="commands"><a href="#commands" aria-hidden="true" class="header-anchor">#</a> Commands</h1> <div class="tip custom-block"><p class="custom-block-title">THERE ARE MORE</p> <p>This page only shows a handful of basic usages. The <code>help</code> command is your friend:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ wp <span class="token function">help</span> preflight
+
+<span class="token comment"># even more details</span>
+<span class="token comment"># wp help preflight &lt;command&gt;</span>
+<span class="token comment"># wp help preflight &lt;command&gt; &lt;subcommand&gt;</span>
+$ wp <span class="token function">help</span> preflight check
+$ wp <span class="token function">help</span> preflight config
+$ wp <span class="token function">help</span> preflight config paths
+$ wp <span class="token function">help</span> preflight config validate
+$ wp <span class="token function">help</span> preflight checklist
+</code></pre></div></div> <h2 id="wp-preflight-check"><a href="#wp-preflight-check" aria-hidden="true" class="header-anchor">#</a> $ wp preflight check</h2> <p>This command runs all the registered checkers and prints a report. Your goal is to get <code>Success</code> on all checks.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ wp preflight check
++-------------------------------------+----------+
+<span class="token operator">|</span> <span class="token function">id</span>                                  <span class="token operator">|</span> status   <span class="token operator">|</span>
++-------------------------------------+----------+
+<span class="token operator">|</span> allow-indexing                      <span class="token operator">|</span> Success  <span class="token operator">|</span>
+<span class="token operator">|</span> outdated-packages                   <span class="token operator">|</span> Failure  <span class="token operator">|</span>
+<span class="token operator">|</span> required-salt-constants             <span class="token operator">|</span> Error    <span class="token operator">|</span>
+<span class="token operator">|</span> secure-home-url                     <span class="token operator">|</span> Disabled <span class="token operator">|</span>
++-------------------------------------+----------+
+</code></pre></div><p>Get more details with the <code>message</code> field when you encounter an <code>Error</code> or <code>Failure</code>.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ wp preflight check --fields<span class="token operator">=</span>id,status,message
+</code></pre></div><p>Not everyone has an Airbus A380, printing the report in yaml works better on smaller screens.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ wp preflight check --fields<span class="token operator">=</span>id,description,link,status,messages --format<span class="token operator">=</span>yaml
+</code></pre></div><p>To see all available options:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ wp <span class="token function">help</span> preflight check
+</code></pre></div><h2 id="wp-preflight-checklist"><a href="#wp-preflight-checklist" aria-hidden="true" class="header-anchor">#</a> $ wp preflight checklist</h2> <p>Lists all registered <a href="/preflight-command/checkers/">checkers</a> (without running them).</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ wp preflight checklist
+
+<span class="token comment"># in yaml format, for smaller screens</span>
+$ wp preflight checklist --format<span class="token operator">=</span>yaml
+</code></pre></div><h2 id="wp-preflight-config"><a href="#wp-preflight-config" aria-hidden="true" class="header-anchor">#</a> $ wp preflight config</h2> <p>Reads and validates all the <code>preflight.toml</code> config files including the packages ones (i.e: the default config).</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># print the content of all config files</span>
+$ wp preflight config <span class="token function">cat</span>
+
+<span class="token comment"># get the paths to all config files</span>
+$ wp preflight config paths
+
+<span class="token comment"># validate the TOML syntax</span>
+$ wp preflight config validate
+</code></pre></div><p>Learn more about <a href="/preflight-command/config/">config files</a>.</p> <h2 id="misc"><a href="#misc" aria-hidden="true" class="header-anchor">#</a> Misc</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># install, `:@stable` is important</span>
+$ wp package <span class="token function">install</span> itinerisltd/preflight-command:@stable
+
+<span class="token comment"># install more checkers</span>
+<span class="token comment"># you might not need them all, check their documents</span>
+$ wp package <span class="token function">install</span> itinerisltd/preflight-extra:@stable
+$ wp package <span class="token function">install</span> itinerisltd/preflight-yoast-seo:@stable
+
+<span class="token comment"># update</span>
+$ wp package update
+</code></pre></div></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/ItinerisLtd/preflight-command/edit/master/docs/commands/README.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub!</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">8/23/2018, 2:26:05 AM</span></div></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/preflight-command/config/" class="prev">
+          Config
+        </a></span> <span class="next"><a href="/preflight-command/checkers/">
+          Checkers
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/preflight-command/assets/js/20.efcc19a8.js" defer></script><script src="/preflight-command/assets/js/app.78fb251a.js" defer></script>
+  </body>
+</html>
