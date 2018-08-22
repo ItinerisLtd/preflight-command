@@ -74,7 +74,7 @@ class UniqueSaltConstantsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'Salt constants are not unique (or not defined):',
+                'Salt constants are not unique(or not defined):',
                 __FUNCTION__ . '_SALT_UNDEFINED_1',
                 __FUNCTION__ . '_SALT_UNDEFINED_2',
             ]
@@ -106,7 +106,7 @@ class UniqueSaltConstantsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'Salt constants are not unique (or not defined):',
+                'Salt constants are not unique(or not defined):',
                 __FUNCTION__ . '_SALT_42',
                 __FUNCTION__ . '_SALT_LIFE',
             ]
@@ -139,7 +139,7 @@ class UniqueSaltConstantsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                'Salt constants are not unique (or not defined):',
+                'Salt constants are not unique(or not defined):',
                 __FUNCTION__ . '_SALT_42',
                 __FUNCTION__ . '_SALT_LIFE',
                 __FUNCTION__ . '_SALT_UNDEFINED_1',
