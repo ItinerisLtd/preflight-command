@@ -15,16 +15,6 @@ class UniqueSaltConstants extends AbstractChecker
 
     public const ID = 'unique-salt-constants';
     public const DESCRIPTION = 'Ensure each salt constant is unique.';
-    public const DEFAULT_INCLUDES = [
-        'AUTH_KEY',
-        'SECURE_AUTH_KEY',
-        'LOGGED_IN_KEY',
-        'NONCE_KEY',
-        'AUTH_SALT',
-        'SECURE_AUTH_SALT',
-        'LOGGED_IN_SALT',
-        'NONCE_SALT',
-    ];
 
     /**
      * {@inheritdoc}
@@ -35,7 +25,7 @@ class UniqueSaltConstants extends AbstractChecker
      */
     protected function run(Config $config): ResultInterface
     {
-        $includes = $config->compileIncludes(static::DEFAULT_INCLUDES);
+        $includes = $config->compileIncludes();
 
         $constants = [];
         foreach ($includes as $key) {
@@ -76,6 +66,6 @@ class UniqueSaltConstants extends AbstractChecker
      */
     protected function maybeInvalidConfig(Config $config): ?Error
     {
-        return $this->errorIfCompiledIncludesIsEmpty($config, self::DEFAULT_INCLUDES);
+        return $this->errorIfCompiledIncludesIsEmpty($config);
     }
 }

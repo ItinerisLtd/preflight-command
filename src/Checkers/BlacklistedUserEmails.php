@@ -16,11 +16,6 @@ class BlacklistedUserEmails extends AbstractChecker
 
     public const ID = 'blacklisted-user-emails';
     public const DESCRIPTION = 'Disallow blacklisted user emails.';
-    public const DEFAULT_BLACKLIST = [
-        'dev-email@flywheel.local',
-        'root@example.test',
-    ];
-    public const FAILURE_MESSAGE = 'Blacklisted user emails found:';
 
     /**
      * {@inheritdoc}
@@ -36,7 +31,7 @@ class BlacklistedUserEmails extends AbstractChecker
                 $user = get_user_by('email', $blacklistedUserEmail);
 
                 return $user ?: null;
-            }, $config->compileBlacklist(self::DEFAULT_BLACKLIST))
+            }, $config->compileBlacklist())
         );
 
         if (! empty($blacklistedUsers)) {
@@ -51,7 +46,7 @@ class BlacklistedUserEmails extends AbstractChecker
 
             return ResultFactory::makeFailure(
                 $this,
-                array_merge([self::FAILURE_MESSAGE], $messages)
+                array_merge(['Blacklisted user emails found:'], $messages)
             );
         }
 
@@ -67,6 +62,6 @@ class BlacklistedUserEmails extends AbstractChecker
      */
     protected function maybeInvalidConfig(Config $config): ?Error
     {
-        return $this->errorIfCompiledBlacklistIsEmpty($config, static::DEFAULT_BLACKLIST);
+        return $this->errorIfCompiledBlacklistIsEmpty($config);
     }
 }

@@ -17,16 +17,6 @@ class RequiredSaltConstants extends AbstractChecker
 
     public const ID = 'required-salt-constants';
     public const DESCRIPTION = 'Ensure required salt constants are defined.';
-    public const DEFAULT_INCLUDES = [
-        'AUTH_KEY',
-        'SECURE_AUTH_KEY',
-        'LOGGED_IN_KEY',
-        'NONCE_KEY',
-        'AUTH_SALT',
-        'SECURE_AUTH_SALT',
-        'LOGGED_IN_SALT',
-        'NONCE_SALT',
-    ];
 
     /**
      * {@inheritdoc}
@@ -37,7 +27,7 @@ class RequiredSaltConstants extends AbstractChecker
      */
     protected function run(Config $config): ResultInterface
     {
-        $includes = $config->compileIncludes(static::DEFAULT_INCLUDES);
+        $includes = $config->compileIncludes();
 
         return $this->validator->validate(...$includes);
     }
@@ -51,7 +41,7 @@ class RequiredSaltConstants extends AbstractChecker
      */
     protected function maybeInvalidConfig(Config $config): ?Error
     {
-        return $this->errorIfCompiledIncludesIsEmpty($config, self::DEFAULT_INCLUDES);
+        return $this->errorIfCompiledIncludesIsEmpty($config);
     }
 
     /**

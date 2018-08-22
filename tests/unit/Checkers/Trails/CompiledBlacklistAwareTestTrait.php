@@ -16,9 +16,9 @@ trait CompiledBlacklistAwareTestTrait
             new Config([])
         );
         $config->expects('compileBlacklist')
-            ->with(Mockery::type('array'))
-            ->andReturn([])
-            ->once();
+               ->withNoArgs()
+               ->andReturn([])
+               ->once();
 
         $subject = $this->getSubject();
 

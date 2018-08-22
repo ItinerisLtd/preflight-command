@@ -1,0 +1,39 @@
+[blacklisted-user-emails]
+blacklist = [
+  'dev-email@flywheel.local',
+  'root@example.test',
+]
+
+[blacklisted-usernames]
+blacklist = [
+  'admin',
+  'administrator',
+  'example',
+  'root',
+  'webmaster',
+  'www',
+]
+
+[required-salt-constants]
+includes = [
+  'AUTH_KEY',
+  'SECURE_AUTH_KEY',
+  'LOGGED_IN_KEY',
+  'NONCE_KEY',
+  'AUTH_SALT',
+  'SECURE_AUTH_SALT',
+  'LOGGED_IN_SALT',
+  'NONCE_SALT',
+]
+
+[unique-salt-constants]
+includes = [
+  'AUTH_KEY',
+  'SECURE_AUTH_KEY',
+  'LOGGED_IN_KEY',
+  'NONCE_KEY',
+  'AUTH_SALT',
+  'SECURE_AUTH_SALT',
+  'LOGGED_IN_SALT',
+  'NONCE_SALT',
+]

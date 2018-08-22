@@ -16,7 +16,7 @@ trait CompiledIncludesAwareTestTrait
             new Config([])
         );
         $config->expects('compileIncludes')
-               ->with(Mockery::type('array'))
+               ->withNoArgs()
                ->andReturn([])
                ->once();
 

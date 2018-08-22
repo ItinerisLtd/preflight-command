@@ -14,13 +14,11 @@ trait CompiledBlacklistAwareTrait
      *
      * @param Config $config The config instance.
      *
-     * @param array  $defaultIncludes The default blacklist.
-     *
      * @return Error|null
      */
-    protected function errorIfCompiledBlacklistIsEmpty(Config $config, array $defaultIncludes): ?Error
+    protected function errorIfCompiledBlacklistIsEmpty(Config $config): ?Error
     {
-        $blacklist = $config->compileBlacklist($defaultIncludes);
+        $blacklist = $config->compileBlacklist();
 
         return empty($blacklist)
             ? ResultFactory::makeError($this, 'Blacklist is empty.')

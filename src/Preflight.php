@@ -6,8 +6,6 @@ namespace Itineris\Preflight;
 use Itineris\Preflight\Checkers\AllowIndexing;
 use Itineris\Preflight\Checkers\BlacklistedUserEmails;
 use Itineris\Preflight\Checkers\BlacklistedUsernames;
-use Itineris\Preflight\Checkers\SecureHomeUrl;
-use Itineris\Preflight\Checkers\SecureSiteUrl;
 use Itineris\Preflight\Checkers\InactivePlugins;
 use Itineris\Preflight\Checkers\OutdatedCore;
 use Itineris\Preflight\Checkers\OutdatedPackages;
@@ -18,6 +16,8 @@ use Itineris\Preflight\Checkers\ProductionSiteUrl;
 use Itineris\Preflight\Checkers\RequiredPlugins;
 use Itineris\Preflight\Checkers\RequiredSaltConstants;
 use Itineris\Preflight\Checkers\RobotsTxt;
+use Itineris\Preflight\Checkers\SecureHomeUrl;
+use Itineris\Preflight\Checkers\SecureSiteUrl;
 use Itineris\Preflight\Checkers\Sitemap;
 use Itineris\Preflight\Checkers\UniqueSaltConstants;
 use Itineris\Preflight\CLI\Commands\CheckCommand;
@@ -64,5 +64,10 @@ class Preflight
         foreach (self::CHECKERS as $checker) {
             WP_CLI::add_wp_hook(CheckerCollectionFactory::REGISTER_HOOK, [$checker, 'register']);
         }
+
+        // Register .toml config files.
+        WP_CLI::add_wp_hook(ConfigPaths::HOOK, [ConfigPaths::class, 'mergeDefaultPath'], -50000);
+        WP_CLI::add_wp_hook(ConfigPaths::HOOK, [ConfigPaths::class, 'mergeAbsPath'], 40000);
+        WP_CLI::add_wp_hook(ConfigPaths::HOOK, [ConfigPaths::class, 'mergePreflightDir'], 50000);
     }
 }

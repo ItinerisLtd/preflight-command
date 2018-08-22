@@ -29,7 +29,7 @@ class RequiredSaltConstantsTest extends \Codeception\Test\Unit
                ->andReturnTrue()
                ->once();
         $config->expects('compileIncludes')
-               ->withArgs([RequiredSaltConstants::DEFAULT_INCLUDES])
+               ->withNoArgs()
                ->andReturn($constantNames)
                ->twice();
 
@@ -51,9 +51,7 @@ class RequiredSaltConstantsTest extends \Codeception\Test\Unit
      */
     public function testCheckEmptyIncludesError()
     {
-        $config = new Config([
-            'excludes' => RequiredSaltConstants::DEFAULT_INCLUDES,
-        ]);
+        $config = new Config([]);
         $checker = new RequiredSaltConstants();
 
         $actual = $checker->check($config);
