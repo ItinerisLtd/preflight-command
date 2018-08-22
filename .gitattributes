@@ -9,5 +9,5 @@
 /src            -export-ignore
 /composer.json  -export-ignore
 /command.php    -export-ignore
-/LICENSE.md     -export-ignore
+/LICENSE        -export-ignore
 /README.md      -export-ignore
