@@ -22,6 +22,7 @@ $ wp help preflight <subcommand>
 $ cd /path/to/my/site
 
 $ wp preflight checklist
+$ wp preflight config paths
 $ wp preflight config validate
 $ wp preflight check
 
@@ -70,58 +71,6 @@ This means `<bedrock>/config/preflight.toml`:
 
 // Not recommanded. Update Bedrock!!!!
 define('PREFLIGHT_DIR', __DIR__);
-```
-
-## For Itineris Team
-
-Tips:
-- `$ wp help preflight config`
-- `$ wp preflight config validate`
-
-Put this (`preflight.toml`) under `PREFLIGHT_DIR` or `ABSPATH`:
-
-```toml
-# preflight.toml
-
-# Use TOML v0.4.0 syntax
-# See: https://github.com/toml-lang/toml/blob/master/versions/en/toml-v0.4.0.md
-
-# TOML v0.5.0 not yet supported
-
-# Use expected production URL (i.e: client's URL)
-# Starts with 'https://'
-[production-site-url]
-url = 'https://preflightcommand.local/'
-
-[production-home-url]
-url = 'https://preflightcommand.local'
-
-# Everything above is mandatory
-# -----------------------------
-# Everything below is example
-# All of them are optional
-# Remove if possible
-
-[blacklisted-usernames]
-blacklist = [
-  'itineris',
-  'tim',
-]
-whitelist = [
-  'root',
-]
-
-[blacklisted-user-emails]
-blacklist = [
-  'hello@itineris.co.uk',
-]
-whitelist = [
-  'root@example.test',
-]
-
-# This is default. Remove if possible
-[sitemap]
-path = '/sitemap_index.xml' # Yoast SEO
 ```
 
 ### For Itineris Team
