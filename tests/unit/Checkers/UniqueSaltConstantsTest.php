@@ -28,7 +28,7 @@ class UniqueSaltConstantsTest extends Unit
         $config->expects('isEnabled')
                ->andReturn(true);
         $config->expects('compileIncludes')
-               ->with(UniqueSaltConstants::DEFAULT_INCLUDES)
+               ->withNoArgs()
                ->andReturn([
                    __FUNCTION__ . '_SALT_42',
                    __FUNCTION__ . '_SALT_UNIQUE',
@@ -58,7 +58,7 @@ class UniqueSaltConstantsTest extends Unit
         $config->expects('isEnabled')
                ->andReturn(true);
         $config->expects('compileIncludes')
-               ->with(UniqueSaltConstants::DEFAULT_INCLUDES)
+               ->withNoArgs()
                ->andReturn([
                    __FUNCTION__ . '_SALT_42',
                    __FUNCTION__ . '_SALT_UNIQUE',
@@ -90,7 +90,7 @@ class UniqueSaltConstantsTest extends Unit
         $config->expects('isEnabled')
                ->andReturn(true);
         $config->expects('compileIncludes')
-               ->with(UniqueSaltConstants::DEFAULT_INCLUDES)
+               ->withNoArgs()
                ->andReturn([
                    __FUNCTION__ . '_SALT_42',
                    __FUNCTION__ . '_SALT_LIFE',
@@ -122,7 +122,7 @@ class UniqueSaltConstantsTest extends Unit
         $config->expects('isEnabled')
                ->andReturn(true);
         $config->expects('compileIncludes')
-               ->with(UniqueSaltConstants::DEFAULT_INCLUDES)
+               ->withNoArgs()
                ->andReturn([
                    __FUNCTION__ . '_SALT_42',
                    __FUNCTION__ . '_SALT_LIFE',
@@ -153,9 +153,7 @@ class UniqueSaltConstantsTest extends Unit
     {
         $this->setUpConstants(__FUNCTION__);
 
-        $config = new Config([
-            'excludes' => UniqueSaltConstants::DEFAULT_INCLUDES,
-        ]);
+        $config = new Config([]);
         $checker = new UniqueSaltConstants();
 
         $actual = $checker->check($config);

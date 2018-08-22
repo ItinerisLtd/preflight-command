@@ -31,7 +31,16 @@ class BlacklistedUsernamesTest extends Unit
                ->andReturnFalse()
                ->times(6);
 
-        $config = new Config([]);
+        $config = new Config([
+            'blacklist' => [
+                'admin',
+                'administrator',
+                'example',
+                'root',
+                'webmaster',
+                'www',
+            ],
+        ]);
         $checker = new BlacklistedUsernames();
 
         $actual = $checker->check($config);
@@ -60,7 +69,16 @@ class BlacklistedUsernamesTest extends Unit
                ->with('login', Mockery::type('string'))
                ->andReturnFalse();
 
-        $config = new Config([]);
+        $config = new Config([
+            'blacklist' => [
+                'admin',
+                'administrator',
+                'example',
+                'root',
+                'webmaster',
+                'www',
+            ],
+        ]);
         $checker = new BlacklistedUsernames();
 
         $actual = $checker->check($config);
@@ -68,7 +86,7 @@ class BlacklistedUsernamesTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                BlacklistedUsernames::FAILURE_MESSAGE,
+                'Blacklisted usernames found:',
                 'ID: 456 root <root@example.test>',
             ]
         );
@@ -113,6 +131,12 @@ class BlacklistedUsernamesTest extends Unit
 
         $config = new Config([
             'blacklist' => [
+                'admin',
+                'administrator',
+                'example',
+                'root',
+                'webmaster',
+                'www',
                 'my-user-123',
             ],
         ]);
@@ -123,7 +147,7 @@ class BlacklistedUsernamesTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                BlacklistedUsernames::FAILURE_MESSAGE,
+                'Blacklisted usernames found:',
                 'ID: 987 admin <admin@example.test>',
                 'ID: 123 my-user-123 <my-user-123@example.test>',
             ]

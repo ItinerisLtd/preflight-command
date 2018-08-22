@@ -7,6 +7,7 @@ use Itineris\Preflight\CheckerCollectionFactory;
 use Itineris\Preflight\CLI\ConfigPath;
 use Itineris\Preflight\CLI\ResultCollectionPresenter;
 use Itineris\Preflight\ConfigCollectionFactory;
+use Itineris\Preflight\ConfigPaths;
 use Itineris\Preflight\Runner;
 use WP_CLI_Command;
 
@@ -62,7 +63,7 @@ class CheckCommand extends WP_CLI_Command
     public function __invoke($_args, $assocArgs): void
     {
         $configCollection = ConfigCollectionFactory::makeFromFiles(
-            ConfigPath::get()
+            ...ConfigPaths::all()
         );
         $checkerCollection = CheckerCollectionFactory::make();
 

@@ -16,15 +16,6 @@ class BlacklistedUsernames extends AbstractChecker
 
     public const ID = 'blacklisted-usernames';
     public const DESCRIPTION = 'Disallow blacklisted usernames.';
-    public const DEFAULT_BLACKLIST = [
-        'admin',
-        'administrator',
-        'example',
-        'root',
-        'webmaster',
-        'www',
-    ];
-    public const FAILURE_MESSAGE = 'Blacklisted usernames found:';
 
     /**
      * {@inheritdoc}
@@ -40,7 +31,7 @@ class BlacklistedUsernames extends AbstractChecker
                 $user = get_user_by('login', $blacklistedUsername);
 
                 return $user ?: null;
-            }, $config->compileBlacklist(self::DEFAULT_BLACKLIST))
+            }, $config->compileBlacklist())
         );
 
         if (! empty($blacklistedUsers)) {
@@ -55,7 +46,7 @@ class BlacklistedUsernames extends AbstractChecker
 
             return ResultFactory::makeFailure(
                 $this,
-                array_merge([self::FAILURE_MESSAGE], $messages)
+                array_merge(['Blacklisted usernames found:'], $messages)
             );
         }
 
@@ -71,6 +62,6 @@ class BlacklistedUsernames extends AbstractChecker
      */
     protected function maybeInvalidConfig(Config $config): ?Error
     {
-        return $this->errorIfCompiledBlacklistIsEmpty($config, static::DEFAULT_BLACKLIST);
+        return $this->errorIfCompiledBlacklistIsEmpty($config);
     }
 }

@@ -51,37 +51,15 @@ class Config
     /**
      * Compile blacklist.
      *
-     * Default blacklist plus config blacklist minus config whitelist.
-     * Config whitelist has higher priority.
-     *
-     * @param array $defaultBlacklist The default blacklist.
+     * Blacklist minus whitelist.
      *
      * @return array
      */
-    public function compileBlacklist(array $defaultBlacklist): array
-    {
-        return $this->mergeThenDiff(
-            $defaultBlacklist,
-            $this->getBlacklist(),
-            $this->getWhitelist()
-        );
-    }
-
-    /**
-     * Merges two arrays and then excludes items from the third.
-     * Implies the resulting array items are unique.
-     *
-     * @param array $original Items that to be added.
-     * @param array $merge    Items that to be added.
-     * @param array $diff     Items that to be removed.
-     *
-     * @return array
-     */
-    protected function mergeThenDiff(array $original, array $merge, array $diff): array
+    public function compileBlacklist(): array
     {
         return array_diff(
-            array_merge($original, $merge),
-            $diff
+            $this->getBlacklist(),
+            $this->getWhitelist()
         );
     }
 
@@ -118,17 +96,13 @@ class Config
     /**
      * Compile includes.
      *
-     * Default includes plus config includes minus config excludes.
-     * Config excludes has higher priority.
-     *
-     * @param array $defaultIncludes The default includes.
+     * Includes minus excludes.
      *
      * @return array
      */
-    public function compileIncludes(array $defaultIncludes): array
+    public function compileIncludes(): array
     {
-        return $this->mergeThenDiff(
-            $defaultIncludes,
+        return array_diff(
             $this->getIncludes(),
             $this->getExcludes()
         );
@@ -157,17 +131,13 @@ class Config
     /**
      * Compile excludes.
      *
-     * Default excludes plus config excludes minus config includes.
-     * Config includes has higher priority.
-     *
-     * @param array $defaultExcludes The default excludes.
+     * Excludes minus includes.
      *
      * @return array
      */
-    public function compileExcludes(array $defaultExcludes): array
+    public function compileExcludes(): array
     {
-        return $this->mergeThenDiff(
-            $defaultExcludes,
+        return array_diff(
             $this->getExcludes(),
             $this->getIncludes()
         );
@@ -176,17 +146,13 @@ class Config
     /**
      * Compile whitelist.
      *
-     * Default whitelist plus config whitelist minus config whitelist.
-     * Config blacklist has higher priority.
-     *
-     * @param array $defaultWhitelist The default whitelist.
+     * Whitelist minus blacklist.
      *
      * @return array
      */
-    public function compileWhitelist(array $defaultWhitelist)
+    public function compileWhitelist(): array
     {
-        return $this->mergeThenDiff(
-            $defaultWhitelist,
+        return array_diff(
             $this->getWhitelist(),
             $this->getBlacklist()
         );

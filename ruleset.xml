@@ -50,6 +50,10 @@
         <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceBefore"/>
     </rule>
 
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>/src/CLI/Commands/ConfigCommand.php</exclude-pattern>
+    </rule>
+
     <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
         <exclude-pattern>/src/CLI/Commands/*Command.php</exclude-pattern>
     </rule>

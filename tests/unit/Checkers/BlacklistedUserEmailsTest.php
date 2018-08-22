@@ -31,7 +31,12 @@ class BlacklistedUserEmailsTest extends Unit
                ->andReturnFalse()
                ->twice();
 
-        $config = new Config([]);
+        $config = new Config([
+            'blacklist' => [
+                'dev-email@flywheel.local',
+                'root@example.test',
+            ],
+        ]);
         $checker = new BlacklistedUserEmails();
 
         $actual = $checker->check($config);
@@ -60,7 +65,12 @@ class BlacklistedUserEmailsTest extends Unit
                ->with('email', Mockery::type('string'))
                ->andReturnFalse();
 
-        $config = new Config([]);
+        $config = new Config([
+            'blacklist' => [
+                'dev-email@flywheel.local',
+                'root@example.test',
+            ],
+        ]);
         $checker = new BlacklistedUserEmails();
 
         $actual = $checker->check($config);
@@ -68,7 +78,7 @@ class BlacklistedUserEmailsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                BlacklistedUserEmails::FAILURE_MESSAGE,
+                'Blacklisted user emails found:',
                 'ID: 456 root <root@example.test>',
             ]
         );
@@ -113,6 +123,8 @@ class BlacklistedUserEmailsTest extends Unit
 
         $config = new Config([
             'blacklist' => [
+                'dev-email@flywheel.local',
+                'root@example.test',
                 'my-user-123@example.test',
                 'no-problem@example.test',
             ],
@@ -124,7 +136,7 @@ class BlacklistedUserEmailsTest extends Unit
         $expected = ResultFactory::makeFailure(
             $checker,
             [
-                BlacklistedUserEmails::FAILURE_MESSAGE,
+                'Blacklisted user emails found:',
                 'ID: 987 root <root@example.test>',
                 'ID: 123 my-user-123 <my-user-123@example.test>',
             ]

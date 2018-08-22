@@ -3,108 +3,128 @@ declare(strict_types=1);
 
 namespace Itineris\Preflight\CLI\Commands;
 
-use Itineris\Preflight\CLI\ConfigPath;
+use Itineris\Preflight\ConfigPaths;
 use WP_CLI;
 use WP_CLI_Command;
 use Yosymfony\Toml\Exception\ParseException;
 use Yosymfony\Toml\Toml;
-use function WP_CLI\Utils\launch_editor_for_input;
 
 /**
- * Edits and reads the preflight.toml file.
+ * Reads and validates the preflight.toml config files.
  */
 class ConfigCommand extends WP_CLI_Command
 {
     /**
-     * Gets the expected path to preflight.toml file.
+     * Gets the paths to all config files.
      *
      * ## EXAMPLES
      *
-     *     # Get expected preflight.toml file path
-     *     $ wp preflight config path
-     *     /home/person/htdocs/project/preflight.toml
+     *     # Get preflight.toml file paths
+     *     $ wp preflight config paths
+     *     Success: 3 config files found.
+     *     Success: The later ones override any previous configurations.
+     *     /x/.wp-cli/packages/vendor/y/z/config/default.toml
+     *     /app/public/preflight.toml
+     *     /app/preflight.toml
+     *
+     *     # When paths not found
+     *     $ wp preflight config paths
+     *     wp preflight config paths
+     *     No config file found.
+     *     Perhaps 'preflight_config_paths_register' not filtering properly?
+     *     Error: Abort!
      */
-    public function path(): void
+    public function paths(): void
     {
-        WP_CLI::line(
-            ConfigPath::get()
-        );
+        $paths = $this->getConfigPaths();
+
+        WP_CLI::success(count($paths) . ' config files found.');
+        WP_CLI::success('The later ones override any previous configurations.');
+
+        foreach ($paths as $path) {
+            WP_CLI::log($path);
+        }
+    }
+
+    protected function getConfigPaths(): array
+    {
+        $paths = ConfigPaths::all();
+
+        if (count($paths) < 1) {
+            WP_CLI::error_multi_line([
+                'No config file found.',
+                "Perhaps '" . ConfigPaths::HOOK . "' not filtering properly?",
+            ]);
+
+            WP_CLI::error('Abort!');
+        }
+
+        return $paths;
     }
 
     /**
-     * Prints the content of the preflight.toml file.
+     * Prints the content of all config files.
      *
      * ## EXAMPLES
      *
-     *     # Print the content of the preflight.toml file
+     *     # Print the content of all config files
      *     $ wp preflight config cat
      */
     public function cat(): void
     {
-        $path = ConfigPath::get();
-        if (! file_exists($path)) {
-            WP_CLI::error("File '$path' does not exist.");
-        }
-        // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData.fileGetContentsUknown
-        $contents = file_get_contents($path);
+        $paths = $this->getConfigPaths();
 
-        $contentsWithoutLineBreaks = str_replace(["\r", "\n"], '', $contents);
-        if (empty($contentsWithoutLineBreaks)) {
-            WP_CLI::warning("File '$path' is empty.");
+        foreach ($paths as $path) {
+            WP_CLI::line(
+                WP_CLI::colorize("%B====> Printing $path%n")
+            );
 
-            return;
-        }
+            // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData.fileGetContentsUknown
+            $contents = file_get_contents($path);
 
-        WP_CLI::line($contents);
-    }
+            $contentsWithoutLineBreaks = str_replace(["\r", "\n"], '', $contents);
+            if (empty($contentsWithoutLineBreaks)) {
+                WP_CLI::error_multi_line([
+                    "File '$path' is empty.",
+                ]);
+            }
 
-    /**
-     * Launches system editor to edit the preflight.toml file.
-     *
-     * ## EXAMPLES
-     *
-     *     # Launch system editor to edit preflight.toml file
-     *     $ wp preflight config edit
-     *
-     *     # Edit preflight.toml file in a specific editor
-     *     $ EDITOR=vim wp preflight config edit
-     */
-    public function edit(): void
-    {
-        $path = ConfigPath::get();
-        // phpcs:ignore WordPressVIPMinimum.VIP.FetchingRemoteData.fileGetContentsUknown
-        $contents = file_get_contents($path);
-        $result = launch_editor_for_input($contents, 'preflight.toml', 'toml');
-
-        if (false === $result) {
-            WP_CLI::warning("No changes made to '$path'. Aborted!");
-        } else {
-            // phpcs:disable WordPress.VIP.FileSystemWritesDisallow
-            // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
-            file_put_contents($path, $result);
-            // phpcs:enable
+            WP_CLI::line($contents);
+            // Print a empty line for better UX.
+            WP_CLI::line('');
         }
     }
 
     /**
-     * Validates the TOML syntax of the preflight.toml file.
+     * Validates the TOML syntax of all config files.
      *
      * ## EXAMPLES
      *
-     *     # Validate the TOML syntax of the preflight.toml file
+     *     # Validate the TOML syntax of the config files
      *     $ wp preflight config validate
-     *     Success: File '/app/public/preflight.toml' is valid.
      */
     public function validate(): void
     {
-        $path = ConfigPath::get();
+        $paths = $this->getConfigPaths();
 
-        try {
-            Toml::parseFile($path);
-        } catch (ParseException $parseException) {
-            WP_CLI::error($parseException->getMessage());
+        foreach ($paths as $path) {
+            WP_CLI::line(
+                WP_CLI::colorize("%B====> Validating $path%n")
+            );
+
+            try {
+                Toml::parseFile($path);
+                WP_CLI::success("File '$path' is valid.");
+            } catch (ParseException $parseException) {
+                WP_CLI::error_multi_line([
+                    $parseException->getMessage(),
+                ]);
+
+                WP_CLI::warning("File '$path' will be ignored.");
+            }
+
+            // Print a empty line for better UX.
+            WP_CLI::line('');
         }
-
-        WP_CLI::success("File '$path' is valid.");
     }
 }

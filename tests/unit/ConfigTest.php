@@ -98,13 +98,11 @@ class ConfigTest extends \Codeception\Test\Unit
     public function testCompileBlacklist()
     {
         $config = new Config([
-            'blacklist' => ['aaa', 'bbb', 'ccc'],
+            'blacklist' => ['aaa', 'bbb', 'ccc', 'ddd', 'eee'],
             'whitelist' => ['aaa', 'eee', 'xxx'],
         ]);
 
-        $defaultBlacklist = ['aaa', 'ddd', 'eee'];
-
-        $actual = $config->compileBlacklist($defaultBlacklist);
+        $actual = $config->compileBlacklist();
 
         sort($actual); // For assertion.
         $expected = ['bbb', 'ccc', 'ddd'];
@@ -119,12 +117,10 @@ class ConfigTest extends \Codeception\Test\Unit
     {
         $config = new Config([
             'blacklist' => ['aaa', 'eee', 'xxx'],
-            'whitelist' => ['aaa', 'bbb', 'ccc'],
+            'whitelist' => ['aaa', 'bbb', 'ccc', 'ddd', 'eee'],
         ]);
 
-        $defaultWhitelist = ['aaa', 'ddd', 'eee'];
-
-        $actual = $config->compileWhitelist($defaultWhitelist);
+        $actual = $config->compileWhitelist();
 
         sort($actual); // For assertion.
         $expected = ['bbb', 'ccc', 'ddd'];
@@ -138,13 +134,11 @@ class ConfigTest extends \Codeception\Test\Unit
     public function testCompileIncludes()
     {
         $config = new Config([
-            'includes' => ['aaa', 'bbb', 'ccc'],
+            'includes' => ['aaa', 'bbb', 'ccc', 'ddd', 'eee'],
             'excludes' => ['aaa', 'eee', 'xxx'],
         ]);
 
-        $defaultIncludes = ['aaa', 'ddd', 'eee'];
-
-        $actual = $config->compileIncludes($defaultIncludes);
+        $actual = $config->compileIncludes();
 
         sort($actual); // For assertion.
         $expected = ['bbb', 'ccc', 'ddd'];
@@ -159,12 +153,10 @@ class ConfigTest extends \Codeception\Test\Unit
     {
         $config = new Config([
             'includes' => ['aaa', 'eee', 'xxx'],
-            'excludes' => ['aaa', 'bbb', 'ccc'],
+            'excludes' => ['aaa', 'bbb', 'ccc', 'ddd', 'eee'],
         ]);
 
-        $defaultExcludes = ['aaa', 'ddd', 'eee'];
-
-        $actual = $config->compileExcludes($defaultExcludes);
+        $actual = $config->compileExcludes();
 
         sort($actual); // For assertion.
         $expected = ['bbb', 'ccc', 'ddd'];
