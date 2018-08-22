@@ -1,10 +1,25 @@
 # Change Log
 
-## [0.5.1](https://github.com/ItinerisLtd/preflight-command/tree/0.5.1) (2018-08-21)
+## [0.6.0](https://github.com/ItinerisLtd/preflight-command/tree/0.6.0) (2018-08-22)
+[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.5.1...0.6.0)
+
+**Closed issues:**
+
+- Allow multiple `preflight.toml` files [\#22](https://github.com/ItinerisLtd/preflight-command/issues/22)
+
+**Merged pull requests:**
+
+- Apply code style [\#51](https://github.com/ItinerisLtd/preflight-command/pull/51) ([TangRufus](https://github.com/TangRufus))
+- Allow multiple `preflight.toml` files [\#50](https://github.com/ItinerisLtd/preflight-command/pull/50) ([TangRufus](https://github.com/TangRufus))
+- ConfigCollectionFactory: Parse multiple TOML files [\#49](https://github.com/ItinerisLtd/preflight-command/pull/49) ([TangRufus](https://github.com/TangRufus))
+- ConfigCollectionFactory: Test TOML with comments only [\#48](https://github.com/ItinerisLtd/preflight-command/pull/48) ([TangRufus](https://github.com/TangRufus))
+
+## [0.5.1](https://github.com/ItinerisLtd/preflight-command/tree/0.5.1) (2018-08-20)
 [Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.5.0...0.5.1)
 
 **Merged pull requests:**
 
+- Version bump 0.5.1 [\#47](https://github.com/ItinerisLtd/preflight-command/pull/47) ([TangRufus](https://github.com/TangRufus))
 - OutdatedCore: Fix `wp core check-update` not returning array when up-to-date [\#46](https://github.com/ItinerisLtd/preflight-command/pull/46) ([TangRufus](https://github.com/TangRufus))
 
 ## [0.5.0](https://github.com/ItinerisLtd/preflight-command/tree/0.5.0) (2018-08-20)
