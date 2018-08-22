@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.6.1](https://github.com/ItinerisLtd/preflight-command/tree/0.6.1) (2018-08-23)
+[Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.6.0...0.6.1)
+
+**Merged pull requests:**
+
+- Add vuepress docs [\#56](https://github.com/ItinerisLtd/preflight-command/pull/56) ([TangRufus](https://github.com/TangRufus))
+- Fix: Includes `LICENSE` in dist [\#53](https://github.com/ItinerisLtd/preflight-command/pull/53) ([TangRufus](https://github.com/TangRufus))
+
 ## [0.6.0](https://github.com/ItinerisLtd/preflight-command/tree/0.6.0) (2018-08-22)
 [Full Changelog](https://github.com/ItinerisLtd/preflight-command/compare/0.5.1...0.6.0)
 
@@ -9,6 +17,7 @@
 
 **Merged pull requests:**
 
+- Version bump 0.6.0 [\#52](https://github.com/ItinerisLtd/preflight-command/pull/52) ([TangRufus](https://github.com/TangRufus))
 - Apply code style [\#51](https://github.com/ItinerisLtd/preflight-command/pull/51) ([TangRufus](https://github.com/TangRufus))
 - Allow multiple `preflight.toml` files [\#50](https://github.com/ItinerisLtd/preflight-command/pull/50) ([TangRufus](https://github.com/TangRufus))
 - ConfigCollectionFactory: Parse multiple TOML files [\#49](https://github.com/ItinerisLtd/preflight-command/pull/49) ([TangRufus](https://github.com/TangRufus))

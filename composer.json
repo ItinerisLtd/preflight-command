@@ -42,7 +42,8 @@
         "wp-coding-standards/wpcs": "^1.0"
     },
     "suggest": {
-        "itinerisltd/preflight-extra": "Extra preflight-command checkers for professional developers"
+        "itinerisltd/preflight-extra": "Extra preflight-command checkers for professional developers",
+        "itinerisltd/preflight-yoast-seo": "Extra preflight-command checkers for Yoast SEO"
     },
     "config": {
         "sort-packages": true
