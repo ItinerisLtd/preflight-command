@@ -12,7 +12,6 @@ class OutdatedCore extends AbstractChecker
 {
     public const ID = 'outdated-core';
     public const DESCRIPTION = 'Ensure WordPress core is up-to-date.';
-    public const FAILURE_MESSAGE = 'WP core update available:';
 
     /**
      * Run the check and return a result.
@@ -46,7 +45,7 @@ class OutdatedCore extends AbstractChecker
             ? ResultFactory::makeSuccess($this)
             : ResultFactory::makeFailure(
                 $this,
-                array_merge([self::FAILURE_MESSAGE], $messages)
+                array_merge(['WP core update available:'], $messages)
             );
     }
 }

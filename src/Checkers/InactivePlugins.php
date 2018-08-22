@@ -12,7 +12,6 @@ class InactivePlugins extends AbstractChecker
 {
     public const ID = 'inactive-plugins';
     public const DESCRIPTION = 'Ensure all plugins are activated.';
-    public const FAILURE_MESSAGE = 'Inactive plugins found:';
 
     /**
      * Run the check and return a result.
@@ -48,7 +47,7 @@ class InactivePlugins extends AbstractChecker
             ? ResultFactory::makeSuccess($this)
             : ResultFactory::makeFailure(
                 $this,
-                array_merge([self::FAILURE_MESSAGE], $messages)
+                array_merge(['Inactive plugins found:'], $messages)
             );
     }
 }

@@ -14,7 +14,6 @@ class SecureHomeUrl extends AbstractChecker
 
     public const ID = 'secure-home-url';
     public const DESCRIPTION = 'Ensure home URL is secure (HTTPS).';
-    public const FAILURE_MESSAGE = 'Insecure home URL (non-HTTPS)';
 
     /**
      * {@inheritdoc}
@@ -39,6 +38,6 @@ class SecureHomeUrl extends AbstractChecker
      */
     protected function makeDefaultValidator(): SecureUrls
     {
-        return new SecureUrls($this);
+        return new SecureUrls($this, 'Insecure(non-HTTPS) home URL ');
     }
 }

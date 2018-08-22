@@ -11,7 +11,6 @@ class Sitemap extends AbstractChecker
 {
     public const ID = 'sitemap';
     public const DESCRIPTION = 'Ensure sitemap is 200 OK.';
-    protected const DEFAULT_PATH = '/sitemap_index.xml';
 
     /**
      * {@inheritdoc}
@@ -22,7 +21,7 @@ class Sitemap extends AbstractChecker
      */
     protected function run(Config $config): ResultInterface
     {
-        $path = $config->getPath() ?: self::DEFAULT_PATH;
+        $path = $config->getPath() ?: '/sitemap_index.xml';
         $url = home_url($path);
 
         $response = wp_remote_get($url);

@@ -28,6 +28,15 @@ class ConfigPaths
         );
     }
 
+    /**
+     * Register default.toml.
+     *
+     * Used in self::HOOK.
+     *
+     * @param array $paths The .toml config file paths.
+     *
+     * @return string[]
+     */
     public static function mergeDefaultPath(array $paths): array
     {
         $paths[] = normalize_path(
@@ -37,6 +46,15 @@ class ConfigPaths
         return $paths;
     }
 
+    /**
+     * Register preflight.toml under ABSPATH.
+     *
+     * Used in self::HOOK.
+     *
+     * @param array $paths The .toml config file paths.
+     *
+     * @return string[]
+     */
     public static function mergeAbsPath(array $paths): array
     {
         if (defined('ABSPATH')) {
@@ -49,6 +67,15 @@ class ConfigPaths
         return $paths;
     }
 
+    /**
+     * Register preflight.toml under PREFLIGHT_DIR.
+     *
+     * Used in self::HOOK.
+     *
+     * @param array $paths The .toml config file paths.
+     *
+     * @return string[]
+     */
     public static function mergePreflightDir(array $paths): array
     {
         if (defined('PREFLIGHT_DIR')) {

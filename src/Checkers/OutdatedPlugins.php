@@ -12,7 +12,6 @@ class OutdatedPlugins extends AbstractChecker
 {
     public const ID = 'outdated-plugins';
     public const DESCRIPTION = 'Ensure all plugins are up-to-date.';
-    public const FAILURE_MESSAGE = 'Plugin updates available:';
 
     /**
      * Run the check and return a result.
@@ -48,7 +47,7 @@ class OutdatedPlugins extends AbstractChecker
             ? ResultFactory::makeSuccess($this)
             : ResultFactory::makeFailure(
                 $this,
-                array_merge([self::FAILURE_MESSAGE], $messages)
+                array_merge(['Plugin updates available:'], $messages)
             );
     }
 }

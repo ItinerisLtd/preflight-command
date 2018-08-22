@@ -46,6 +46,13 @@ class ConfigCommand extends WP_CLI_Command
         }
     }
 
+    /**
+     * Returns the paths to the .toml config files.
+     *
+     * Halt with error message if no paths found.
+     *
+     * @return string[]
+     */
     protected function getConfigPaths(): array
     {
         $paths = ConfigPaths::all();

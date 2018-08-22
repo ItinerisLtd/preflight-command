@@ -12,7 +12,6 @@ class OutdatedPackages extends AbstractChecker
 {
     public const ID = 'outdated-packages';
     public const DESCRIPTION = 'Ensure all WP CLI packages are up-to-date.';
-    public const FAILURE_MESSAGE = 'WP CLI package updates available:';
 
     /**
      * Run the check and return a result.
@@ -57,7 +56,7 @@ class OutdatedPackages extends AbstractChecker
             ? ResultFactory::makeSuccess($this)
             : ResultFactory::makeFailure(
                 $this,
-                array_merge([self::FAILURE_MESSAGE], $messages)
+                array_merge(['WP CLI package updates available:'], $messages)
             );
     }
 }

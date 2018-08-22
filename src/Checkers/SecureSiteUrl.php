@@ -14,7 +14,6 @@ class SecureSiteUrl extends AbstractChecker
 
     public const ID = 'secure-site-url';
     public const DESCRIPTION = 'Ensure site URL is secure (HTTPS).';
-    public const FAILURE_MESSAGE = 'Insecure site URL (non-HTTPS)';
 
     /**
      * {@inheritdoc}
@@ -39,6 +38,6 @@ class SecureSiteUrl extends AbstractChecker
      */
     protected function makeDefaultValidator(): SecureUrls
     {
-        return new SecureUrls($this);
+        return new SecureUrls($this, 'Insecure(non-HTTPS) site URL');
     }
 }
