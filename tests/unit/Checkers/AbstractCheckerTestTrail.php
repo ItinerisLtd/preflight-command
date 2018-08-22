@@ -27,7 +27,7 @@ trait AbstractCheckerTestTrail
 
         $actual = $subject->getLink();
 
-        $this->assertSame($subject::LINK_BASE . $subject::ID . '/', $actual);
+        $this->assertSame($subject::LINK_BASE . $subject::ID . '.html', $actual);
     }
 
     public function testGetDescription()

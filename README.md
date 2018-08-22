@@ -8,70 +8,7 @@
 
 Check for common mistakes and enforce best practices before take off.
 
-TODO: Write the readme!
-
-```bash
-# We need WP CLI v2
-$ wp cli update
-
-$ wp package install itinerisltd/preflight-command:@stable
-
-$ wp help preflight
-$ wp help preflight <subcommand>
-
-$ cd /path/to/my/site
-
-$ wp preflight checklist
-$ wp preflight config paths
-$ wp preflight config validate
-$ wp preflight check
-
-$ wp preflight check --fields=id,status,message,description,link
-$ wp preflight check --fields=id,description,link,status,messages --format=yaml
-```
-
-## `preflight.toml`
-
-Default location is `ABSPATH . 'preflight.toml'`
-
-Customizable by `PREFLIGHT_DIR`.
-
-If `PREFLIGHT_DIR` constant is defined, we look for `PREFLIGHT_DIR . 'preflight.toml'`.
-
-Tips: `$ wp preflight config path`
-
-### Normal WP
-
-```php
-// wp-config.php
-
-// One level up from `wp-config.php`
-define( 'PREFLIGHT_DIR', dirname( __FILE__, 2 ));
-
-// One level up from `wp-config.php`
-define( 'PREFLIGHT_DIR', '/absolute/path/to/the/dir/' );
-```
-
-### Bedrock
-
-This means `<bedrock>/config/preflight.toml`:
-
-```php
-// <bedrock>/config/application.php
-
-Config::define('PREFLIGHT_DIR', __DIR__);
-```
-
-### Old Bedrock without `roots/wp-config`
-
-This means `<bedrock>/config/preflight.toml`:
-
-```php
-// <bedrock>/config/application.php
-
-// Not recommanded. Update Bedrock!!!!
-define('PREFLIGHT_DIR', __DIR__);
-```
+Full document on [https://itinerisltd.github.io/preflight-command/](https://itinerisltd.github.io/preflight-command/)
 
 ### For Itineris Team
 

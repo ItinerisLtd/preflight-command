@@ -9,7 +9,7 @@
         "preflight",
         "checklist"
     ],
-    "homepage": "https://github.com/ItinerisLtd/preflight-command",
+    "homepage": "https://itinerisltd.github.io/preflight-command/",
     "license": "MIT",
     "authors": [
         {
@@ -80,6 +80,7 @@
     "support": {
         "email": "hello@itineris.co.uk",
         "issues": "https://github.com/ItinerisLtd/preflight-command/issues",
-        "source": "https://github.com/ItinerisLtd/preflight-command"
+        "source": "https://github.com/ItinerisLtd/preflight-command",
+        "docs:": "https://itinerisltd.github.io/preflight-command/"
     }
 }

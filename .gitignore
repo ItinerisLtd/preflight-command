@@ -8,3 +8,5 @@ vendor/
 *.txt
 *.log
 composer.lock
+yarn.lock
+/docs/.vuepress/dist/
