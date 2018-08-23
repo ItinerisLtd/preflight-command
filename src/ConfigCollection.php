@@ -51,7 +51,7 @@ class ConfigCollection
      *
      * @return Config
      */
-    private function makeConfig(string $id): Config
+    protected function makeConfig(string $id): Config
     {
         return new Config(
             $this->definitions[$id] ?? []
