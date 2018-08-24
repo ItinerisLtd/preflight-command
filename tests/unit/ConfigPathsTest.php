@@ -16,21 +16,22 @@ class ConfigPathsTest extends Unit
 
     public function testAll()
     {
-        WP_Mock::userFunction('Itineris\Preflight\file_exists')
+        WP_Mock::userFunction('Itineris\Preflight\is_readable')
                ->with('/first/path/preflight.toml')
                ->andReturnTrue()
                ->once();
-        WP_Mock::userFunction('Itineris\Preflight\file_exists')
+        WP_Mock::userFunction('Itineris\Preflight\is_readable')
                ->with('/third/path/preflight.toml')
                ->andReturnTrue()
                ->once();
-        WP_Mock::userFunction('Itineris\Preflight\file_exists')
+        WP_Mock::userFunction('Itineris\Preflight\is_readable')
                ->withAnyArgs()
                ->andReturnFalse()
-               ->twice();
+               ->times(3);
 
         $paths = [
             '/first/path/preflight.toml',
+            '/no/exist/preflight.toml',
             '/second/path/preflight.toml',
             '',
             '/third/path/preflight.toml',

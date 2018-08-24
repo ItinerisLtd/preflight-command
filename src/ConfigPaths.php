@@ -23,7 +23,7 @@ class ConfigPaths
 
         return array_values(
             array_filter($paths, function (string $path): bool {
-                return file_exists($path);
+                return is_readable($path);
             })
         );
     }
