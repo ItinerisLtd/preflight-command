@@ -14,15 +14,6 @@ class ConfigPathsTest extends Unit
      */
     protected $tester;
 
-    public function testAllApplyFilter()
-    {
-        WP_Mock::expectFilter(ConfigPaths::HOOK, []);
-
-        $actual = ConfigPaths::all();
-
-        $this->assertSame([], $actual);
-    }
-
     public function testAll()
     {
         WP_Mock::userFunction('Itineris\Preflight\file_exists')
@@ -45,9 +36,10 @@ class ConfigPathsTest extends Unit
             '/third/path/preflight.toml',
         ];
 
-        WP_Mock::onFilter(ConfigPaths::HOOK)
-               ->with([])
-               ->reply($paths);
+        WP_Mock::userFunction('Itineris\Preflight\apply_filters')
+               ->with(ConfigPaths::HOOK, [])
+               ->andReturn($paths)
+               ->once();
 
         $actual = ConfigPaths::all();
 

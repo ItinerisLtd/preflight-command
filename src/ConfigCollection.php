@@ -5,6 +5,8 @@ namespace Itineris\Preflight;
 
 class ConfigCollection
 {
+    public const HOOK = 'preflight_config_register';
+
     /**
      * The TOML converted to a PHP array.
      *
@@ -39,7 +41,7 @@ class ConfigCollection
     public function getConfig(string $id): Config
     {
         // TODO: Use null coalescing assignment operator.
-        $this->configs[$id] = $this->configs[$id] ?? $this->makeConfig($id);
+        $this->configs[$id] = $this->configs[$id] ?? $this->registerConfig($id);
 
         return $this->configs[$id];
     }
@@ -51,10 +53,11 @@ class ConfigCollection
      *
      * @return Config
      */
-    private function makeConfig(string $id): Config
+    protected function registerConfig(string $id): Config
     {
-        return new Config(
-            $this->definitions[$id] ?? []
-        );
+        $definition = $this->definitions[$id] ?? [];
+        $config = new Config($definition);
+
+        return apply_filters(static::HOOK, $config, $definition, $id);
     }
 }
