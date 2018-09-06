@@ -1,0 +1,42 @@
+language: php
+
+sudo: false
+
+branches:
+  only:
+    - master
+    - /^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/
+
+## Cache composer
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+notifications:
+  email: false
+
+env:
+  global:
+    - COMPOSER_NO_INTERACTION=1
+    - PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
+
+matrix:
+  allow_failures:
+    - php: nightly
+  fast_finish: true
+
+before_install:
+  - phpenv config-rm xdebug.ini || true
+
+install:
+  - travis_retry composer install --no-progress --no-suggest
+
+script:
+  - composer test
+
+jobs:
+  include:
+    - stage: test
+      php: 7.2
+    - stage: test
+      php: nightly
